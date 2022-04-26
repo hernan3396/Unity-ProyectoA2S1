@@ -1,5 +1,5 @@
 # Proyecto dos (2) meses
-### Tercer semestre
+### Tercer semestre - Grupo 1
 
 ## Género
 ● Shooter 3D (Top down/Sidescroller)
