@@ -1,45 +1,67 @@
-#Proyecto dos (2) meses
-Tercer semestre
+# Proyecto dos (2) meses
+### Tercer semestre
 
-Género
+## Género
 ● Shooter 3D (Top down/Sidescroller)
+
 ● Platformer 3D (Endless runner, Mario like)
+
 ● Arcade
 
-Temática y estética
+## Temática y estética
 Libre
 
-Funcionalidad mínima requerida
+## Funcionalidad mínima requerida
 ● Estructura
-○ Gameplay Loop.
-El juego deberá contar con una estructura: comienzo y fin
-● Interfaz
-○ Menú principal
-○ HUD en el juego (barras de estado, vidas, puntajes, etc)
-● Niveles
-○ Dos (2) niveles con variaciones
-● Entidades
-○ Jugador
-○ Enemigos (2-3) con mecánicas distintas
-● Pulido
-○ Música para menú
-○ Música para gameplay
-○ Implementación de sonidos (SFX)
 
-Diversificadores
+> Gameplay Loop.
+> El juego deberá contar con una estructura: comienzo y fin
+
+● Interfaz
+
+> Menú principal
+
+> HUD en el juego (barras de estado, vidas, puntajes, etc)
+
+● Niveles
+
+> Dos (2) niveles con variaciones
+
+● Entidades
+
+> Jugador
+
+> Enemigos (2-3) con mecánicas distintas
+
+● Pulido
+
+> Música para menú
+
+> Música para gameplay
+
+> Implementación de sonidos (SFX)
+
+
+## Diversificadores
 ● Jefe o Nivel extra
+
 ● Varios niveles de dificultad
+
 ● Puntajes (Estrellas)
+
 ● Versus o Cooperativo (Dos jugadores)
 
-Fechas
-Entrega Fecha
+
+## Fechas
 Prototipo 28 Abril - 16 Mayo
+
 Alpha 16 Mayo - 30 Mayo
+
 Beta 30 Mayo - 13 Junio
+
 Gold 13 Junio - 27 Junio
 
-Entrega y formato.
+## Entrega y formato.
 REQUERIDO
 La carpeta de la entrega deberá ser nombrada con el siguiente formato:
 <Nombre_Del_Juego><etapa de desarrollo><grupo><semestre>
