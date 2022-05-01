@@ -16,4 +16,5 @@ MonoBehaviour:
   DAMAGE: 10
   FIRERATE: 1
   ACCURACY: 3
+  BULLETSPEED: 5
   MOVSPEED: 5

@@ -5,8 +5,9 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     #region Components
-    [SerializeField] private PoolManager _bulletPool;
+    [SerializeField] private PoolManager _enemyBulletPool;
     [SerializeField] private Transform _playerPos;
+    [SerializeField] private Shooting _shooting;
     #endregion
 
     private void Awake()
@@ -39,8 +40,13 @@ public class GameManager : MonoBehaviour
         get { return _playerPos; }
     }
 
-    public PoolManager GetBulletPool
+    public PoolManager GetEnemyBulletPool
     {
-        get { return _bulletPool; }
+        get { return _enemyBulletPool; }
+    }
+
+    public Shooting GetShooting
+    {
+        get { return _shooting; }
     }
 }
