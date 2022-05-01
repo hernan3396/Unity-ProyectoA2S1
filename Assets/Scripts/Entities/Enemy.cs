@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour
     // orden que estan en el scriptable object
     // asi mantenemos coherencia entre ambos
     private int _hp;
-    private int _damage;
     private float _fireRate;
     private float _accuracy;
     private int _bulletSpeed;
@@ -37,8 +36,6 @@ public class Enemy : MonoBehaviour
     private bool _canShoot = true;
     #endregion
 
-    private PoolManager _bulletPool;
-
     private void Awake()
     {
         SetStats();
@@ -46,7 +43,6 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _bulletPool = GameManager.GetInstance.GetEnemyBulletPool;
         _targetPos = GameManager.GetInstance.GetPlayerPos;
         _shooting = GameManager.GetInstance.GetShooting;
         _transform = GetComponent<Transform>();
@@ -63,7 +59,6 @@ public class Enemy : MonoBehaviour
     private void SetStats()
     {
         _hp = _enemyData.HP;
-        _damage = _enemyData.DAMAGE;
         _fireRate = _enemyData.FIRERATE;
         _accuracy = _enemyData.ACCURACY;
         _bulletSpeed = _enemyData.BULLETSPEED;
@@ -80,8 +75,8 @@ public class Enemy : MonoBehaviour
     {
         _canShoot = false;
         yield return new WaitForSeconds(_fireRate);
+        _shooting.Shoot(_shootingPos.position, _targetDir, _bulletSpeed);
 
         _canShoot = true;
-        _shooting.Shoot(_shootingPos.position, _targetDir, _bulletSpeed);
     }
 }

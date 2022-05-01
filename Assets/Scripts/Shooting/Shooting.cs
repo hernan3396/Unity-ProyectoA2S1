@@ -16,7 +16,6 @@ public class Shooting : MonoBehaviour
     public void Shoot(Vector3 bulletPos, Vector3 direction, int bulletSpeed)
     {
         GameObject bullet = _bulletPool.GetPooledObject(); // obtiene una bala de la pool
-
         if (!bullet) return;
 
         // posiciona la bala
