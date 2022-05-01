@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     #region Components
+    [SerializeField] private PoolManager _bulletPool;
     [SerializeField] private Transform _playerPos;
     #endregion
 
@@ -36,5 +37,10 @@ public class GameManager : MonoBehaviour
     public Transform GetPlayerPos
     {
         get { return _playerPos; }
+    }
+
+    public PoolManager GetBulletPool
+    {
+        get { return _bulletPool; }
     }
 }
