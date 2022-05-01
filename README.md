@@ -67,16 +67,21 @@ La carpeta de la entrega deberá ser nombrada con el siguiente formato:
 <Nombre_Del_Juego><etapa de desarrollo><grupo><semestre>
 Ej: Mi_Gran_Juego_beta_21.1_tercer_semestre
 Dentro deberá contar con las siguientes subcarpetas:
+  
 ● Una carpeta con el proyecto completo, todos los archivos fuentes (arte,
 programación y audio) para poder abrir en Unity de ser necesario.
+  
 ● Otra con el juego compilado para que los docentes puedan jugarlo. Asegurarse de
 incluir todos los archivos necesarios para correrlo, o en su defecto instaladores si
 fueran requeridos.
+  
 ● Carpeta con la documentación requerida por los docentes y un archivo
 integrantes.txt con los nombres de los participantes del grupo.
+  
 ● Una cuarta carpeta (opcional), con materiales que no hayan sido incluidos en el
 juego pero los alumnos entiendan que valen la pena incluir como parte del proceso
 del desarrollo.
+  
 Una vez concluido el proyecto deberá ser subido a Google Drive con dicho formato y enviar
 un enlace con acceso público por correo a evaluaciones@a.edu.uy con copia a
 gustavo@a.edu.uy y al grupo de Whatsapp de alumnos y profesores para que todos tengan
