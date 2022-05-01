@@ -12,11 +12,13 @@ public class Enemy : MonoBehaviour
     // parece que estan medios desordenados pero es el
     // orden que estan en el scriptable object
     // asi mantenemos coherencia entre ambos
-    private int _hp;
+    private int _hp; // vida maxima
+    private int _currentHP; // la vida actual
     private float _fireRate;
     private float _accuracy;
     private int _bulletSpeed;
     private int _movSpeed;
+    private float _invulnerability;
     #endregion
 
     #region BodyParts
@@ -35,6 +37,8 @@ public class Enemy : MonoBehaviour
     private Shooting _shooting;
     private bool _canShoot = true;
     #endregion
+
+    private bool _isInmune;
 
     private void Awake()
     {
@@ -59,10 +63,13 @@ public class Enemy : MonoBehaviour
     private void SetStats()
     {
         _hp = _enemyData.HP;
+        _currentHP = _hp;
+
         _fireRate = _enemyData.FIRERATE;
         _accuracy = _enemyData.ACCURACY;
         _bulletSpeed = _enemyData.BULLETSPEED;
         _movSpeed = _enemyData.MOVSPEED;
+        _invulnerability = _enemyData.INVULNERABILITY;
     }
 
     private void Aim()
@@ -78,5 +85,31 @@ public class Enemy : MonoBehaviour
         _shooting.Shoot(_shootingPos.position, _targetDir, _bulletSpeed);
 
         _canShoot = true;
+    }
+
+    public void TakeDamage(int value)
+    {
+        if (_isInmune) return;
+        _isInmune = true;
+        StartCoroutine("InmuneReset");
+
+        _currentHP -= value;
+
+        if (_currentHP <= 0)
+        {
+            Death();
+        }
+    }
+
+    private IEnumerator InmuneReset()
+    {
+        yield return new WaitForSeconds(_invulnerability);
+        _isInmune = false;
+    }
+
+    private void Death()
+    {
+        Debug.Log("Murio un enemigo");
+        gameObject.SetActive(false);
     }
 }

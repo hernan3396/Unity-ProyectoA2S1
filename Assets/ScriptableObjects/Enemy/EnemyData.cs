@@ -9,4 +9,5 @@ public class EnemyData : ScriptableObject
     public float ACCURACY; // que tan rapido es en apuntar
     public int BULLETSPEED; // velocidad de la bala que dispara
     public int MOVSPEED; // velocidad de movimiento
+    public float INVULNERABILITY; // cuanto tiempo es invulnerable
 }
