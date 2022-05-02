@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Shooting _shooting;
     #endregion
 
+    [SerializeField] private Camera _mainCamera;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -48,5 +50,10 @@ public class GameManager : MonoBehaviour
     public Shooting GetShooting
     {
         get { return _shooting; }
+    }
+
+    public Camera GetMainCamera
+    {
+        get { return _mainCamera; }
     }
 }

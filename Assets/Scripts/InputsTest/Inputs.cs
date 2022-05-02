@@ -12,6 +12,7 @@ namespace StarterAssets
         public Vector2 move;
         public Vector2 look;
         public bool jump;
+        public bool IsShooting;
         private bool _canMove = true;
         private bool _cursorInputForLook = true;
         #endregion
@@ -34,6 +35,11 @@ namespace StarterAssets
                 LookInput(value.Get<Vector2>());
         }
 
+        public void OnShoot(InputValue value)
+        {
+            ShootInput(value.isPressed);
+        }
+
         public void MoveInput(Vector2 newMoveDirection)
         {
             move = newMoveDirection;
@@ -47,6 +53,11 @@ namespace StarterAssets
         public void JumpInput(bool newJumpState)
         {
             jump = newJumpState;
+        }
+
+        public void ShootInput(bool newShootState)
+        {
+            IsShooting = newShootState;
         }
     }
 }
