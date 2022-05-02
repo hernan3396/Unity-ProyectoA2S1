@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     private int _bulletSpeed;
     private int _movSpeed;
     private float _invulnerability;
+    private int _visionRange;
     #endregion
 
     #region BodyParts
@@ -26,9 +27,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _shootingPos;
     [SerializeField] private Transform _arm;
     private Transform _transform;
+    private Rigidbody _rb;
     #endregion
 
     #region Target
+    [Header("Target")]
+    [SerializeField] private LayerMask _objLayer;
+    private bool _enemyOnSight = false;
     private Transform _targetPos;
     private Vector3 _targetDir;
     #endregion
@@ -50,13 +55,16 @@ public class Enemy : MonoBehaviour
         _targetPos = GameManager.GetInstance.GetPlayerPos;
         _shooting = GameManager.GetInstance.GetShooting;
         _transform = GetComponent<Transform>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        Aim();
+        _enemyOnSight = DetectEnemy();
+        if (!_enemyOnSight) return; // si ve a un enemigo empieza a ejecutarse el resto del codigo
 
-        if (!_canShoot) return;
+        Aim();
+        if (!_canShoot) return; // espera al firerate
         StartCoroutine("Shooting");
     }
 
@@ -70,12 +78,33 @@ public class Enemy : MonoBehaviour
         _bulletSpeed = _enemyData.BULLETSPEED;
         _movSpeed = _enemyData.MOVSPEED;
         _invulnerability = _enemyData.INVULNERABILITY;
+        _visionRange = _enemyData.VISIONRANGE;
     }
 
+    /// <Summary>
+    /// Da true si ve al player y false si no lo ve
+    /// </Summary>
+    private bool DetectEnemy()
+    {
+        // Debug.DrawRay(_transform.position, _targetPos.position - _transform.position, Color.blue);
+
+        // si el enemigo esta a la vista deja de patrullar y le dispara
+        if (Physics.Raycast(_transform.position, _targetPos.position - _transform.position, out RaycastHit hit, _visionRange, _objLayer))
+            if (hit.transform.gameObject.CompareTag("Player"))
+            {
+                return true;
+            }
+
+        return false;
+    }
+
+    /// <Summary>
+    /// Apunta el brazo en la direccion del player
+    /// </Summary>
     private void Aim()
     {
         _targetDir = _targetPos.position - _transform.position;
-        DOTween.To(() => _arm.right, x => _arm.right = x, _targetDir, _accuracy);
+        DOTween.To(() => _arm.right, x => _arm.right = x, _targetDir, _accuracy); // mueve el brazo
     }
 
     private IEnumerator Shooting()
@@ -111,5 +140,15 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("Murio un enemigo");
         gameObject.SetActive(false);
+    }
+
+    public bool EnemyOnSight
+    {
+        get { return _enemyOnSight; }
+    }
+
+    public Rigidbody GetRB
+    {
+        get { return _rb; }
     }
 }

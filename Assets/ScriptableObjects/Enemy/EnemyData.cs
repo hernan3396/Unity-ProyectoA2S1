@@ -10,4 +10,5 @@ public class EnemyData : ScriptableObject
     public int BULLETSPEED; // velocidad de la bala que dispara
     public int MOVSPEED; // velocidad de movimiento
     public float INVULNERABILITY; // cuanto tiempo es invulnerable
+    public int VISIONRANGE;
 }
