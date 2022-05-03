@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private int _speed = 10;
     [SerializeField] private int _jumpForce = 15;
-    private bool _isGrounded = true;
+    private bool _isGrounded = false;
     private PlayerInput _playerInput;
     private Rigidbody _rb;
     private Inputs _input;
@@ -37,7 +37,8 @@ public class Player : MonoBehaviour
     {
         if (_input.jump)
         {
-            _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _rb.velocity = Vector3.up * _jumpForce;
+            // _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _input.jump = false;
         }
     }

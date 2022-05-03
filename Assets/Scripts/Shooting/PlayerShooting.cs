@@ -58,7 +58,7 @@ public class PlayerShooting : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             _aimPosition = new Vector3(hit.point.x, hit.point.y, 0); // le sacas el valor en z para que no tenga profundidad ya que es 2D
 
-        _arm.right = (_aimPosition - _transform.position).normalized;
+        _arm.right = _aimPosition - _transform.position;
     }
 
     private IEnumerator Shooting()
