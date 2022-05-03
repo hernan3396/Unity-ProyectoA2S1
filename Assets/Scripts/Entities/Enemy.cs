@@ -104,7 +104,10 @@ public class Enemy : MonoBehaviour
     private void Aim()
     {
         _targetDir = _targetPos.position - _transform.position;
-        DOTween.To(() => _arm.right, x => _arm.right = x, _targetDir, _accuracy); // mueve el brazo
+        _arm.right = Vector3.Lerp(_arm.right, _targetDir.normalized, _accuracy * Time.deltaTime);
+        // en un update lo mejor es no usar dotween
+        // _arm.DORotate(_targetDir.normalized, _accuracy);
+        // DOTween.To(() => _arm.right, x => _arm.right = x, _targetDir, _accuracy); // mueve el brazo
     }
 
     private IEnumerator Shooting()

@@ -40,12 +40,25 @@ public class PlayerShooting : MonoBehaviour
 
     private void Aim()
     {
+        // hacer esto luego
+        // if mouse esto
+        // esto no es necesario ya que _input.look ya te lo da
+        // Ray ray = _cam.ScreenPointToRay(_input.look); // rayo desde la camara
+
+        // if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        //     _aimPosition = new Vector3(hit.point.x, hit.point.y, 0); // le sacas el valor en z para que no tenga profundidad ya que es 2D
+
+        // _arm.right = (_aimPosition - _transform.position).normalized;
+
+        // if control esto
+        // _arm.right = _input.look;
+
         Ray ray = _cam.ScreenPointToRay(_input.look); // rayo desde la camara
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             _aimPosition = new Vector3(hit.point.x, hit.point.y, 0); // le sacas el valor en z para que no tenga profundidad ya que es 2D
 
-        _arm.right = _aimPosition - _transform.position;
+        _arm.right = (_aimPosition - _transform.position).normalized;
     }
 
     private IEnumerator Shooting()

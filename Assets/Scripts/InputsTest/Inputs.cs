@@ -17,6 +17,8 @@ namespace StarterAssets
         private bool _cursorInputForLook = true;
         #endregion
 
+        // aca esta bien, puedo hacer una referencia al gamemanager para la pausa (por ej)
+        // o pasarlo al gamemanager y leer de ahi
         public void OnJump(InputValue value)
         {
             if (!_canMove) return;
@@ -31,6 +33,7 @@ namespace StarterAssets
 
         public void OnAim(InputValue value)
         {
+            // chequear cual es el input
             if (_cursorInputForLook && _canMove)
                 LookInput(value.Get<Vector2>());
         }
@@ -47,6 +50,7 @@ namespace StarterAssets
 
         public void LookInput(Vector2 newLookDirection)
         {
+            // Debug.Log(newLookDirection);
             look = newLookDirection;
         }
 
