@@ -48,9 +48,9 @@ public class WaypointsMovement : MonoBehaviour
         if (_enemy.EnemyOnSight)
         {
             _agent.isStopped = true;
-            _enemy.GetRB.velocity = Vector3.zero;
             return;
         }
+
         _agent.isStopped = false;
 
         if (!_isMoving) return;

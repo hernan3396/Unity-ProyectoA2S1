@@ -646,10 +646,10 @@ GameObject:
   m_Component:
   - component: {fileID: 515776635}
   - component: {fileID: 515776638}
-  - component: {fileID: 515776637}
   - component: {fileID: 515776639}
   - component: {fileID: 515776636}
   - component: {fileID: 515776640}
+  - component: {fileID: 515776641}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -692,22 +692,6 @@ MonoBehaviour:
   _objLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!54 &515776637
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 515776634}
-  serializedVersion: 2
-  m_Mass: 5
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 88
-  m_CollisionDetection: 0
 --- !u!136 &515776638
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -758,6 +742,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waypointsContainer: {fileID: 751914714}
   _newWaypointSpeed: 1
+--- !u!54 &515776641
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515776634}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &540912526
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,32 +773,14 @@ GameObject:
   - component: {fileID: 540912528}
   - component: {fileID: 540912536}
   - component: {fileID: 540912533}
-  - component: {fileID: 540912534}
-  - component: {fileID: 540912527}
   - component: {fileID: 540912537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &540912527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540912526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6424872cd75904f8a29abd134e2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fireRate: 0.5
-  _bulletSpeed: 20
-  _shootingPos: {fileID: 1579598756}
-  _arm: {fileID: 1210757395}
 --- !u!136 &540912528
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -871,7 +853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540912526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 16.56, y: 3.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -925,18 +907,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerActions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &540912534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540912526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84c2bb04b6d80134da0488f4c41ad841, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &540912536
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -951,7 +921,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 88
+  m_Constraints: 120
   m_CollisionDetection: 1
 --- !u!114 &540912537
 MonoBehaviour:
@@ -965,8 +935,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b62fb36a7ede98488f1abd953e09c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 15
-  _jumpForce: 15
+  _shootingPos: {fileID: 1579598756}
+  _arm: {fileID: 1210757395}
+  _gravityScale: 10
+  _jumpForce: 30
+  _jumpTime: 1
+  _floorDistance: 0.55
+  _speed: 20
+  _fireRate: 0.5
+  _bulletSpeed: 20
 --- !u!1 &543392916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,7 +1291,7 @@ GameObject:
   - component: {fileID: 817809679}
   m_Layer: 6
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1980,7 +1957,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1210757395}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2080,7 +2057,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1579598756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootingPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2282,7 +2259,7 @@ GameObject:
   - component: {fileID: 2016494594}
   - component: {fileID: 2016494593}
   - component: {fileID: 2016494592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

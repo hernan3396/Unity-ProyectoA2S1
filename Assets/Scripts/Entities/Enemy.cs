@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -27,7 +26,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _shootingPos;
     [SerializeField] private Transform _arm;
     private Transform _transform;
-    private Rigidbody _rb;
     #endregion
 
     #region Target
@@ -55,7 +53,6 @@ public class Enemy : MonoBehaviour
         _targetPos = GameManager.GetInstance.GetPlayerPos;
         _shooting = GameManager.GetInstance.GetShooting;
         _transform = GetComponent<Transform>();
-        _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -148,10 +145,5 @@ public class Enemy : MonoBehaviour
     public bool EnemyOnSight
     {
         get { return _enemyOnSight; }
-    }
-
-    public Rigidbody GetRB
-    {
-        get { return _rb; }
     }
 }
