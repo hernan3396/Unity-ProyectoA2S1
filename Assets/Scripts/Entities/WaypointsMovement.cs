@@ -63,7 +63,7 @@ public class WaypointsMovement : MonoBehaviour
             if (_currentWaypoint >= _waypoints.Count)
                 _currentWaypoint = 0;
 
-            Invoke("StartMovement", 1);
+            Invoke("StartMovement", _newWaypointSpeed);
         }
     }
 

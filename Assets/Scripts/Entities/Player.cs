@@ -5,13 +5,6 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    enum Device
-    {
-        Keyboard,
-        XInput,
-        DualShock
-    }
-
     #region Components
     private Rigidbody _rb;
     private Inputs _input;
@@ -33,7 +26,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float _floorDistance; // distancia para dibujar la caja en el piso
     [SerializeField] private int _speed = 20;
     private bool _isGrounded = true;
-    private bool _falling = false;
     private bool _jumping = false;
     private float _jumpTimer;
     #endregion
@@ -44,7 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _bulletSpeed = 20;
     private bool _canShoot = true;
     private Vector3 _aimPosition;
-    private bool _isMouse;
+    private bool _isMouse = true;
     #endregion
 
     private Shooting _shooting;
@@ -55,6 +47,7 @@ public class Player : MonoBehaviour
         _input = GetComponent<Inputs>();
         _rb = GetComponent<Rigidbody>();
 
+        // log
         _input.OnControlChanged += ControlChanged;
     }
 
