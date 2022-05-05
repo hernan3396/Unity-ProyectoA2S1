@@ -5,6 +5,13 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+    enum Device
+    {
+        Keyboard,
+        XInput,
+        DualShock
+    }
+
     #region Components
     private Rigidbody _rb;
     private Inputs _input;
@@ -37,6 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _bulletSpeed = 20;
     private bool _canShoot = true;
     private Vector3 _aimPosition;
+    private bool _isMouse;
     #endregion
 
     private Shooting _shooting;
@@ -46,6 +54,8 @@ public class Player : MonoBehaviour
         _transform = GetComponent<Transform>();
         _input = GetComponent<Inputs>();
         _rb = GetComponent<Rigidbody>();
+
+        _input.OnControlChanged += ControlChanged;
     }
 
     private void Start()
@@ -116,13 +126,20 @@ public class Player : MonoBehaviour
     #region Aiming
     private void Aim()
     {
-        Ray ray = _cam.ScreenPointToRay(_input.look);
+        if (_isMouse)
+        {
+            Ray ray = _cam.ScreenPointToRay(_input.look);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
-            _aimPosition = (Vector2)hit.point;
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                _aimPosition = (Vector2)hit.point;
 
-        _aimPosition.z = 0;
-        _arm.right = _aimPosition - _arm.position;
+            _aimPosition.z = 0;
+            _arm.right = _aimPosition - _arm.position;
+        }
+        else
+        {
+            _arm.right = _input.look;
+        }
     }
 
     private IEnumerator Shooting()
@@ -136,4 +153,23 @@ public class Player : MonoBehaviour
         _canShoot = true;
     }
     #endregion
+
+    private void ControlChanged(string value)
+    {
+        // DualShock4GamepadHID nombre del control de ps4
+        switch (value)
+        {
+            case "Keyboard":
+                _isMouse = true;
+                break;
+            default:
+                _isMouse = false;
+                break;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _input.OnControlChanged -= ControlChanged;
+    }
 }

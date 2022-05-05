@@ -17,6 +17,11 @@ namespace StarterAssets
         private bool _cursorInputForLook = true;
         #endregion
 
+        #region OnControlChange
+        public delegate void ControlChanged(string control);
+        public ControlChanged OnControlChanged;
+        #endregion
+
         // aca esta bien, puedo hacer una referencia al gamemanager para la pausa (por ej)
         // o pasarlo al gamemanager y leer de ahi
         public void OnJump(InputValue value)
@@ -41,6 +46,17 @@ namespace StarterAssets
         public void OnShoot(InputValue value)
         {
             ShootInput(value.isPressed);
+        }
+
+        private void OnControlsChanged(PlayerInput action)
+        {
+            if (OnControlChanged != null)
+            {
+                string device = action.devices[0].ToString();
+                string splitDevice = device.Split(":/")[0]; // divide el nombre del dispositivo en algo mas legible
+                // Debug.Log(splitDevice);
+                OnControlChanged.Invoke(splitDevice);
+            }
         }
 
         public void MoveInput(Vector2 newMoveDirection)
