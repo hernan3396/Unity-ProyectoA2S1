@@ -73,7 +73,6 @@ public class Player : MonoBehaviour
                 StopJump();
         }
 
-
         if (_canShoot && _input.IsShooting)
             StartCoroutine("Shooting");
     }
@@ -147,6 +146,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region ControlChanged
     private void ControlChanged(string value)
     {
         // DualShock4GamepadHID nombre del control de ps4
@@ -160,6 +160,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
     private void OnDestroy()
     {
