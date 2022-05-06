@@ -29,4 +29,29 @@ public class Bullet : MonoBehaviour
         _rb.velocity = Vector3.zero;
         gameObject.SetActive(false);
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<Player>().TakeDamage(_damage);
+            DeactivateBullet();
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+            DeactivateBullet();
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Floor"))
+        {
+            DeactivateBullet();
+            return;
+        }
+
+        // gameObject.SetActive(false); // si no choca contra nada
+    }
 }

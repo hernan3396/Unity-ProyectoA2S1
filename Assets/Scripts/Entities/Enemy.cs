@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody))]
-
 public class Enemy : MonoBehaviour
 {
     #region Parameters
@@ -78,6 +76,7 @@ public class Enemy : MonoBehaviour
         _visionRange = _enemyData.VISIONRANGE;
     }
 
+    #region Aiming
     /// <Summary>
     /// Da true si ve al player y false si no lo ve
     /// </Summary>
@@ -115,7 +114,9 @@ public class Enemy : MonoBehaviour
 
         _canShoot = true;
     }
+    #endregion
 
+    #region Damage
     public void TakeDamage(int value)
     {
         if (_isInmune) return;
@@ -138,9 +139,9 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
-        Debug.Log("Murio un enemigo");
         gameObject.SetActive(false);
     }
+    #endregion
 
     public bool EnemyOnSight
     {
