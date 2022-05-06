@@ -72,6 +72,7 @@ public class WaypointsMovement : MonoBehaviour
         if (_isMoving) return;
 
         _isMoving = true;
+        if (!_agent.enabled) return; // evita que tire error
         _agent.SetDestination(_waypoints[_currentWaypoint].position);
     }
 

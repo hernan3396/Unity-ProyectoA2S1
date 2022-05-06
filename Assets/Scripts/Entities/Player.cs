@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using StarterAssets;
 using System.Collections;
 
@@ -9,6 +8,13 @@ public class Player : MonoBehaviour
     private Rigidbody _rb;
     private Inputs _input;
     private Camera _cam;
+    private UIController _uiController;
+    #endregion
+
+    #region HealthPoints
+    [SerializeField] private float _invulnerability = 2;
+    [SerializeField] private int _healthPoints = 100;
+    private bool _isInmune = false;
     #endregion
 
     #region BodyParts
@@ -53,8 +59,11 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        _uiController = GameManager.GetInstance.GetUIController;
         _shooting = GameManager.GetInstance.GetShooting;
         _cam = GameManager.GetInstance.GetMainCamera;
+
+        _uiController.UpdateHealthPoints(_healthPoints); // seteo inicial de la UI
     }
 
     private void Update()
@@ -159,6 +168,33 @@ public class Player : MonoBehaviour
                 _isMouse = false;
                 break;
         }
+    }
+    #endregion
+
+    #region Damage
+    public void TakeDamage(int value)
+    {
+        if (_isInmune) return;
+        _isInmune = true;
+
+        _healthPoints -= value;
+        _uiController.UpdateHealthPoints(_healthPoints);
+
+        StartCoroutine("InmuneReset");
+
+        if (_healthPoints <= 0)
+            Death();
+    }
+
+    private IEnumerator InmuneReset()
+    {
+        yield return new WaitForSeconds(_invulnerability);
+        _isInmune = false;
+    }
+
+    private void Death()
+    {
+        GameManager.GetInstance.GameOver();
     }
     #endregion
 

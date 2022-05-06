@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     #region Components
     [SerializeField] private PoolManager _enemyBulletPool;
+    [SerializeField] private UIController _uiController;
     [SerializeField] private Transform _playerPos;
     [SerializeField] private Shooting _shooting;
     #endregion
@@ -22,6 +24,16 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("HernanScene"); // cambiar luego
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     private void OnDestroy()
@@ -55,5 +67,10 @@ public class GameManager : MonoBehaviour
     public Camera GetMainCamera
     {
         get { return _mainCamera; }
+    }
+
+    public UIController GetUIController
+    {
+        get { return _uiController; }
     }
 }
