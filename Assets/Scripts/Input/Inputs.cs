@@ -14,6 +14,7 @@ namespace StarterAssets
         public bool jump;
         public bool IsShooting;
         private bool _canMove = true;
+        public bool CannonShooting;
         private bool _cursorInputForLook = true;
         #endregion
 
@@ -48,6 +49,11 @@ namespace StarterAssets
             ShootInput(value.isPressed);
         }
 
+        public void OnCannonShoot(InputValue value)
+        {
+            CannonShootInput(value.isPressed);
+        }
+
         private void OnControlsChanged(PlayerInput action)
         {
             if (OnControlChanged != null)
@@ -78,6 +84,11 @@ namespace StarterAssets
         public void ShootInput(bool newShootState)
         {
             IsShooting = newShootState;
+        }
+
+        public void CannonShootInput(bool newShootState)
+        {
+            CannonShooting = newShootState;
         }
     }
 }

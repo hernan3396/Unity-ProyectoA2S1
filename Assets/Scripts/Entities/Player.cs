@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
     #endregion
 
     private Shooting _shooting;
+    [SerializeField] private GameObject _rocket;
+    private bool _canCannonShoot = true;
 
     private void Awake()
     {
@@ -84,6 +86,9 @@ public class Player : MonoBehaviour
 
         if (_canShoot && _input.IsShooting)
             StartCoroutine("Shooting");
+
+        if (_canCannonShoot && _input.CannonShooting)
+            StartCoroutine("CannonShooting");
     }
 
     private void FixedUpdate()
@@ -103,7 +108,7 @@ public class Player : MonoBehaviour
     private void Move()
     {
         // Debug.Log(_input.move);
-        _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
+        // _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
     }
     #endregion
 
@@ -152,6 +157,32 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_fireRate);
 
         _canShoot = true;
+    }
+
+    // private void CannonShooting()
+    // {
+    //     // como el sistema de disparos no maneja 2 tipos de balas
+    //     // de momento queda aca
+    //     GameObject go = Instantiate(_rocket, _shootingPos.position, Quaternion.identity);
+    //     Rigidbody rb = go.GetComponent<Rigidbody>();
+
+    //     Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
+    //     rb.AddForce(bulletDirection * _bulletSpeed, ForceMode.Impulse);
+    //     // Debug.Log("Pepes");
+    // }
+
+    private IEnumerator CannonShooting()
+    {
+        _canCannonShoot = false;
+
+        GameObject go = Instantiate(_rocket, _shootingPos.position, Quaternion.identity);
+        Rigidbody rb = go.GetComponent<Rigidbody>();
+
+        Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
+        rb.AddForce(bulletDirection * _bulletSpeed, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(_fireRate);
+        _canCannonShoot = true;
     }
     #endregion
 
