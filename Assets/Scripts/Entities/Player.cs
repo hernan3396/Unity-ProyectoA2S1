@@ -1,5 +1,4 @@
 using UnityEngine;
-using StarterAssets;
 using System.Collections;
 
 public class Player : MonoBehaviour
@@ -51,9 +50,6 @@ public class Player : MonoBehaviour
         _transform = GetComponent<Transform>();
         _input = GetComponent<Inputs>();
         _rb = GetComponent<Rigidbody>();
-
-        // log
-        _input.OnControlChanged += ControlChanged;
     }
 
     private void Start()
@@ -61,8 +57,10 @@ public class Player : MonoBehaviour
         _uiController = GameManager.GetInstance.GetUIController;
         _shooting = GameManager.GetInstance.GetShooting;
         _cam = GameManager.GetInstance.GetMainCamera;
+        _input = GameManager.GetInstance.GetInput;
 
         _uiController.UpdateHealthPoints(_healthPoints); // seteo inicial de la UI
+        _input.OnControlChanged += ControlChanged;
     }
 
     private void Update()
@@ -151,7 +149,9 @@ public class Player : MonoBehaviour
     {
         _canShoot = false;
 
-        Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
+        // Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
+        // aca revisar _aimPosition porque creo que no es necesario tenerlo
+        Vector3 bulletDirection = _arm.right;
         _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, _bulletSpeed);
         yield return new WaitForSeconds(_fireRate);
 
