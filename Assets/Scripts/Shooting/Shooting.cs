@@ -6,16 +6,23 @@ using UnityEngine;
 // al metodo Shoot;
 public class Shooting : MonoBehaviour
 {
-    private PoolManager _bulletPool;
+    public enum BulletType
+    {
+        BULLETPOOL,
+        ROCKETPOOL
+    }
+
+    private PoolManager[] _pools = new PoolManager[2];
 
     private void Start()
     {
-        _bulletPool = GameManager.GetInstance.GetEnemyBulletPool;
+        _pools[(int)BulletType.BULLETPOOL] = GameManager.GetInstance.GetBulletPool;
+        _pools[(int)BulletType.ROCKETPOOL] = GameManager.GetInstance.GetRocketPool;
     }
 
-    public void Shoot(Vector3 bulletPos, Vector3 direction, int bulletSpeed)
+    public void Shoot(int bulletType, Vector3 bulletPos, Vector3 direction, int bulletSpeed)
     {
-        GameObject bullet = _bulletPool.GetPooledObject(); // obtiene una bala de la pool
+        GameObject bullet = _pools[bulletType].GetPooledObject(); // obtiene una bala de la pool
         if (!bullet) return;
 
         // posiciona la bala

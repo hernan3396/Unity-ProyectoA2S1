@@ -5,10 +5,11 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     #region Components
+    private UIController _uiController;
+    private Shooting _shooting;
     private Rigidbody _rb;
     private Inputs _input;
     private Camera _cam;
-    private UIController _uiController;
     #endregion
 
     #region HealthPoints
@@ -45,10 +46,6 @@ public class Player : MonoBehaviour
     private bool _isMouse = true;
     #endregion
 
-    private Shooting _shooting;
-    [SerializeField] private GameObject _rocket;
-    private bool _canCannonShoot = true;
-
     private void Awake()
     {
         _transform = GetComponent<Transform>();
@@ -84,11 +81,13 @@ public class Player : MonoBehaviour
                 StopJump();
         }
 
+        // aca realmente deberiamos tener una variable
+        // que tenga la info de arma seleccionada
         if (_canShoot && _input.IsShooting)
-            StartCoroutine("Shooting");
+            StartCoroutine("Shoot", (int)Shooting.BulletType.BULLETPOOL);
 
-        if (_canCannonShoot && _input.CannonShooting)
-            StartCoroutine("CannonShooting");
+        if (_canShoot && _input.CannonShooting)
+            StartCoroutine("Shoot", (int)Shooting.BulletType.ROCKETPOOL);
     }
 
     private void FixedUpdate()
@@ -108,7 +107,7 @@ public class Player : MonoBehaviour
     private void Move()
     {
         // Debug.Log(_input.move);
-        // _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
+        _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
     }
     #endregion
 
@@ -148,41 +147,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator Shooting()
+    private IEnumerator Shoot(int bulletType)
     {
         _canShoot = false;
 
         Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-        _shooting.Shoot(_shootingPos.position, bulletDirection, _bulletSpeed);
+        _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, _bulletSpeed);
         yield return new WaitForSeconds(_fireRate);
 
         _canShoot = true;
-    }
-
-    // private void CannonShooting()
-    // {
-    //     // como el sistema de disparos no maneja 2 tipos de balas
-    //     // de momento queda aca
-    //     GameObject go = Instantiate(_rocket, _shootingPos.position, Quaternion.identity);
-    //     Rigidbody rb = go.GetComponent<Rigidbody>();
-
-    //     Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-    //     rb.AddForce(bulletDirection * _bulletSpeed, ForceMode.Impulse);
-    //     // Debug.Log("Pepes");
-    // }
-
-    private IEnumerator CannonShooting()
-    {
-        _canCannonShoot = false;
-
-        GameObject go = Instantiate(_rocket, _shootingPos.position, Quaternion.identity);
-        Rigidbody rb = go.GetComponent<Rigidbody>();
-
-        Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-        rb.AddForce(bulletDirection * _bulletSpeed, ForceMode.Impulse);
-
-        yield return new WaitForSeconds(_fireRate);
-        _canCannonShoot = true;
     }
     #endregion
 

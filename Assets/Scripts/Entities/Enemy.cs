@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
 
         Aim();
         if (!_canShoot) return; // espera al firerate
-        StartCoroutine("Shooting");
+        StartCoroutine("Shoot");
     }
 
     private void SetStats()
@@ -106,11 +106,11 @@ public class Enemy : MonoBehaviour
         // DOTween.To(() => _arm.right, x => _arm.right = x, _targetDir, _accuracy); // mueve el brazo
     }
 
-    private IEnumerator Shooting()
+    private IEnumerator Shoot()
     {
         _canShoot = false;
         yield return new WaitForSeconds(_fireRate);
-        _shooting.Shoot(_shootingPos.position, _targetDir, _bulletSpeed);
+        _shooting.Shoot((int)Shooting.BulletType.BULLETPOOL, _shootingPos.position, _targetDir, _bulletSpeed);
 
         _canShoot = true;
     }

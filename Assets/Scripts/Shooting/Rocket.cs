@@ -21,11 +21,6 @@ public class Rocket : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-
-    }
-
     private void Explosion()
     {
         Collider[] hitColliders = Physics.OverlapSphere(_transform.position, _explosionRadius);
