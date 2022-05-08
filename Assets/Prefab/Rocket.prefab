@@ -230,4 +230,5 @@ MonoBehaviour:
   _explosionDuration: 1
   _explosionRadius: 4
   _explosionForce: 500
+  _duration: 2
   _damage: 40

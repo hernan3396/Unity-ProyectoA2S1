@@ -32,6 +32,8 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        // sabemos que no es lo mejor pero de momento funciona
+
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Player>().TakeDamage(_damage);

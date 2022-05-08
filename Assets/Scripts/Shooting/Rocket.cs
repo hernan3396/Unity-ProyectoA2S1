@@ -7,6 +7,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] private float _explosionDuration;
     [SerializeField] private float _explosionRadius;
     [SerializeField] private int _explosionForce;
+    [SerializeField] private float _duration;
     [SerializeField] private float _damage;
     #endregion
 
@@ -23,24 +24,41 @@ public class Rocket : MonoBehaviour
 
     private void Explosion()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(_transform.position, _explosionRadius);
+        // cuando choca contra mas de un collider llama a este metodo 2 veces
+        // no se como solucionarlo D:
+        Collider[] hitColliders = Physics.OverlapSphere(_transform.position, _explosionRadius); // ve contra que choca la explosion
         foreach (Collider collider in hitColliders)
         {
-            if (collider.TryGetComponent(out Player player))
+            // if (collider.TryGetComponent(out Player player))
+            // {
+            //     // para probar esto hay que deshabilitar el move del player
+            //     Rigidbody rb = player.GetComponent<Rigidbody>();
+            //     rb.velocity = Vector3.zero;
+            //     rb.AddForce((player.GetComponent<Transform>().position - transform.position).normalized * _explosionForce, ForceMode.Impulse);
+            // }
+
+            if (collider.gameObject.CompareTag("Player"))
             {
-                // Debug.Log("Aqui");
                 // para probar esto hay que deshabilitar el move del player
-                Rigidbody rb = player.GetComponent<Rigidbody>();
+                // Debug.Log(collider.name);
+                Rigidbody rb = collider.GetComponent<Rigidbody>();
                 rb.velocity = Vector3.zero;
-                rb.AddForce((player.GetComponent<Transform>().position - transform.position).normalized * _explosionForce, ForceMode.Impulse);
+                rb.AddForce((collider.transform.position - _transform.position).normalized * _explosionForce, ForceMode.Impulse);
             }
         }
+        DeactivateBullet();
+    }
+
+    private void DeactivateBullet()
+    {
+        _trailRenderer.Clear();
+        _rb.velocity = Vector3.zero;
         gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player")) return;
+        if (other.gameObject.CompareTag("Player")) return; // evita que explote al dispararla
 
         Explosion();
     }

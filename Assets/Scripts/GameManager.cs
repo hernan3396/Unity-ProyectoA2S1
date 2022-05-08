@@ -11,6 +11,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PoolManager _rocketPool;
     [SerializeField] private Transform _playerPos;
     [SerializeField] private Shooting _shooting;
+    [SerializeField] private Inputs _input;
+    #endregion
+
+    #region Pause
+    public delegate void OnGamePause(bool isGamePaused);
+    public event OnGamePause onGamePause;
+    private bool _isPaused = false;
     #endregion
 
     [SerializeField] private Camera _mainCamera;
@@ -25,6 +32,21 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+    }
+
+    public void PauseGame()
+    {
+        // de momento solo hace aparecer a un panel
+        // luego pausaria a las entidades
+        _isPaused = !_isPaused;
+
+        if (onGamePause != null)
+            onGamePause(_isPaused);
+    }
+
+    public void LoadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 
     public void GameOver()
@@ -73,6 +95,11 @@ public class GameManager : MonoBehaviour
     public Camera GetMainCamera
     {
         get { return _mainCamera; }
+    }
+
+    public Inputs GetInput
+    {
+        get { return _input; }
     }
 
     public UIController GetUIController
