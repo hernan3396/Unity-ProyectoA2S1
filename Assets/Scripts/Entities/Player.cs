@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 
     #region Jumping
     [Header("Jumping")]
+    [SerializeField] private float _heightModifier = 2; // para la altura de la caja que detecta si esta o no en el piso
     [SerializeField] private float _gravityScale = 10f;
     [SerializeField] private int _jumpForce = 15;
     [SerializeField] private float _jumpTime = 1;
@@ -92,7 +93,7 @@ public class Player : MonoBehaviour
     {
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
 
-        if (Physics.BoxCast(_transform.position, _transform.localScale / 2, Vector3.down, out RaycastHit hit, Quaternion.identity, _floorDistance))
+        if (Physics.BoxCast(_transform.position, _transform.localScale / 2, Vector3.down, out RaycastHit hit, Quaternion.identity, _floorDistance * _heightModifier))
         {
             _isGrounded = hit.transform.CompareTag("Floor");
             return;
