@@ -39,18 +39,18 @@ public class Rocket : MonoBehaviour
 
             if (collider.gameObject.CompareTag("Player"))
             {
-                // para probar esto hay que deshabilitar el move del player
                 // Debug.Log(collider.name);
+                Player player = collider.gameObject.GetComponent<Player>();
+                player.RocketJumping(true);
 
-                // cambiar esto
-                collider.GetComponent<Player>()._isRocketJumping = true;
-                collider.GetComponent<Player>()._rocketTimer = collider.GetComponent<Player>()._rocketJumpingTimer;
-
-
-                Rigidbody rb = collider.GetComponent<Rigidbody>();
+                Rigidbody rb = player.GetRB;
+                // seteas la velocidad en cero para que
+                // la actual no se reste con la nueva
+                // esto es preferencia pero me gusta mas asi
                 rb.velocity = Vector3.zero;
-                // rb.AddForce((collider.transform.position - _transform.position).normalized * _explosionForce, ForceMode.Impulse);
-                rb.velocity += (collider.transform.position - _transform.position).normalized * _explosionForce;
+                // calculas la direccion de la explosion
+                Vector3 dir = (collider.transform.position - _transform.position).normalized;
+                rb.velocity += dir * _explosionForce; // añadis la velocidad de la explosion
             }
         }
         DeactivateBullet();

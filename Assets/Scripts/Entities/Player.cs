@@ -39,9 +39,9 @@ public class Player : MonoBehaviour
 
     #region RocketJumping
     [Header("Rocket Jumping")]
-    public bool _isRocketJumping = false;
-    public float _rocketJumpingTimer = 1;
-    public float _rocketTimer;
+    [SerializeField] private float _rocketJumpingTimer = 1; // el tiempo maximo que pasa en el estado de "Rocket jumping"
+    private bool _isRocketJumping = false;
+    private float _rocketTimer;
     #endregion
 
     #region Aiming
@@ -74,7 +74,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Aim();
-        Move();
 
         if (_isGrounded && _input.jump)
             Jump();
@@ -92,7 +91,7 @@ public class Player : MonoBehaviour
             _rocketTimer -= Time.deltaTime;
 
             if (_rocketTimer <= 0)
-                _isRocketJumping = false;
+                RocketJumping(false);
         }
 
         // aca realmente deberiamos tener una variable
@@ -106,6 +105,8 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Move();
+
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
 
         // este cambiarlo luego con un collider pero de momento funciona
@@ -220,8 +221,23 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region RocketJumping
+    public void RocketJumping(bool value)
+    {
+        _isRocketJumping = value;
+
+        if (_isRocketJumping)
+            _rocketTimer = _rocketJumpingTimer;
+    }
+    #endregion
+
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;
+    }
+
+    public Rigidbody GetRB
+    {
+        get { return _rb; }
     }
 }
