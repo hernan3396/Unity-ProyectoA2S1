@@ -1724,7 +1724,7 @@ MonoBehaviour:
   _healthPoints: 100
   _shootingPos: {fileID: 1579598756}
   _arm: {fileID: 1210757395}
-  _heightModifier: 3
+  _heightModifier: 3.4
   _gravityScale: 10
   _jumpForce: 35
   _jumpTime: 1
