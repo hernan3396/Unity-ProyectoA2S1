@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
     {
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
 
+        // este cambiarlo luego con un collider pero de momento funciona
         if (Physics.BoxCast(_transform.position, _transform.localScale / 2, Vector3.down, out RaycastHit hit, Quaternion.identity, _floorDistance * _heightModifier))
         {
             _isGrounded = hit.transform.CompareTag("Floor");
