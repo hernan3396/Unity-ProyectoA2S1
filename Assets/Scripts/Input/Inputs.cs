@@ -16,10 +16,6 @@ public class Inputs : MonoBehaviour
     private bool _cursorInputForLook = true;
     #endregion
 
-    #region MenuInputValues
-    public bool IsGamePaused = false;
-    #endregion
-
     #region OnControlChange
     public delegate void ControlChanged(string control);
     public ControlChanged OnControlChanged;
@@ -27,10 +23,7 @@ public class Inputs : MonoBehaviour
 
     public void OnPause()
     {
-        // IsGamePaused = !IsGamePaused;
-        GameManager.GetInstance.PauseGame(); // no se si hacerlo asi pero de mientras funciona
-        // por que si haces como el if(is pressed) se enviaria un monton de veces
-        // asi que de momento
+        GameManager.GetInstance.PauseGame();
     }
 
     // aca esta bien, puedo hacer una referencia al gamemanager para la pausa (por ej)

@@ -37,6 +37,13 @@ public class Player : MonoBehaviour
     private float _jumpTimer;
     #endregion
 
+    #region RocketJumping
+    [Header("Rocket Jumping")]
+    public bool _isRocketJumping = false;
+    public float _rocketJumpingTimer = 1;
+    public float _rocketTimer;
+    #endregion
+
     #region Aiming
     [Header("Aiming")]
     [SerializeField] private float _fireRate = 0.5f;
@@ -80,6 +87,14 @@ public class Player : MonoBehaviour
                 StopJump();
         }
 
+        if (_isRocketJumping)
+        {
+            _rocketTimer -= Time.deltaTime;
+
+            if (_rocketTimer <= 0)
+                _isRocketJumping = false;
+        }
+
         // aca realmente deberiamos tener una variable
         // que tenga la info de arma seleccionada
         if (_canShoot && _input.IsShooting)
@@ -107,6 +122,7 @@ public class Player : MonoBehaviour
     private void Move()
     {
         // Debug.Log(_input.move);
+        if (_isRocketJumping) return;
         _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
     }
     #endregion

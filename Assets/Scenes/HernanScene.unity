@@ -1730,6 +1730,7 @@ MonoBehaviour:
   _jumpTime: 1
   _floorDistance: 0.55
   _speed: 20
+  _isRocketJumping: 0
   _fireRate: 0.5
   _bulletSpeed: 30
 --- !u!23 &540912538
@@ -2766,7 +2767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &862430818
 Transform:
   m_ObjectHideFlags: 0
@@ -3595,7 +3596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1113646343
 Transform:
   m_ObjectHideFlags: 0
@@ -5669,7 +5670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1773920509
 Transform:
   m_ObjectHideFlags: 0
@@ -6144,7 +6145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1875664731
 Transform:
   m_ObjectHideFlags: 0
