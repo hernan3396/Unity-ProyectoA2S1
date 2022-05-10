@@ -1293,7 +1293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &428745852
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1731,6 +1731,8 @@ MonoBehaviour:
   _floorDistance: 0.55
   _speed: 20
   _isRocketJumping: 0
+  _rocketJumpingTimer: 1
+  _rocketTimer: 0
   _fireRate: 0.5
   _bulletSpeed: 30
 --- !u!23 &540912538
@@ -3999,7 +4001,6 @@ MonoBehaviour:
   jump: 0
   IsShooting: 0
   CannonShooting: 0
-  IsGamePaused: 0
 --- !u!114 &1182343652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5070,9 +5071,9 @@ MonoBehaviour:
   m_LookaheadTime: 0.4
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 0.5
+  m_YDamping: 0.5
+  m_ZDamping: 0.5
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5

@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-#if UNITY_EDITOR	
+#if UNITY_EDITOR
         _debugMenu.SetActive(true);
 #endif
     }
