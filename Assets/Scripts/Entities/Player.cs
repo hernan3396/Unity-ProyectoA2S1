@@ -1,14 +1,14 @@
 using UnityEngine;
-using StarterAssets;
 using System.Collections;
 
 public class Player : MonoBehaviour
 {
     #region Components
+    private UIController _uiController;
+    private Shooting _shooting;
     private Rigidbody _rb;
     private Inputs _input;
     private Camera _cam;
-    private UIController _uiController;
     #endregion
 
     #region HealthPoints
@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 
     #region Jumping
     [Header("Jumping")]
+    [SerializeField] private float _heightModifier = 2; // para la altura de la caja que detecta si esta o no en el piso
     [SerializeField] private float _gravityScale = 10f;
     [SerializeField] private int _jumpForce = 15;
     [SerializeField] private float _jumpTime = 1;
@@ -45,16 +46,11 @@ public class Player : MonoBehaviour
     private bool _isMouse = true;
     #endregion
 
-    private Shooting _shooting;
-
     private void Awake()
     {
         _transform = GetComponent<Transform>();
         _input = GetComponent<Inputs>();
         _rb = GetComponent<Rigidbody>();
-
-        // log
-        _input.OnControlChanged += ControlChanged;
     }
 
     private void Start()
@@ -62,8 +58,10 @@ public class Player : MonoBehaviour
         _uiController = GameManager.GetInstance.GetUIController;
         _shooting = GameManager.GetInstance.GetShooting;
         _cam = GameManager.GetInstance.GetMainCamera;
+        _input = GameManager.GetInstance.GetInput;
 
         _uiController.UpdateHealthPoints(_healthPoints); // seteo inicial de la UI
+        _input.OnControlChanged += ControlChanged;
     }
 
     private void Update()
@@ -82,15 +80,20 @@ public class Player : MonoBehaviour
                 StopJump();
         }
 
+        // aca realmente deberiamos tener una variable
+        // que tenga la info de arma seleccionada
         if (_canShoot && _input.IsShooting)
-            StartCoroutine("Shooting");
+            StartCoroutine("Shoot", (int)Shooting.BulletType.BULLETPOOL);
+
+        if (_canShoot && _input.CannonShooting)
+            StartCoroutine("Shoot", (int)Shooting.BulletType.ROCKETPOOL);
     }
 
     private void FixedUpdate()
     {
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
 
-        if (Physics.BoxCast(_transform.position, _transform.localScale / 2, Vector3.down, out RaycastHit hit, Quaternion.identity, _floorDistance))
+        if (Physics.BoxCast(_transform.position, _transform.localScale / 2, Vector3.down, out RaycastHit hit, Quaternion.identity, _floorDistance * _heightModifier))
         {
             _isGrounded = hit.transform.CompareTag("Floor");
             return;
@@ -143,12 +146,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator Shooting()
+    private IEnumerator Shoot(int bulletType)
     {
         _canShoot = false;
 
-        Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-        _shooting.Shoot(_shootingPos.position, bulletDirection, _bulletSpeed);
+        // Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
+        // aca revisar _aimPosition porque creo que no es necesario tenerlo
+        Vector3 bulletDirection = _arm.right;
+        _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, _bulletSpeed);
         yield return new WaitForSeconds(_fireRate);
 
         _canShoot = true;
