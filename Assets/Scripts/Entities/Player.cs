@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 using System.Collections;
 
 public class Player : MonoBehaviour
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     #region BodyParts
     [Header("Body Parts")]
     [SerializeField] private Transform _shootingPos;
+    [SerializeField] private Transform _meleeArm;
     [SerializeField] private Transform _arm;
     private Transform _transform;
     #endregion
@@ -50,7 +52,17 @@ public class Player : MonoBehaviour
     [SerializeField] private int _bulletSpeed = 20;
     private bool _canShoot = true;
     private Vector3 _aimPosition;
-    private bool _isMouse = true;
+    private bool _isMouse = true; // para ver que tipo de input estas usando
+    #endregion
+
+    #region Melee
+    [Header("Melee")]
+    // esta parte se va a ver cambiada cuando tengamos la animacion
+    // lo mas seguro es que lo hagamos desde ahi
+    [SerializeField] private Vector3 _meleeFinalPos; // el angulo final
+    [SerializeField] private float _meleeSpeed = 1; // el tiempo que demora en "Hacer" la animacion del melee
+    private Quaternion _meleeInitialRot; // el angulo del que empieza
+    private bool _canMelee = true;
     #endregion
 
     private void Awake()
@@ -58,6 +70,8 @@ public class Player : MonoBehaviour
         _transform = GetComponent<Transform>();
         _input = GetComponent<Inputs>();
         _rb = GetComponent<Rigidbody>();
+
+        _meleeInitialRot = _meleeArm.rotation;
     }
 
     private void Start()
@@ -101,6 +115,9 @@ public class Player : MonoBehaviour
 
         if (_canShoot && _input.CannonShooting)
             StartCoroutine("Shoot", (int)Shooting.BulletType.ROCKETPOOL);
+
+        if (_canMelee && _input.Melee)
+            StartCoroutine("Melee");
     }
 
     private void FixedUpdate()
@@ -231,6 +248,26 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region Melee
+    private IEnumerator Melee()
+    {
+        // falta que use la direccion del mouse
+        // o la rotacion del personaje
+        _canMelee = false;
+
+        // rota el "Bate"
+        _meleeArm.gameObject.SetActive(true);
+        _meleeArm.DORotate(_meleeFinalPos, _meleeSpeed);
+
+        yield return new WaitForSeconds(_meleeSpeed);
+
+        // lo devuelve a su posicion inicial
+        _meleeArm.gameObject.SetActive(false);
+        _meleeArm.rotation = _meleeInitialRot;
+
+        _canMelee = true;
+    }
+    #endregion
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;

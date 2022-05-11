@@ -24,6 +24,10 @@ public class Inputs : MonoBehaviour
     public bool IsShooting;
     #endregion
 
+    #region Melee
+    public bool Melee;
+    #endregion
+
     #region OnControlChange
     public delegate void ControlChanged(string control);
     public ControlChanged OnControlChanged;
@@ -89,6 +93,18 @@ public class Inputs : MonoBehaviour
     public void CannonShootInput(bool newShootState)
     {
         CannonShooting = newShootState;
+    }
+    #endregion
+
+    #region Melee
+    private void OnMelee(InputValue value)
+    {
+        MeleeInput(value.isPressed);
+    }
+
+    private void MeleeInput(bool newMeleeState)
+    {
+        Melee = newMeleeState;
     }
     #endregion
 
