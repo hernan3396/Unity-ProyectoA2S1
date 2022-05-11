@@ -1192,7 +1192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &403370267
 Transform:
   m_ObjectHideFlags: 0
@@ -1587,7 +1587,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515776634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.44, y: -3.36, z: 0}
+  m_LocalPosition: {x: 9.44, y: -7.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1676,6 +1676,7 @@ GameObject:
   - component: {fileID: 518287127}
   - component: {fileID: 518287126}
   - component: {fileID: 518287125}
+  - component: {fileID: 518287128}
   m_Layer: 6
   m_Name: MeleeWeapon
   m_TagString: Untagged
@@ -1761,6 +1762,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518287123}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &518287128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518287123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756fbe72a0aed3d44a8202d0f2cdd011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &540912526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,7 +1877,6 @@ MonoBehaviour:
   _rocketJumpingTimer: 1
   _fireRate: 0.5
   _bulletSpeed: 30
-  _meleeInitialPos: {x: 0, y: 0, z: 0}
   _meleeFinalPos: {x: 0, y: 0, z: 45}
   _meleeSpeed: 0.2
 --- !u!23 &540912538
@@ -3730,7 +3742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1113646343
 Transform:
   m_ObjectHideFlags: 0
@@ -5942,7 +5954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1823463267
 Transform:
   m_ObjectHideFlags: 0
