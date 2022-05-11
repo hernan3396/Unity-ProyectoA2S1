@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class HealthPickable : MonoBehaviour
 {
     #region Paremeters
     [Header("Parameters")]
@@ -11,7 +9,8 @@ public class Health : MonoBehaviour
 
     private Rigidbody _rb;
 
-    private void Awake() {
+    private void Awake()
+    {
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -21,10 +20,11 @@ public class Health : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("agarrado");
+            // Debug.Log("agarrado");
             other.gameObject.GetComponent<Player>().AddHealth(_curation);
             DesactivateHealth();
             return;
@@ -32,7 +32,7 @@ public class Health : MonoBehaviour
 
         if (other.gameObject.CompareTag("Floor"))
         {
-            _rb.velocity=Vector3.zero;
+            _rb.velocity = Vector3.zero;
             return;
         }
     }
