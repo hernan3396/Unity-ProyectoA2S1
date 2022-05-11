@@ -12,7 +12,7 @@ public class Shooting : MonoBehaviour
         ROCKETPOOL
     }
 
-    private PoolManager[] _pools = new PoolManager[2];
+    private PoolManager[] _pools = new PoolManager[2]; // este numero es la cantidad de armas que tenes (que disparan)
 
     private void Start()
     {

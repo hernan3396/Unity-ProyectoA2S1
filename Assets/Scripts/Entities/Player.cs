@@ -236,8 +236,10 @@ public class Player : MonoBehaviour
         _input.OnControlChanged -= ControlChanged;
     }
 
+    #region Getters/Setters
     public Rigidbody GetRB
     {
         get { return _rb; }
     }
+    #endregion
 }
