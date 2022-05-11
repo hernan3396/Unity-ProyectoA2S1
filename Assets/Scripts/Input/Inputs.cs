@@ -5,15 +5,27 @@ public class Inputs : MonoBehaviour
 {
     // este script lee las inputs y vos
     // luego las lees de otro y haces las cosas
-
-    #region CharacterInputValues
-    public Vector2 move;
-    public Vector2 look;
-    public bool jump;
-    public bool IsShooting;
+    #region Movement
     private bool _canMove = true;
-    public bool CannonShooting;
+    public Vector2 move;
+    #endregion
+
+    #region Aiming
     private bool _cursorInputForLook = true;
+    public Vector2 look;
+    #endregion
+
+    #region Jumping
+    public bool jump;
+    #endregion
+
+    #region Shooting
+    public bool CannonShooting;
+    public bool IsShooting;
+    #endregion
+
+    #region Melee
+    public bool Melee;
     #endregion
 
     #region OnControlChange
@@ -26,20 +38,20 @@ public class Inputs : MonoBehaviour
         GameManager.GetInstance.PauseGame();
     }
 
-    // aca esta bien, puedo hacer una referencia al gamemanager para la pausa (por ej)
-    // o pasarlo al gamemanager y leer de ahi
-    public void OnJump(InputValue value)
-    {
-        if (!_canMove) return;
-        JumpInput(value.isPressed);
-    }
-
+    #region Movement
     public void OnMove(InputValue value)
     {
         if (!_canMove) return;
         MoveInput(value.Get<Vector2>());
     }
 
+    public void MoveInput(Vector2 newMoveDirection)
+    {
+        move = newMoveDirection;
+    }
+    #endregion
+
+    #region Aiming
     public void OnAim(InputValue value)
     {
         // chequear cual es el input
@@ -47,11 +59,56 @@ public class Inputs : MonoBehaviour
             LookInput(value.Get<Vector2>());
     }
 
+    public void LookInput(Vector2 newLookDirection)
+    {
+        // Debug.Log(newLookDirection);
+        look = newLookDirection;
+    }
+    #endregion
+
+    #region Jumping
+    public void OnJump(InputValue value)
+    {
+        if (!_canMove) return;
+        JumpInput(value.isPressed);
+    }
+
+    public void JumpInput(bool newJumpState)
+    {
+        jump = newJumpState;
+    }
+    #endregion
+
+    #region Shooting
     public void OnShoot(InputValue value)
     {
         ShootInput(value.isPressed);
     }
 
+    public void ShootInput(bool newShootState)
+    {
+        IsShooting = newShootState;
+    }
+
+    public void CannonShootInput(bool newShootState)
+    {
+        CannonShooting = newShootState;
+    }
+    #endregion
+
+    #region Melee
+    private void OnMelee(InputValue value)
+    {
+        MeleeInput(value.isPressed);
+    }
+
+    private void MeleeInput(bool newMeleeState)
+    {
+        Melee = newMeleeState;
+    }
+    #endregion
+
+    #region OnControlChange
     public void OnCannonShoot(InputValue value)
     {
         CannonShootInput(value.isPressed);
@@ -67,30 +124,5 @@ public class Inputs : MonoBehaviour
             OnControlChanged.Invoke(splitDevice);
         }
     }
-
-    public void MoveInput(Vector2 newMoveDirection)
-    {
-        move = newMoveDirection;
-    }
-
-    public void LookInput(Vector2 newLookDirection)
-    {
-        // Debug.Log(newLookDirection);
-        look = newLookDirection;
-    }
-
-    public void JumpInput(bool newJumpState)
-    {
-        jump = newJumpState;
-    }
-
-    public void ShootInput(bool newShootState)
-    {
-        IsShooting = newShootState;
-    }
-
-    public void CannonShootInput(bool newShootState)
-    {
-        CannonShooting = newShootState;
-    }
+    #endregion
 }
