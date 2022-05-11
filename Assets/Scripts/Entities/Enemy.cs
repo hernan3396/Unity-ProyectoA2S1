@@ -139,6 +139,9 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
+       GameObject healthPickable =  GameManager.GetInstance.GetHealthPool.GetPooledObject();
+       healthPickable.transform.position = transform.position;
+       healthPickable.SetActive(true);
         gameObject.SetActive(false);
     }
     #endregion

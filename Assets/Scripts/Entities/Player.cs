@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
 
     #region HealthPoints
     [SerializeField] private float _invulnerability = 2;
-    [SerializeField] private int _healthPoints = 100;
+    [SerializeField] private int _maxHealthPoints = 100;
+    private int _healthPoints;
     private bool _isInmune = false;
     #endregion
 
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour
         _shooting = GameManager.GetInstance.GetShooting;
         _cam = GameManager.GetInstance.GetMainCamera;
         _input = GameManager.GetInstance.GetInput;
+        _healthPoints = _maxHealthPoints;
 
         _uiController.UpdateHealthPoints(_healthPoints); // seteo inicial de la UI
         _input.OnControlChanged += ControlChanged;
@@ -191,6 +193,22 @@ public class Player : MonoBehaviour
                 _isMouse = false;
                 break;
         }
+    }
+    #endregion
+
+    #region Health
+
+    public void AddHealth(int value)
+    {
+        if (_healthPoints + value <= _maxHealthPoints)
+        {
+            _healthPoints += value;
+        }
+        else
+        {
+            _healthPoints = _maxHealthPoints;
+        }
+        _uiController.UpdateHealthPoints(_healthPoints);
     }
     #endregion
 

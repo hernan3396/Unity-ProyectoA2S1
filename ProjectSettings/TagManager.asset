@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - Enemy
+  - Health
   layers:
   - Default
   - TransparentFX

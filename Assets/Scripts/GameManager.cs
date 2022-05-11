@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIController _uiController;
     [SerializeField] private PoolManager _bulletPool;
     [SerializeField] private PoolManager _rocketPool;
+    [SerializeField] private PoolManager _healthPool;
     [SerializeField] private Transform _playerPos;
     [SerializeField] private Shooting _shooting;
     [SerializeField] private Inputs _input;
@@ -85,6 +86,11 @@ public class GameManager : MonoBehaviour
     public PoolManager GetRocketPool
     {
         get { return _rocketPool; }
+    }
+
+    public PoolManager GetHealthPool
+    {
+        get { return _healthPool; }
     }
 
     public Shooting GetShooting
