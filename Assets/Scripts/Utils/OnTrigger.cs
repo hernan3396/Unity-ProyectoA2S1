@@ -22,9 +22,4 @@ public class OnTrigger : MonoBehaviour
             onTriggerExit?.Invoke();
         }
     }
-
-    public void Test()
-    {
-        Debug.Log("Algo");
-    }
 }

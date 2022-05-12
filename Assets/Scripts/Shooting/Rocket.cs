@@ -8,7 +8,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] private float _explosionRadius;
     [SerializeField] private int _explosionForce;
     [SerializeField] private float _duration;
-    [SerializeField] private float _damage;
+    [SerializeField] private int _damage;
     #endregion
 
     private TrailRenderer _trailRenderer;
@@ -20,6 +20,12 @@ public class Rocket : MonoBehaviour
         _trailRenderer = GetComponent<TrailRenderer>();
         _transform = GetComponent<Transform>();
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
+        CancelInvoke();
+        Invoke("DeactivateBullet", _duration);
     }
 
     private void Explosion()
@@ -42,6 +48,8 @@ public class Rocket : MonoBehaviour
                 // Debug.Log(collider.name);
                 Player player = collider.gameObject.GetComponent<Player>();
                 player.RocketJumping(true);
+                player.TakeDamage(_damage / 8); // _damage es (o era) 40 y lo divide para hacerle solo 5 de daño al player
+                // mover esto al player??
 
                 Rigidbody rb = player.GetRB;
                 // seteas la velocidad en cero para que
@@ -52,6 +60,9 @@ public class Rocket : MonoBehaviour
                 Vector3 dir = (collider.transform.position - _transform.position).normalized;
                 rb.velocity += dir * _explosionForce; // añadis la velocidad de la explosion
             }
+
+            if (collider.gameObject.CompareTag("Enemy"))
+                collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
         }
         DeactivateBullet();
     }

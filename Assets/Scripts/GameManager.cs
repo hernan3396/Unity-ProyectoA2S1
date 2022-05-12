@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene("HernanScene"); // cambiar luego
+        SceneManager.LoadScene("PrototipeScene"); // cambiar luego
     }
 
     public void QuitGame()

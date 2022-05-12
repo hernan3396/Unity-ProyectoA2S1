@@ -257,7 +257,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SUPER CUTIE CRUSHER
+  m_text: 'GANASTE
+
+    UWU
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 374466c33c1e8e243b958355c997673e, type: 2}
   m_sharedMaterial: {fileID: 5199931665142496009, guid: 374466c33c1e8e243b958355c997673e, type: 2}
@@ -526,7 +530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLAY
+  m_text: RESTART
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 374466c33c1e8e243b958355c997673e, type: 2}
   m_sharedMaterial: {fileID: 5199931665142496009, guid: 374466c33c1e8e243b958355c997673e, type: 2}
