@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
+    #region Components
+    private PoolManager _explosionPool;
+    #endregion
+
     #region Parameters
     [Header("Parameters")]
     [SerializeField] private float _explosionDuration;
@@ -20,6 +24,11 @@ public class Rocket : MonoBehaviour
         _trailRenderer = GetComponent<TrailRenderer>();
         _transform = GetComponent<Transform>();
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        _explosionPool = GameManager.GetInstance.GetExplosionPool;
     }
 
     private void OnEnable()
@@ -64,6 +73,14 @@ public class Rocket : MonoBehaviour
             if (collider.gameObject.CompareTag("Enemy"))
                 collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
         }
+
+        GameObject explosion = _explosionPool.GetPooledObject();
+        if (!explosion) return;
+
+        explosion.transform.position = _transform.position;
+        explosion.SetActive(true);
+        explosion.GetComponent<ParticleSystem>().Play();
+
         DeactivateBullet();
     }
 

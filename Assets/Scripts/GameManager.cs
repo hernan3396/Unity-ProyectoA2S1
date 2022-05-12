@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     #region Components
     [SerializeField] private UIController _uiController;
+    [SerializeField] private PoolManager _explosionPool;
     [SerializeField] private PoolManager _bulletPool;
     [SerializeField] private PoolManager _rocketPool;
     [SerializeField] private PoolManager _healthPool;
@@ -86,6 +87,11 @@ public class GameManager : MonoBehaviour
     public PoolManager GetRocketPool
     {
         get { return _rocketPool; }
+    }
+
+    public PoolManager GetExplosionPool
+    {
+        get { return _explosionPool; }
     }
 
     public PoolManager GetHealthPool
