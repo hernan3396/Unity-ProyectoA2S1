@@ -179,6 +179,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            // control
             _arm.right = _input.look;
         }
     }
