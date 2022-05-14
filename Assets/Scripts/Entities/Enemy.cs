@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
+    #region Components
+    private PoolManager _bloodPool;
+    #endregion
+
     #region Parameters
     [Header("Parameters")]
     [SerializeField] private EnemyData _enemyData;
@@ -49,6 +53,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _targetPos = GameManager.GetInstance.GetPlayerPos;
+        _bloodPool = GameManager.GetInstance.GetBloodPool;
         _shooting = GameManager.GetInstance.GetShooting;
         _transform = GetComponent<Transform>();
     }
@@ -124,6 +129,12 @@ public class Enemy : MonoBehaviour
         StartCoroutine("InmuneReset");
 
         _currentHP -= value;
+
+        GameObject blood = _bloodPool.GetPooledObject();
+        if (!blood) return;
+
+        blood.transform.position = _transform.position;
+        blood.SetActive(true);
 
         if (_currentHP <= 0)
         {

@@ -15,8 +15,9 @@ public class Player : MonoBehaviour
     #region HealthPoints
     [SerializeField] private float _invulnerability = 2;
     [SerializeField] private int _maxHealthPoints = 100;
-    private int _healthPoints;
+    private PoolManager _bloodPool;
     private bool _isInmune = false;
+    private int _healthPoints;
     #endregion
 
     #region BodyParts
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _speed = 20;
     private bool _isGrounded = true;
     private bool _jumping = false;
+    private PoolManager _dustPool;
     private float _jumpTimer;
     #endregion
 
@@ -78,12 +80,15 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _uiController = GameManager.GetInstance.GetUIController;
+        _bloodPool = GameManager.GetInstance.GetBloodPool;
+        _dustPool = GameManager.GetInstance.GetDustPool;
         _shooting = GameManager.GetInstance.GetShooting;
         _cam = GameManager.GetInstance.GetMainCamera;
         _input = GameManager.GetInstance.GetInput;
-        _healthPoints = _maxHealthPoints;
 
+        _healthPoints = _maxHealthPoints;
         _uiController.UpdateHealthPoints(_healthPoints); // seteo inicial de la UI
+
         _input.OnControlChanged += ControlChanged;
     }
 
@@ -153,6 +158,14 @@ public class Player : MonoBehaviour
         _jumping = true;
         _jumpTimer = _jumpTime; // timer para limitar el salto
         _rb.velocity = new Vector3(_rb.velocity.x, _jumpForce, _rb.velocity.z);
+
+        GameObject dust = _dustPool.GetPooledObject();
+        if (!dust) return;
+
+        // sino aparece en el centro
+        Vector3 dustPosition = _transform.position + (Vector3.down * _heightModifier);
+        dust.transform.position = dustPosition;
+        dust.SetActive(true);
     }
 
     private void StopJump()
@@ -214,8 +227,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region Health
-
+    #region Damage
     public void AddHealth(int value)
     {
         if (_healthPoints + value <= _maxHealthPoints)
@@ -228,13 +240,17 @@ public class Player : MonoBehaviour
         }
         _uiController.UpdateHealthPoints(_healthPoints);
     }
-    #endregion
 
-    #region Damage
     public void TakeDamage(int value)
     {
         if (_isInmune) return;
         _isInmune = true;
+
+        GameObject blood = _bloodPool.GetPooledObject();
+        if (!blood) return;
+
+        blood.transform.position = _transform.position;
+        blood.SetActive(true);
 
         _healthPoints -= value;
         _uiController.UpdateHealthPoints(_healthPoints);
