@@ -1010,7 +1010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &319682546
 Transform:
   m_ObjectHideFlags: 0
@@ -6652,8 +6652,8 @@ Transform:
   m_Children:
   - {fileID: 229303942}
   - {fileID: 1210757395}
-  - {fileID: 1133605063}
   - {fileID: 682173135}
+  - {fileID: 1133605063}
   m_Father: {fileID: 2001728328}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11939,7 +11939,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 540912531}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!199 &682173136
 ParticleSystemRenderer:
@@ -28972,7 +28972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1388422276
 Transform:
   m_ObjectHideFlags: 0
@@ -29009,7 +29009,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bcd3c4fe6ea72c04ba0558d21c80bac8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35145,7 +35145,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2684824, y: 1}
+    m_SensorSize: {x: 3.2996109, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
