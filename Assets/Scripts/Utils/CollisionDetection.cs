@@ -43,9 +43,4 @@ public class CollisionDetection : MonoBehaviour
             onExit?.Invoke();
     }
     #endregion
-
-    public void Test()
-    {
-        Debug.Log("Test");
-    }
 }

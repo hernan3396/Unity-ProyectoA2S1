@@ -30,11 +30,10 @@ public class Player : MonoBehaviour
 
     #region Jumping
     [Header("Jumping")]
-    [SerializeField] private float _heightModifier = 2; // para la altura de la caja que detecta si esta o no en el piso
     [SerializeField] private float _gravityScale = 10f;
+    [SerializeField] private float _particlePosOff;
     [SerializeField] private int _jumpForce = 15;
     [SerializeField] private float _jumpTime = 1;
-    [SerializeField] private float _floorDistance; // distancia para dibujar la caja en el piso
     [SerializeField] private int _speed = 20;
     private bool _isGrounded = true;
     private bool _jumping = false;
@@ -132,15 +131,6 @@ public class Player : MonoBehaviour
         Move();
 
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
-
-        // este cambiarlo luego con un collider pero de momento funciona
-        if (Physics.BoxCast(_transform.position, _transform.localScale / 2, Vector3.down, out RaycastHit hit, Quaternion.identity, _floorDistance * _heightModifier))
-        {
-            _isGrounded = hit.transform.CompareTag("Floor");
-            return;
-        }
-
-        _isGrounded = false;
     }
 
     #region HorizontalMovement
@@ -149,6 +139,20 @@ public class Player : MonoBehaviour
         // Debug.Log(_input.move);
         if (_isRocketJumping) return;
         _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
+    }
+    #endregion
+
+    #region Grounded
+    // para no andar chambiando con _isGrounded = !_isGrounded
+    // porque asumo que puede llegar a dar algun problema
+    public void IsGrounded()
+    {
+        _isGrounded = true;
+    }
+
+    public void NotGrounded()
+    {
+        _isGrounded = false;
     }
     #endregion
 
@@ -163,7 +167,7 @@ public class Player : MonoBehaviour
         if (!dust) return;
 
         // sino aparece en el centro
-        Vector3 dustPosition = _transform.position + (Vector3.down * _heightModifier);
+        Vector3 dustPosition = _transform.position + (Vector3.down * _particlePosOff);
         dust.transform.position = dustPosition;
         dust.SetActive(true);
     }
