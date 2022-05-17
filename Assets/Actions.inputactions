@@ -293,7 +293,7 @@
                 {
                     "name": "",
                     "id": "e82fee98-f1a0-47b9-adcc-fb8dac8f4da6",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard/Mouse",

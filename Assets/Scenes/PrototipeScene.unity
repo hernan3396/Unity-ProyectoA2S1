@@ -2366,7 +2366,7 @@ MonoBehaviour:
   _floorDistance: 0.55
   _speed: 20
   _rocketJumpingTimer: 1
-  _fireRate: 0.2
+  _fireRate: 0.1
   _bulletSpeed: 50
   _meleeFinalPos: {x: 0, y: 0, z: 45}
   _meleeSpeed: 0.2
