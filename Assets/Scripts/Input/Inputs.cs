@@ -7,6 +7,7 @@ public class Inputs : MonoBehaviour
     // luego las lees de otro y haces las cosas
     #region Movement
     private bool _canMove = true;
+    public bool Crouching;
     public Vector2 move;
     #endregion
 
@@ -48,6 +49,17 @@ public class Inputs : MonoBehaviour
     public void MoveInput(Vector2 newMoveDirection)
     {
         move = newMoveDirection;
+    }
+
+    public void OnCrouch(InputValue value)
+    {
+        if (!_canMove) return;
+        CrouchInput(value.isPressed);
+    }
+
+    public void CrouchInput(bool newCrouchState)
+    {
+        Crouching = newCrouchState;
     }
     #endregion
 

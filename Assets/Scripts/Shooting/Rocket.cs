@@ -55,7 +55,9 @@ public class Rocket : MonoBehaviour
             if (collider.gameObject.CompareTag("Player"))
             {
                 // Debug.Log(collider.name);
-                Player player = collider.gameObject.GetComponent<Player>();
+                // Player player = collider.gameObject.GetComponent<Player>();
+                // no se si es lo correcto
+                Player player = collider.gameObject.GetComponentInParent<Player>();
                 player.RocketJumping(true);
                 player.TakeDamage(_damage / 8); // _damage es (o era) 40 y lo divide para hacerle solo 5 de daño al player
                 // mover esto al player??
