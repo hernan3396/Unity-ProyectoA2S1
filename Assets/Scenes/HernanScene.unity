@@ -2402,8 +2402,8 @@ MonoBehaviour:
   _bulletSpeed: 50
   _meleeFinalPos: {x: 0, y: 0, z: 45}
   _meleeSpeed: 0.2
-  _crouchingHitbox: {fileID: 0}
-  _standingHitbox: {fileID: 0}
+  _crouchingHitbox: {fileID: 1980105443}
+  _standingHitbox: {fileID: 256224245}
 --- !u!1 &543392916
 GameObject:
   m_ObjectHideFlags: 0

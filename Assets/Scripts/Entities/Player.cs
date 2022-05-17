@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     [Header("Crouching")]
     [SerializeField] private GameObject _crouchingHitbox;
     [SerializeField] private GameObject _standingHitbox;
-    private bool _crouching;
+    private bool _crouching = false; // se podria hacer sin esta variable pero asi se ejecuta solo las veces necesarias el metodo Crouch()
     #endregion
 
     private void Awake()
@@ -106,10 +106,10 @@ public class Player : MonoBehaviour
             Jump();
 
         if (_isGrounded && _input.Crouching)
-            Crouch();
+            Crouch(true);
 
         if (_crouching && !_input.Crouching)
-            StandUp();
+            Crouch(false);
 
         if (_jumping)
         {
@@ -322,18 +322,11 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Crouching
-    private void Crouch()
+    private void Crouch(bool value)
     {
-        _crouchingHitbox.SetActive(true);
-        _standingHitbox.SetActive(false);
-        _crouching = true;
-    }
-
-    private void StandUp()
-    {
-        _crouchingHitbox.SetActive(false);
-        _standingHitbox.SetActive(true);
-        _crouching = false;
+        _crouchingHitbox.SetActive(value);
+        _standingHitbox.SetActive(!value);
+        _crouching = value;
     }
     #endregion
 
