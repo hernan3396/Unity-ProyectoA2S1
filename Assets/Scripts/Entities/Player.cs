@@ -67,6 +67,13 @@ public class Player : MonoBehaviour
     private bool _canMelee = true;
     #endregion
 
+    #region Crouching
+    [Header("Crouching")]
+    [SerializeField] private GameObject _crouchingHitbox;
+    [SerializeField] private GameObject _standingHitbox;
+    private bool _crouching;
+    #endregion
+
     private void Awake()
     {
         _transform = GetComponent<Transform>();
@@ -97,6 +104,12 @@ public class Player : MonoBehaviour
 
         if (_isGrounded && _input.jump)
             Jump();
+
+        if (_isGrounded && _input.Crouching)
+            Crouch();
+
+        if (_crouching && !_input.Crouching)
+            StandUp();
 
         if (_jumping)
         {
@@ -307,6 +320,23 @@ public class Player : MonoBehaviour
         _canMelee = true;
     }
     #endregion
+
+    #region Crouching
+    private void Crouch()
+    {
+        _crouchingHitbox.SetActive(true);
+        _standingHitbox.SetActive(false);
+        _crouching = true;
+    }
+
+    private void StandUp()
+    {
+        _crouchingHitbox.SetActive(false);
+        _standingHitbox.SetActive(true);
+        _crouching = false;
+    }
+    #endregion
+
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;
