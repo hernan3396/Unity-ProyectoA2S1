@@ -50,11 +50,23 @@ public class Player : MonoBehaviour
 
     #region Aiming
     [Header("Aiming")]
-    [SerializeField] private float _fireRate = 0.5f;
-    [SerializeField] private int _bulletSpeed = 20;
     private bool _canShoot = true;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
+    #endregion
+
+    #region WeaponsData
+    // no veo necesidad de pasarlo a otro lado
+    // de momento
+    private enum Weapons
+    {
+        TWINPISTOLS,
+        ROCKETLAUNCHER,
+        BAT
+    }
+
+    [Header("Weapons Data")]
+    [SerializeField] private WeaponData[] _weaponList;
     #endregion
 
     #region Melee
@@ -129,16 +141,25 @@ public class Player : MonoBehaviour
 
         // aca realmente deberiamos tener una variable
         // que tenga la info de arma seleccionada
+        // if (_canShoot && _input.IsShooting)
+        //     StartCoroutine("Shoot", (int)Shooting.BulletType.BULLETPOOL);
+
+        // if (_canShoot && _input.IsShooting)
+        //     StartCoroutine(Shoot((int)_weaponList[0].BulletType, _weaponList[0].FireRate, _weaponList[0].BulletSpeed));
+
+        // if (_canShoot && _input.CannonShooting)
+        //     StartCoroutine(Shoot((int)_weaponList[1].BulletType, _weaponList[1].FireRate, _weaponList[1].BulletSpeed));
+
+        // cual es la mejor forma de llamar esto? como arriba o como abajo?
         if (_canShoot && _input.IsShooting)
-            StartCoroutine("Shoot", (int)Shooting.BulletType.BULLETPOOL);
+            StartCoroutine(Shoot(_weaponList[(int)Weapons.TWINPISTOLS]));
 
         if (_canShoot && _input.CannonShooting)
-            StartCoroutine("Shoot", (int)Shooting.BulletType.ROCKETPOOL);
+            StartCoroutine(Shoot(_weaponList[(int)Weapons.ROCKETLAUNCHER]));
 
         if (_canMelee && _input.Melee)
             StartCoroutine("Melee");
     }
-
     private void FixedUpdate()
     {
         Move();
@@ -214,15 +235,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator Shoot(int bulletType)
+    // la hice de dos maneras, cual seria la correcta??
+
+    // private IEnumerator Shoot(int bulletType, float cooldown, int bulletSpeed)
+    // {
+    //     _canShoot = false;
+
+    //     // Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
+    //     // aca revisar _aimPosition porque creo que no es necesario tenerlo
+    //     Vector3 bulletDirection = _arm.right;
+    //     _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, bulletSpeed);
+    //     yield return new WaitForSeconds(cooldown);
+
+    //     _canShoot = true;
+    // }
+
+    private IEnumerator Shoot(WeaponData weaponData)
     {
         _canShoot = false;
 
-        // Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-        // aca revisar _aimPosition porque creo que no es necesario tenerlo
         Vector3 bulletDirection = _arm.right;
-        _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, _bulletSpeed);
-        yield return new WaitForSeconds(_fireRate);
+        _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
+        yield return new WaitForSeconds(weaponData.FireRate);
 
         _canShoot = true;
     }

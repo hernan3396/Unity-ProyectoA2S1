@@ -2400,6 +2400,9 @@ MonoBehaviour:
   _rocketJumpingTimer: 1
   _fireRate: 0.1
   _bulletSpeed: 50
+  _weaponList:
+  - {fileID: 11400000, guid: df88ce252e0b87e4cbadc1b95ec752d8, type: 2}
+  - {fileID: 11400000, guid: 2ec59ebb87a85754994f670cedaa5383, type: 2}
   _meleeFinalPos: {x: 0, y: 0, z: 45}
   _meleeSpeed: 0.2
   _crouchingHitbox: {fileID: 1980105443}

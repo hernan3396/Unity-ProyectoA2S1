@@ -9,7 +9,8 @@ public class Shooting : MonoBehaviour
     public enum BulletType
     {
         BULLETPOOL,
-        ROCKETPOOL
+        ROCKETPOOL,
+        NONE
     }
 
     private PoolManager[] _pools = new PoolManager[2]; // este numero es la cantidad de armas que tenes (que disparan)
