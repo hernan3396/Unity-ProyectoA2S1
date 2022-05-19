@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour
     {
         _canShoot = false;
         yield return new WaitForSeconds(_fireRate);
-        _shooting.Shoot((int)Shooting.BulletType.BULLETPOOL, _shootingPos.position, _targetDir, _bulletSpeed);
+        _shooting.Shoot((int)Shooting.BulletType.BULLET, _shootingPos.position, _targetDir, _bulletSpeed);
 
         _canShoot = true;
     }

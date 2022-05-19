@@ -8,8 +8,8 @@ public class Shooting : MonoBehaviour
 {
     public enum BulletType
     {
-        BULLETPOOL,
-        ROCKETPOOL,
+        BULLET,
+        ROCKET,
         NONE
     }
 
@@ -17,8 +17,8 @@ public class Shooting : MonoBehaviour
 
     private void Start()
     {
-        _pools[(int)BulletType.BULLETPOOL] = GameManager.GetInstance.GetBulletPool;
-        _pools[(int)BulletType.ROCKETPOOL] = GameManager.GetInstance.GetRocketPool;
+        _pools[(int)BulletType.BULLET] = GameManager.GetInstance.GetBulletPool;
+        _pools[(int)BulletType.ROCKET] = GameManager.GetInstance.GetRocketPool;
     }
 
     public void Shoot(int bulletType, Vector3 bulletPos, Vector3 direction, int bulletSpeed)
