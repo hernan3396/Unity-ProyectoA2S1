@@ -139,18 +139,6 @@ public class Player : MonoBehaviour
                 RocketJumping(false);
         }
 
-        // aca realmente deberiamos tener una variable
-        // que tenga la info de arma seleccionada
-        // if (_canShoot && _input.IsShooting)
-        //     StartCoroutine("Shoot", (int)Shooting.BulletType.BULLETPOOL);
-
-        // if (_canShoot && _input.IsShooting)
-        //     StartCoroutine(Shoot((int)_weaponList[0].BulletType, _weaponList[0].FireRate, _weaponList[0].BulletSpeed));
-
-        // if (_canShoot && _input.CannonShooting)
-        //     StartCoroutine(Shoot((int)_weaponList[1].BulletType, _weaponList[1].FireRate, _weaponList[1].BulletSpeed));
-
-        // cual es la mejor forma de llamar esto? como arriba o como abajo?
         if (_canShoot && _input.IsShooting)
             StartCoroutine(Shoot(_weaponList[(int)Weapons.TWINPISTOLS]));
 
@@ -234,21 +222,6 @@ public class Player : MonoBehaviour
             _arm.right = _input.look;
         }
     }
-
-    // la hice de dos maneras, cual seria la correcta??
-
-    // private IEnumerator Shoot(int bulletType, float cooldown, int bulletSpeed)
-    // {
-    //     _canShoot = false;
-
-    //     // Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-    //     // aca revisar _aimPosition porque creo que no es necesario tenerlo
-    //     Vector3 bulletDirection = _arm.right;
-    //     _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, bulletSpeed);
-    //     yield return new WaitForSeconds(cooldown);
-
-    //     _canShoot = true;
-    // }
 
     private IEnumerator Shoot(WeaponData weaponData)
     {
