@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
             Crouch(true);
 
         if (_crouching && !_input.Crouching)
-            Crouch(false);
+            Crouch(false); // te paras
 
         if (_jumping)
         {
@@ -139,6 +139,7 @@ public class Player : MonoBehaviour
                 RocketJumping(false);
         }
 
+        // if canShoot y luego chequeas las otras
         if (_canShoot && _input.IsShooting)
             StartCoroutine(Shoot(_weaponList[(int)Weapons.TWINPISTOLS]));
 
