@@ -8,17 +8,17 @@ public class Shooting : MonoBehaviour
 {
     public enum BulletType
     {
-        BULLET,
-        ROCKET,
-        NONE
+        Bullet,
+        Rocket,
+        None
     }
 
     private PoolManager[] _pools = new PoolManager[2]; // este numero es la cantidad de armas que tenes (que disparan)
 
     private void Start()
     {
-        _pools[(int)BulletType.BULLET] = GameManager.GetInstance.GetBulletPool;
-        _pools[(int)BulletType.ROCKET] = GameManager.GetInstance.GetRocketPool;
+        _pools[(int)BulletType.Bullet] = GameManager.GetInstance.GetBulletPool;
+        _pools[(int)BulletType.Rocket] = GameManager.GetInstance.GetRocketPool;
     }
 
     public void Shoot(int bulletType, Vector3 bulletPos, Vector3 direction, int bulletSpeed)

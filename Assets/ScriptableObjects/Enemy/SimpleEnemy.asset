@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
   m_Name: SimpleEnemy
   m_EditorClassIdentifier: 
-  HP: 20
-  DAMAGE: 10
-  FIRERATE: 1
-  ACCURACY: 3
-  BULLETSPEED: 30
-  MOVSPEED: 5
-  INVULNERABILITY: 1
-  VISIONRANGE: 30
+  Hp: 20
+  Damage: 10
+  FireRate: 1
+  Accuracy: 3
+  BulletSpeed: 30
+  MovSpeed: 5
+  Invulnerability: 1
+  VisionRange: 30
