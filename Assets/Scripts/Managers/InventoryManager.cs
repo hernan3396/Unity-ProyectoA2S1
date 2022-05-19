@@ -1,15 +1,20 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 
 public class InventoryManager : MonoBehaviour
 {
     // aun no esta terminado
-    public List<InventoryItem> Inventory { get; private set; } = new List<InventoryItem>();
+    [SerializeField] private InventoryItemData[] _items;
 
-    public void Add()
-    {
-    }
+    // public void AddItem(int itemID, int value)
+    // {
+    //     _items[itemID].Add(value);
+    // }
+
+    // public void RemoveItem(int itemID, int value)
+    // {
+    //     _items[itemID].Remove(value);
+    // }
 }
 
 [Serializable]

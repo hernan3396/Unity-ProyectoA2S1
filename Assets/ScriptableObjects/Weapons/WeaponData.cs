@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponData", menuName = "new Weapon", order = 0)]
+[CreateAssetMenu(fileName = "NewWeapon", menuName = "Weapons/New Weapon", order = 0)]
 public class WeaponData : ScriptableObject
 {
     // pasar el bullettype para aca
