@@ -17,8 +17,8 @@ public class Shooting : MonoBehaviour
 
     private void Start()
     {
-        _pools[(int)BulletType.Bullet] = GameManager.GetInstance.GetBulletPool;
-        _pools[(int)BulletType.Rocket] = GameManager.GetInstance.GetRocketPool;
+        _pools[(int)WeaponData.BulletType.Bullet] = GameManager.GetInstance.GetBulletPool;
+        _pools[(int)WeaponData.BulletType.Rocket] = GameManager.GetInstance.GetRocketPool;
     }
 
     public void Shoot(int bulletType, Vector3 bulletPos, Vector3 direction, int bulletSpeed)

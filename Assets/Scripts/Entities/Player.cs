@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
         _canShoot = false;
 
         Vector3 bulletDirection = _arm.right;
-        _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
+        _shooting.Shoot((int)weaponData.AmmoType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
         yield return new WaitForSeconds(weaponData.FireRate);
 
         _canShoot = true;
