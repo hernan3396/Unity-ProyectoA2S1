@@ -86,6 +86,10 @@ public class Player : MonoBehaviour
     private bool _crouching = false; // se podria hacer sin esta variable pero asi se ejecuta solo las veces necesarias el metodo Crouch()
     #endregion
 
+    #region Inventory
+    private InventoryManager _invManager;
+    #endregion
+
     private void Awake()
     {
         _transform = GetComponent<Transform>();
@@ -98,6 +102,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _uiController = GameManager.GetInstance.GetUIController;
+        _invManager = GameManager.GetInstance.GetInvManager;
         _bloodPool = GameManager.GetInstance.GetBloodPool;
         _dustPool = GameManager.GetInstance.GetDustPool;
         _shooting = GameManager.GetInstance.GetShooting;
@@ -139,12 +144,20 @@ public class Player : MonoBehaviour
                 RocketJumping(false);
         }
 
-        // if canShoot y luego chequeas las otras
-        if (_canShoot && _input.IsShooting)
-            StartCoroutine(Shoot(_weaponList[(int)Weapons.TWINPISTOLS]));
+        if (_canShoot)
+        {
+            if (_input.IsShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)Weapons.TWINPISTOLS]));
+                return;
+            }
 
-        if (_canShoot && _input.CannonShooting)
-            StartCoroutine(Shoot(_weaponList[(int)Weapons.ROCKETLAUNCHER]));
+            if (_input.CannonShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)Weapons.ROCKETLAUNCHER]));
+                return;
+            }
+        }
 
         if (_canMelee && _input.Melee)
             StartCoroutine("Melee");
@@ -226,10 +239,18 @@ public class Player : MonoBehaviour
 
     private IEnumerator Shoot(WeaponData weaponData)
     {
+        // chequea si hay balas
+        if (_invManager.GetAmount((int)weaponData.BulletType) <= 0) yield break;
+
+        // si hay balas sigue adelante
         _canShoot = false;
 
         Vector3 bulletDirection = _arm.right;
-        _shooting.Shoot((int)weaponData.AmmoType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
+        _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
+
+        // consume una bala del inventario
+        _invManager.RemoveAmount((int)weaponData.BulletType, 1);
+
         yield return new WaitForSeconds(weaponData.FireRate);
 
         _canShoot = true;

@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     #region Components
-    [SerializeField] private UIController _uiController;
+    #region Pools
+    [Header("Pools")]
     // esto despues se puede pasar a un array de poolmanagers
     // y usar un enum para mantener el orden
     [SerializeField] private PoolManager _explosionPool;
@@ -15,6 +16,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PoolManager _healthPool;
     [SerializeField] private PoolManager _bloodPool;
     [SerializeField] private PoolManager _dustPool;
+    #endregion
+
+    [Header("TFW no pool")]
+    [SerializeField] private InventoryManager _invManager;
+    [SerializeField] private UIController _uiController;
     [SerializeField] private Transform _playerPos;
     [SerializeField] private Shooting _shooting;
     [SerializeField] private Inputs _input;
@@ -131,5 +137,10 @@ public class GameManager : MonoBehaviour
     public UIController GetUIController
     {
         get { return _uiController; }
+    }
+
+    public InventoryManager GetInvManager
+    {
+        get { return _invManager; }
     }
 }

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: BulletItem
   DisplayName: Bullet
-  Prefab: {fileID: 6226614882738056657, guid: 02ffb4730c04bb448bd002880a6341bb, type: 3}
+  MaxStack: 300

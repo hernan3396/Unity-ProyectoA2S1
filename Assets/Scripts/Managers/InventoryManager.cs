@@ -3,38 +3,114 @@ using System;
 
 public class InventoryManager : MonoBehaviour
 {
-    // aun no esta terminado
-    [SerializeField] private InventoryItemData[] _items;
+    // la vida deberia ser un item?
+    public enum ItemID
+    {
+        Bullet,
+        Rocket,
+        None
+    }
 
-    // public void AddItem(int itemID, int value)
-    // {
-    //     _items[itemID].Add(value);
-    // }
+    #region Components
+    private UIController _uiController;
+    #endregion
 
-    // public void RemoveItem(int itemID, int value)
-    // {
-    //     _items[itemID].Remove(value);
-    // }
+    [SerializeField] private InventoryItemData[] _itemData; // los prefabs con info
+    [SerializeField] private InventoryItem[] _items; // la lista de items
+
+    private void Start()
+    {
+        _uiController = GameManager.GetInstance.GetUIController;
+
+        PopulateInventory();
+    }
+
+    // creates initial list for items
+    private void PopulateInventory()
+    {
+        _items = new InventoryItem[_itemData.Length];
+
+        for (int i = 0; i < _itemData.Length; i++)
+        {
+            _items[i] = new InventoryItem();
+            _items[i].SetData(_itemData[i]);
+            _items[i].SetAmount(0);
+
+            // aca leerias de los player prefs cuantas tenia
+            // anteriormente el player, de momento seteo el maximo
+            // que viene en ItemData.MaxStack
+            _items[i].SetAmount(_itemData[i].MaxStack);
+
+            _uiController.UpdateItemText(i, _items[i].GetCurrentAmonut);
+        }
+    }
+
+    public void AddAmount(int itemID, int value)
+    {
+        _items[itemID].AddAmount(value);
+        // seguro se puede hacer distinto esto
+        // pero aun ni tenemos ui hecha mas que 
+        // place holders asi que aguanta
+        _uiController.UpdateItemText(itemID, _items[itemID].GetCurrentAmonut);
+    }
+
+    public void RemoveAmount(int itemID, int value)
+    {
+        _items[itemID].RemoveAmount(value);
+        _uiController.UpdateItemText(itemID, _items[itemID].GetCurrentAmonut);
+    }
+
+    public int GetAmount(int itemID) => _items[itemID].GetCurrentAmonut;
+
+    // rellena completamente las balas
+    public void Restock()
+    {
+        // es un metodo para debugging
+        // asi que no importa que haya quedado
+        // super raro escrito
+        _items[(int)ItemID.Bullet].SetAmount(_itemData[(int)ItemID.Bullet].MaxStack);
+        _uiController.UpdateItemText((int)ItemID.Bullet, _items[(int)ItemID.Bullet].GetCurrentAmonut);
+        _items[(int)ItemID.Rocket].SetAmount(_itemData[(int)ItemID.Rocket].MaxStack);
+        _uiController.UpdateItemText((int)ItemID.Rocket, _items[(int)ItemID.Rocket].GetCurrentAmonut);
+    }
 }
 
 [Serializable]
 public class InventoryItem
 {
-    public InventoryItemData Data { get; private set; }
-    public int Amount { get; private set; }
+    // si necesitas debuggear pasar estas privadas
+    // a publicas, para eso el [Serializable]
+    private InventoryItemData Data; // data del item
+    private int Amount; // cantidad de items que tiene
 
-    public InventoryItem(InventoryItemData itemData)
-    {
-        Data = itemData;
-    }
-
-    public void Add(int value)
+    public void SetData(InventoryItemData itemData) => Data = itemData;
+    public void AddAmount(int value)
     {
         Amount += value;
-    }
 
-    public void Remove(int value)
+        if (Amount > Data.MaxStack)
+            Amount = Data.MaxStack;
+    }
+    public void RemoveAmount(int value)
     {
         Amount -= value;
+
+        if (Amount < 0)
+            Amount = 0;
     }
+
+    public void SetAmount(int value)
+    {
+        Amount = value;
+
+        if (Amount > Data.MaxStack)
+            Amount = Data.MaxStack;
+    }
+
+    #region Getter/Setter
+    public int GetCurrentAmonut
+    {
+        get { return Amount; }
+    }
+    #endregion
 }
