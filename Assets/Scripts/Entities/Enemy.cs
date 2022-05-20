@@ -70,15 +70,15 @@ public class Enemy : MonoBehaviour
 
     private void SetStats()
     {
-        _hp = _enemyData.HP;
+        _hp = _enemyData.Hp;
         _currentHP = _hp;
 
-        _fireRate = _enemyData.FIRERATE;
-        _accuracy = _enemyData.ACCURACY;
-        _bulletSpeed = _enemyData.BULLETSPEED;
-        _movSpeed = _enemyData.MOVSPEED;
-        _invulnerability = _enemyData.INVULNERABILITY;
-        _visionRange = _enemyData.VISIONRANGE;
+        _fireRate = _enemyData.FireRate;
+        _accuracy = _enemyData.Accuracy;
+        _bulletSpeed = _enemyData.BulletSpeed;
+        _movSpeed = _enemyData.MovSpeed;
+        _invulnerability = _enemyData.Invulnerability;
+        _visionRange = _enemyData.VisionRange;
     }
 
     #region Aiming
@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour
     {
         _canShoot = false;
         yield return new WaitForSeconds(_fireRate);
-        _shooting.Shoot((int)Shooting.BulletType.BULLETPOOL, _shootingPos.position, _targetDir, _bulletSpeed);
+        _shooting.Shoot((int)InventoryManager.ItemID.Bullet, _shootingPos.position, _targetDir, _bulletSpeed);
 
         _canShoot = true;
     }

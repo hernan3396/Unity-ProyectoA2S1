@@ -50,11 +50,23 @@ public class Player : MonoBehaviour
 
     #region Aiming
     [Header("Aiming")]
-    [SerializeField] private float _fireRate = 0.5f;
-    [SerializeField] private int _bulletSpeed = 20;
     private bool _canShoot = true;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
+    #endregion
+
+    #region WeaponsData
+    // no veo necesidad de pasarlo a otro lado
+    // de momento
+    private enum Weapons
+    {
+        TWINPISTOLS,
+        ROCKETLAUNCHER,
+        BAT
+    }
+
+    [Header("Weapons Data")]
+    [SerializeField] private WeaponData[] _weaponList;
     #endregion
 
     #region Melee
@@ -74,6 +86,10 @@ public class Player : MonoBehaviour
     private bool _crouching = false; // se podria hacer sin esta variable pero asi se ejecuta solo las veces necesarias el metodo Crouch()
     #endregion
 
+    #region Inventory
+    private InventoryManager _invManager;
+    #endregion
+
     private void Awake()
     {
         _transform = GetComponent<Transform>();
@@ -86,6 +102,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _uiController = GameManager.GetInstance.GetUIController;
+        _invManager = GameManager.GetInstance.GetInvManager;
         _bloodPool = GameManager.GetInstance.GetBloodPool;
         _dustPool = GameManager.GetInstance.GetDustPool;
         _shooting = GameManager.GetInstance.GetShooting;
@@ -109,7 +126,7 @@ public class Player : MonoBehaviour
             Crouch(true);
 
         if (_crouching && !_input.Crouching)
-            Crouch(false);
+            Crouch(false); // te paras
 
         if (_jumping)
         {
@@ -127,18 +144,24 @@ public class Player : MonoBehaviour
                 RocketJumping(false);
         }
 
-        // aca realmente deberiamos tener una variable
-        // que tenga la info de arma seleccionada
-        if (_canShoot && _input.IsShooting)
-            StartCoroutine("Shoot", (int)Shooting.BulletType.BULLETPOOL);
+        if (_canShoot)
+        {
+            if (_input.IsShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)Weapons.TWINPISTOLS]));
+                return;
+            }
 
-        if (_canShoot && _input.CannonShooting)
-            StartCoroutine("Shoot", (int)Shooting.BulletType.ROCKETPOOL);
+            if (_input.CannonShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)Weapons.ROCKETLAUNCHER]));
+                return;
+            }
+        }
 
         if (_canMelee && _input.Melee)
             StartCoroutine("Melee");
     }
-
     private void FixedUpdate()
     {
         Move();
@@ -214,15 +237,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator Shoot(int bulletType)
+    private IEnumerator Shoot(WeaponData weaponData)
     {
+        // chequea si hay balas
+        if (_invManager.GetAmount((int)weaponData.BulletType) <= 0) yield break;
+
+        // si hay balas sigue adelante
         _canShoot = false;
 
-        // Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-        // aca revisar _aimPosition porque creo que no es necesario tenerlo
         Vector3 bulletDirection = _arm.right;
-        _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, _bulletSpeed);
-        yield return new WaitForSeconds(_fireRate);
+        _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
+
+        // consume una bala del inventario
+        _invManager.RemoveAmount((int)weaponData.BulletType, 1);
+
+        yield return new WaitForSeconds(weaponData.FireRate);
 
         _canShoot = true;
     }

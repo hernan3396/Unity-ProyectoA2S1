@@ -9,12 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 9daffaff01cea824d84bf65ad2a4f2bc
   - enabled: 1
-    path: Assets/Scenes/HernanScene.unity
-    guid: 57c345d3a5d02694a89da3214040f840
-  - enabled: 1
-    path: Assets/Scenes/PrototipeScene.unity
-    guid: 791ca00ab4ced4c488c1b56da2ef0a9b
-  - enabled: 1
     path: Assets/Scenes/CreditsScene.unity
     guid: 98a8a7050cf65424a95a494600c76ada
+  - enabled: 1
+    path: Assets/Scenes/PrototipeScene.unity
+    guid: c8b89e3edf952124ba448586c91a4da3
   m_configObjects: {}

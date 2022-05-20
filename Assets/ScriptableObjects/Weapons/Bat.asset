@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
-  m_Name: SimpleEnemy
+  m_Script: {fileID: 11500000, guid: 4722789990270ba44bc38ae88bf77739, type: 3}
+  m_Name: Bat
   m_EditorClassIdentifier: 
-  Hp: 20
-  Damage: 10
-  FireRate: 1
-  Accuracy: 3
-  BulletSpeed: 30
-  MovSpeed: 5
-  Invulnerability: 1
-  VisionRange: 30
+  Name: Bat
+  BulletSpeed: 0
+  FireRate: 0.5
+  BulletType: 2
