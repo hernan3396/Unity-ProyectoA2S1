@@ -10,19 +10,16 @@ public abstract class Entity : MonoBehaviour
     #endregion
     #region Parameters
     [Header("Parameters")]
-    [SerializeField] protected int _maxHP;
-    [SerializeField] protected int _movSpeed;
-    [SerializeField] protected float _fireRate;
-    [SerializeField] protected int _bulletSpeed;
-    [SerializeField] protected float _invulnerability;
-    [SerializeField] protected float _meleeSpeed;
+    protected int _hp;
+    protected int _speed;
+    protected float _invulnerability;
     protected bool _isInmune;
     protected int _currentHP;
+    protected WeaponData[] _weaponList;
     #endregion
 
-    protected void Awake()
+    protected virtual void Awake()
     {
-        _currentHP = _maxHP;
         _transform = GetComponent<Transform>();
     }
 
@@ -36,7 +33,7 @@ public abstract class Entity : MonoBehaviour
     protected abstract IEnumerator Shoot(WeaponData weaponData);
     protected abstract IEnumerator Melee();
     protected abstract void Death();
-    protected void TakeDamage(int value)
+    public void TakeDamage(int value)
     {
         if (_isInmune) return;
         _isInmune = true;

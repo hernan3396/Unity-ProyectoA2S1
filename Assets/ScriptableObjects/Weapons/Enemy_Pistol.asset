@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Enemy_Pistol
   BulletSpeed: 1
   FireRate: 15
+  _weaponType: 2
   BulletType: 0

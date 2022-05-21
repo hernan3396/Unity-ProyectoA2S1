@@ -73,10 +73,7 @@ public class Enemy : MonoBehaviour
         _hp = _enemyData.Hp;
         _currentHP = _hp;
 
-        _fireRate = _enemyData.FireRate;
         _accuracy = _enemyData.Accuracy;
-        _bulletSpeed = _enemyData.BulletSpeed;
-        _movSpeed = _enemyData.MovSpeed;
         _invulnerability = _enemyData.Invulnerability;
         _visionRange = _enemyData.VisionRange;
     }

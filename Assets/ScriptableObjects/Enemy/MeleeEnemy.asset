@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
-  m_Name: SimpleEnemy
+  m_Name: MeleeEnemy
   m_EditorClassIdentifier: 
-  Hp: 20
-  Damage: 10
-  FireRate: 1
-  Accuracy: 3
-  BulletSpeed: 30
-  MovSpeed: 5
-  Invulnerability: 1
-  VisionRange: 30
+  Hp: 1273891237
+  Invulnerability: 2.189372e+9
+  Speed: 2147483647
+  Accuracy: 1.2738912e+10
+  VisionRange: 123123
+  WeaponList: []

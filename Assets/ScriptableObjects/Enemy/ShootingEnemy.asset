@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4722789990270ba44bc38ae88bf77739, type: 3}
-  m_Name: Bat
+  m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
+  m_Name: ShootingEnemy
   m_EditorClassIdentifier: 
-  Name: Bat
-  BulletSpeed: 0
-  FireRate: 0.5
-  _weaponType: 2
-  BulletType: 2
+  Hp: 20
+  Invulnerability: 1
+  Speed: 8
+  Accuracy: 3
+  VisionRange: 30
+  WeaponList:
+  - {fileID: 11400000, guid: 4164be21e44c964439ecb647a11bb58c, type: 2}
