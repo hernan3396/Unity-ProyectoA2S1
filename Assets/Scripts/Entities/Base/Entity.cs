@@ -23,9 +23,11 @@ public abstract class Entity : MonoBehaviour
         _transform = GetComponent<Transform>();
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
-        _shooting = GetComponent<Shooting>();
+        _bloodPool = GameManager.GetInstance.GetBloodPool;
+        _shooting = GameManager.GetInstance.GetShooting;
+
     }
 
     protected abstract void Move();
@@ -33,7 +35,8 @@ public abstract class Entity : MonoBehaviour
     protected abstract IEnumerator Shoot(WeaponData weaponData);
     protected abstract IEnumerator Melee();
     protected abstract void Death();
-    public void TakeDamage(int value)
+
+    public virtual void TakeDamage(int value)
     {
         if (_isInmune) return;
         _isInmune = true;

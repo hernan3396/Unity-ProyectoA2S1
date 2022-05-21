@@ -21,11 +21,6 @@ public class PlayerData : ScriptableObject
     public int Speed;
     #endregion
 
-    #region RocketJumping
-    [Header("Rocket Jumping")]
-    public float RocketJumpingTimer; // no esta
-    #endregion
-
     #region WeaponsData
     [Header("Weapons Data")]
     [SerializeField] public WeaponData[] WeaponList;
