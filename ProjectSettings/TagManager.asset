@@ -7,6 +7,7 @@ TagManager:
   - Floor
   - Enemy
   - Health
+  - BounceWall
   layers:
   - Default
   - TransparentFX

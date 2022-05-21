@@ -54,6 +54,19 @@ public class Bullet : MonoBehaviour
             return;
         }
 
+        if (other.gameObject.CompareTag("BounceWall"))
+        {
+            Vector3 inNormal = other.contacts[0].normal; // la normal del plano
+            Vector3 direction = transform.position - other.contacts[0].point;
+
+            Debug.Log("punto de choque" + other.contacts[0].point);
+            Debug.Log("transform bala" + transform.position);
+
+            Vector3 outDir = Vector3.Reflect(direction.normalized, inNormal);
+            _rb.velocity = outDir.normalized * 30;
+            return;
+        }
+
         // gameObject.SetActive(false); // si no choca contra nada
     }
 }
