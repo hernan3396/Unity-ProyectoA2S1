@@ -8,6 +8,7 @@ public abstract class Entity : MonoBehaviour
     protected Transform _transform;
     protected Shooting _shooting;
     #endregion
+
     #region Parameters
     [Header("Parameters")]
     protected int _hp;
@@ -27,10 +28,9 @@ public abstract class Entity : MonoBehaviour
     {
         _bloodPool = GameManager.GetInstance.GetBloodPool;
         _shooting = GameManager.GetInstance.GetShooting;
-
     }
 
-    protected abstract void Move();
+    protected abstract void SetNextWaypoint();
     protected abstract void Aim();
     protected abstract IEnumerator Shoot(WeaponData weaponData);
     protected abstract IEnumerator Melee();

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Enemy_Pistol
   m_EditorClassIdentifier: 
   Name: Enemy_Pistol
-  BulletSpeed: 1
-  FireRate: 15
-  _weaponType: 2
+  BulletSpeed: 20
+  FireRate: 1
   BulletType: 0

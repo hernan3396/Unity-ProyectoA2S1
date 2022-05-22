@@ -3,11 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Weapons/New Weapon", order = 0)]
 public class WeaponData : ScriptableObject
 {
+    // serian las player weapons
     public enum Weapons
     {
         TwinPistols,
         RocketLauncher,
-        EnemyPistol,
+        // EnemyPistol, no es necesario esto porque el enemigo siempre tiene 1 arma
         Bat
     }
 

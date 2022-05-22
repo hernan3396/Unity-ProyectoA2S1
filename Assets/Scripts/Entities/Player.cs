@@ -141,13 +141,13 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
-        Move();
+        SetNextWaypoint();
 
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
     }
 
     #region HorizontalMovement
-    protected override void Move()
+    protected override void SetNextWaypoint()
     {
         if (_isRocketJumping) return;
         _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);

@@ -554,8 +554,7 @@ GameObject:
   - component: {fileID: 117808575}
   - component: {fileID: 117808579}
   - component: {fileID: 117808578}
-  - component: {fileID: 117808577}
-  - component: {fileID: 117808576}
+  - component: {fileID: 117808580}
   m_Layer: 0
   m_Name: AI_Enemy_001
   m_TagString: Enemy
@@ -580,38 +579,6 @@ Transform:
   m_Father: {fileID: 2029317928}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &117808576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117808574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce83dbb19dd5ea47a299c0547a16251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _waypointsContainer: {fileID: 739509101}
-  _newWaypointSpeed: 1
---- !u!114 &117808577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117808574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
-  _shootingPos: {fileID: 1089271061}
-  _arm: {fileID: 323469572}
-  _objLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!195 &117808578
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -648,6 +615,26 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &117808580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117808574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc71137fa3bd5f499c06269dcb317b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _shootingPos: {fileID: 1089271061}
+  _arm: {fileID: 323469572}
+  _objLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _waypointsContainer: {fileID: 739509101}
+  _newWaypointDelay: 1
 --- !u!1 &138462592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,7 +1704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &368452804
 Transform:
   m_ObjectHideFlags: 0
@@ -1747,12 +1734,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 788848403}
   _arm: {fileID: 1977984381}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &368452806
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2400,7 +2402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &480880493
 Transform:
   m_ObjectHideFlags: 0
@@ -2430,12 +2432,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 140722032}
   _arm: {fileID: 1762448894}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &480880495
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3238,7 +3255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &571081711
 Transform:
   m_ObjectHideFlags: 0
@@ -3268,12 +3285,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 1173756241}
   _arm: {fileID: 1393358334}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &571081713
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6571,7 +6603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1205763702
 Transform:
   m_ObjectHideFlags: 0
@@ -6601,12 +6633,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 1427597367}
   _arm: {fileID: 1089914274}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &1205763706
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8474,7 +8521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1447444950
 Transform:
   m_ObjectHideFlags: 0
@@ -8504,12 +8551,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 919900153}
   _arm: {fileID: 189430425}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &1447444952
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9009,7 +9071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1509878542
 Transform:
   m_ObjectHideFlags: 0
@@ -9039,12 +9101,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 138462593}
   _arm: {fileID: 579653191}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &1509878544
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10179,7 +10256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1858945244
 Transform:
   m_ObjectHideFlags: 0
@@ -10209,12 +10286,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 1294491090}
   _arm: {fileID: 880557425}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &1858945246
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10547,7 +10639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1940128387
 Transform:
   m_ObjectHideFlags: 0
@@ -10577,12 +10669,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 168463958}
   _arm: {fileID: 1003803801}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &1940128389
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10711,7 +10818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1972200500
 Transform:
   m_ObjectHideFlags: 0
@@ -10741,12 +10848,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b010e14ca4d079e40842fb42875a3675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodPool: {fileID: 0}
   _enemyData: {fileID: 11400000, guid: 9b687af175aa3674782830c92d06e8f8, type: 2}
+  _hp: 0
+  _currentHP: 0
+  _fireRate: 0
+  _accuracy: 0
+  _bulletSpeed: 0
+  _movSpeed: 0
+  _invulnerability: 0
+  _visionRange: 0
   _shootingPos: {fileID: 8078597}
   _arm: {fileID: 1598609575}
+  _transform: {fileID: 0}
   _objLayer:
-    serializedVersion: 2
     m_Bits: 64
+  _enemyOnSight: 0
+  _targetPos: {fileID: 0}
+  _targetDir: {x: 0, y: 0, z: 0}
+  _shooting: {fileID: 0}
+  _canShoot: 1
+  _isInmune: 0
 --- !u!136 &1972200502
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10976,7 +11098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2029317928
 Transform:
   m_ObjectHideFlags: 0

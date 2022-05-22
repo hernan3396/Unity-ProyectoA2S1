@@ -11,6 +11,7 @@ public class EnemyData : ScriptableObject
 
     #region Movement
     [Header("Movement")]
+    public int Acceleration;
     public int Speed; // velocidad de movimiento
     #endregion
 

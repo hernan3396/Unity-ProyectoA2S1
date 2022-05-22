@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 20
   Invulnerability: 1
-  Speed: 8
+  Acceleration: 8
+  Speed: 4
   Accuracy: 3
   VisionRange: 30
   WeaponList:
