@@ -34,6 +34,8 @@ public class Player : Entity
     #endregion
 
     #region RocketJumping
+    [Header("Rocket Jumping")]
+    [SerializeField] private int _rocketImpulse = 5;
     private bool _isRocketJumping;
     #endregion
 
@@ -149,7 +151,12 @@ public class Player : Entity
     #region HorizontalMovement
     protected override void SetNextWaypoint()
     {
-        if (_isRocketJumping) return;
+        if (_isRocketJumping)
+        {
+            _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
+            return;
+        }
+
         _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
     }
     #endregion
