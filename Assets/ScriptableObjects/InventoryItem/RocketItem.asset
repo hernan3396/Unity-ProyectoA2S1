@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: RocketItem
   DisplayName: Rocket
-  MaxStack: 5
+  MaxStack: 3

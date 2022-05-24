@@ -9,6 +9,7 @@ public class WeaponData : ScriptableObject
         TwinPistols,
         RocketLauncher,
         // EnemyPistol, no es necesario esto porque el enemigo siempre tiene 1 arma
+        // entnces llamas al primer indice del arreglo
         Bat
     }
 
