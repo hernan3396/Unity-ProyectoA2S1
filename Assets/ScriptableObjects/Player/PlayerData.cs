@@ -11,10 +11,9 @@ public class PlayerData : ScriptableObject
 
     #region Jumping
     [Header("Jumping")]
-    public int GravityScale;
-    public float ParticlePossOff;
-    public int JumpForce;
-    public int JumpTime;
+    public int GravityScale; // no esta
+    public int JumpForce; // no esta
+    public int JumpTime; // no esta
     #endregion
 
     #region Movement
@@ -22,13 +21,8 @@ public class PlayerData : ScriptableObject
     public int Speed;
     #endregion
 
-    #region Rocket Jumping
-    [Header("Rocket Jumping")]
-    public float RocketJumpingTimer;
-    #endregion
-
     #region WeaponsData
     [Header("Weapons Data")]
-    [SerializeField] private WeaponData[] _weaponList;
+    [SerializeField] public WeaponData[] WeaponList;
     #endregion
 }

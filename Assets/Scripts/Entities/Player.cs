@@ -2,39 +2,31 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
     #region Components
+    private InventoryManager _invManager;
     private UIController _uiController;
-    private Shooting _shooting;
     private Rigidbody _rb;
     private Inputs _input;
     private Camera _cam;
     #endregion
 
-    #region HealthPoints
-    [SerializeField] private float _invulnerability = 2;
-    [SerializeField] private int _maxHealthPoints = 100;
-    private PoolManager _bloodPool;
-    private bool _isInmune = false;
-    private int _healthPoints;
+    #region Parameters
+    [SerializeField] private PlayerData _playerData;
+    private int _gravityScale;
+    private int _jumpForce;
+    private int _jumpTime;
     #endregion
 
     #region BodyParts
-    [Header("Body Parts")]
+    [SerializeField] private Transform _particlePosOff;
     [SerializeField] private Transform _shootingPos;
     [SerializeField] private Transform _meleeArm;
     [SerializeField] private Transform _arm;
-    private Transform _transform;
     #endregion
 
     #region Jumping
-    [Header("Jumping")]
-    [SerializeField] private float _gravityScale = 10f;
-    [SerializeField] private float _particlePosOff;
-    [SerializeField] private int _jumpForce = 15;
-    [SerializeField] private float _jumpTime = 1;
-    [SerializeField] private int _speed = 20;
     private bool _isGrounded = true;
     private bool _jumping = false;
     private PoolManager _dustPool;
@@ -43,30 +35,14 @@ public class Player : MonoBehaviour
 
     #region RocketJumping
     [Header("Rocket Jumping")]
-    [SerializeField] private float _rocketJumpingTimer = 1; // el tiempo maximo que pasa en el estado de "Rocket jumping"
-    private bool _isRocketJumping = false;
-    private float _rocketTimer;
+    [SerializeField] private int _rocketImpulse = 5;
+    private bool _isRocketJumping;
     #endregion
 
     #region Aiming
-    [Header("Aiming")]
     private bool _canShoot = true;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
-    #endregion
-
-    #region WeaponsData
-    // no veo necesidad de pasarlo a otro lado
-    // de momento
-    private enum Weapons
-    {
-        TWINPISTOLS,
-        ROCKETLAUNCHER,
-        BAT
-    }
-
-    [Header("Weapons Data")]
-    [SerializeField] private WeaponData[] _weaponList;
     #endregion
 
     #region Melee
@@ -86,34 +62,44 @@ public class Player : MonoBehaviour
     private bool _crouching = false; // se podria hacer sin esta variable pero asi se ejecuta solo las veces necesarias el metodo Crouch()
     #endregion
 
-    #region Inventory
-    private InventoryManager _invManager;
-    #endregion
-
-    private void Awake()
+    protected override void Awake()
     {
-        _transform = GetComponent<Transform>();
-        _input = GetComponent<Inputs>();
-        _rb = GetComponent<Rigidbody>();
+        base.Awake();
+        SetStats();
 
-        _meleeInitialRot = _meleeArm.rotation;
+        _rb = GetComponent<Rigidbody>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _uiController = GameManager.GetInstance.GetUIController;
         _invManager = GameManager.GetInstance.GetInvManager;
-        _bloodPool = GameManager.GetInstance.GetBloodPool;
         _dustPool = GameManager.GetInstance.GetDustPool;
-        _shooting = GameManager.GetInstance.GetShooting;
         _cam = GameManager.GetInstance.GetMainCamera;
         _input = GameManager.GetInstance.GetInput;
 
-        _healthPoints = _maxHealthPoints;
-        _uiController.UpdateHealthPoints(_healthPoints); // seteo inicial de la UI
+        _uiController.UpdateHealthPoints(_currentHP);
 
         _input.OnControlChanged += ControlChanged;
     }
+
+    #region Parameters
+    private void SetStats()
+    {
+        _hp = _playerData.Hp;
+        _currentHP = _hp;
+        _invulnerability = _playerData.Invulnerability;
+
+        _gravityScale = _playerData.GravityScale;
+        _jumpForce = _playerData.JumpForce;
+        _jumpTime = _playerData.JumpTime;
+
+        _speed = _playerData.Speed;
+
+        _weaponList = _playerData.WeaponList;
+    }
+    #endregion
 
     private void Update()
     {
@@ -126,7 +112,7 @@ public class Player : MonoBehaviour
             Crouch(true);
 
         if (_crouching && !_input.Crouching)
-            Crouch(false); // te paras
+            Crouch(false);
 
         if (_jumping)
         {
@@ -136,44 +122,41 @@ public class Player : MonoBehaviour
                 StopJump();
         }
 
-        if (_isRocketJumping)
-        {
-            _rocketTimer -= Time.deltaTime;
-
-            if (_rocketTimer <= 0)
-                RocketJumping(false);
-        }
-
         if (_canShoot)
         {
             if (_input.IsShooting)
             {
-                StartCoroutine(Shoot(_weaponList[(int)Weapons.TWINPISTOLS]));
+                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.TwinPistols]));
                 return;
             }
 
             if (_input.CannonShooting)
             {
-                StartCoroutine(Shoot(_weaponList[(int)Weapons.ROCKETLAUNCHER]));
+                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.RocketLauncher]));
                 return;
             }
         }
 
-        if (_canMelee && _input.Melee)
-            StartCoroutine("Melee");
+        if (_canMelee && _input.Melee) { };
+        // melee
     }
+
     private void FixedUpdate()
     {
-        Move();
+        SetNextWaypoint();
 
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
     }
 
     #region HorizontalMovement
-    private void Move()
+    protected override void SetNextWaypoint()
     {
-        // Debug.Log(_input.move);
-        if (_isRocketJumping) return;
+        if (_isRocketJumping)
+        {
+            _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
+            return;
+        }
+
         _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
     }
     #endregion
@@ -184,6 +167,7 @@ public class Player : MonoBehaviour
     public void IsGrounded()
     {
         _isGrounded = true;
+        _isRocketJumping = false;
     }
 
     public void NotGrounded()
@@ -203,7 +187,7 @@ public class Player : MonoBehaviour
         if (!dust) return;
 
         // sino aparece en el centro
-        Vector3 dustPosition = _transform.position + (Vector3.down * _particlePosOff);
+        Vector3 dustPosition = _particlePosOff.position;
         dust.transform.position = dustPosition;
         dust.SetActive(true);
     }
@@ -218,7 +202,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Aiming
-    private void Aim()
+    protected override void Aim()
     {
         if (_isMouse)
         {
@@ -237,7 +221,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator Shoot(WeaponData weaponData)
+    protected override IEnumerator Shoot(WeaponData weaponData)
     {
         // chequea si hay balas
         if (_invManager.GetAmount((int)weaponData.BulletType) <= 0) yield break;
@@ -276,61 +260,32 @@ public class Player : MonoBehaviour
     #region Damage
     public void AddHealth(int value)
     {
-        if (_healthPoints + value <= _maxHealthPoints)
+        if (_currentHP + value <= _hp)
         {
-            _healthPoints += value;
+            _currentHP += value;
         }
         else
         {
-            _healthPoints = _maxHealthPoints;
+            _currentHP = _hp;
         }
-        _uiController.UpdateHealthPoints(_healthPoints);
+
+        _uiController.UpdateHealthPoints(_currentHP);
     }
 
-    public void TakeDamage(int value)
+    public override void TakeDamage(int value)
     {
-        if (_isInmune) return;
-        _isInmune = true;
-
-        GameObject blood = _bloodPool.GetPooledObject();
-        if (!blood) return;
-
-        blood.transform.position = _transform.position;
-        blood.SetActive(true);
-
-        _healthPoints -= value;
-        _uiController.UpdateHealthPoints(_healthPoints);
-
-        StartCoroutine("InmuneReset");
-
-        if (_healthPoints <= 0)
-            Death();
+        base.TakeDamage(value);
+        _uiController.UpdateHealthPoints(_currentHP);
     }
 
-    private IEnumerator InmuneReset()
-    {
-        yield return new WaitForSeconds(_invulnerability);
-        _isInmune = false;
-    }
-
-    private void Death()
+    protected override void Death()
     {
         GameManager.GetInstance.GameOver();
     }
     #endregion
 
-    #region RocketJumping
-    public void RocketJumping(bool value)
-    {
-        _isRocketJumping = value;
-
-        if (_isRocketJumping)
-            _rocketTimer = _rocketJumpingTimer;
-    }
-    #endregion
-
     #region Melee
-    private IEnumerator Melee()
+    protected override IEnumerator Melee()
     {
         // falta que use la direccion del mouse
         // o la rotacion del personaje
@@ -359,12 +314,19 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region RocketJumping
+    public void RocketJumping(bool value)
+    {
+        _isRocketJumping = value;
+    }
+    #endregion
+
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;
     }
 
-    #region Getters/Setters
+    #region Getter/Setter
     public Rigidbody GetRB
     {
         get { return _rb; }

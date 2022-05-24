@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb21036d35973941998bb9896262f95, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  Hp: 100
+  Invulnerability: 2
+  GravityScale: 10
+  JumpForce: 35
+  JumpTime: 1
+  Speed: 20
+  RocketJumpingTimer: 1
+  WeaponList:
+  - {fileID: 11400000, guid: df88ce252e0b87e4cbadc1b95ec752d8, type: 2}
+  - {fileID: 11400000, guid: 2ec59ebb87a85754994f670cedaa5383, type: 2}
+  - {fileID: 11400000, guid: 1571cd08073a7044c8a7be841908cf15, type: 2}

@@ -45,11 +45,11 @@ public class WaypointsMovement : MonoBehaviour
         // si ve al enemigo frena, sino sigue su ruta
         // esto esta horrible aca puesto pero funciona
         // cambiar luego
-        if (_enemy.EnemyOnSight)
-        {
-            _agent.isStopped = true;
-            return;
-        }
+        // if (_enemy.EnemyOnSight)
+        // {
+        //     _agent.isStopped = true;
+        //     return;
+        // }
 
         _agent.isStopped = false;
 
