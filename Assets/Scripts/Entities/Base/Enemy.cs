@@ -107,7 +107,7 @@ public abstract class Enemy : Entity
         throw new System.NotImplementedException();
     }
 
-    protected override IEnumerator Melee()
+    protected override IEnumerator Melee(WeaponData weaponData)
     {
         throw new System.NotImplementedException();
     }

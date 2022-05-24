@@ -33,7 +33,7 @@ public abstract class Entity : MonoBehaviour
     protected abstract void SetNextWaypoint();
     protected abstract void Aim();
     protected abstract IEnumerator Shoot(WeaponData weaponData);
-    protected abstract IEnumerator Melee();
+    protected abstract IEnumerator Melee(WeaponData weaponData);
     protected abstract void Death();
 
     public virtual void TakeDamage(int value)

@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 using System.Collections;
 
 public class Player : Entity
@@ -43,16 +42,6 @@ public class Player : Entity
     private bool _canShoot = true;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
-    #endregion
-
-    #region Melee
-    [Header("Melee")]
-    // esta parte se va a ver cambiada cuando tengamos la animacion
-    // lo mas seguro es que lo hagamos desde ahi
-    [SerializeField] private Vector3 _meleeFinalPos; // el angulo final
-    [SerializeField] private float _meleeSpeed = 1; // el tiempo que demora en "Hacer" la animacion del melee
-    private Quaternion _meleeInitialRot; // el angulo del que empieza
-    private bool _canMelee = true;
     #endregion
 
     #region Crouching
@@ -135,10 +124,12 @@ public class Player : Entity
                 StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.RocketLauncher]));
                 return;
             }
-        }
 
-        if (_canMelee && _input.Melee) { };
-        // melee
+            if (_input.Melee)
+            {
+                StartCoroutine(Melee(_weaponList[(int)WeaponData.Weapons.Bat]));
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -285,23 +276,23 @@ public class Player : Entity
     #endregion
 
     #region Melee
-    protected override IEnumerator Melee()
+    protected override IEnumerator Melee(WeaponData weaponData)
     {
-        // falta que use la direccion del mouse
-        // o la rotacion del personaje
-        _canMelee = false;
+        // ahora usamos la direccion del mouse
+        // para hacer el ataque a melee
+        // solo es aparecer la hitbox que rota
+        // con el brazo
+        _canShoot = false;
 
-        // rota el "Bate"
+        // aparece el brazo
         _meleeArm.gameObject.SetActive(true);
-        _meleeArm.DORotate(_meleeFinalPos, _meleeSpeed);
 
-        yield return new WaitForSeconds(_meleeSpeed);
+        yield return new WaitForSeconds(weaponData.FireRate);
 
-        // lo devuelve a su posicion inicial
+        // "apaga" el brazo
         _meleeArm.gameObject.SetActive(false);
-        _meleeArm.rotation = _meleeInitialRot;
 
-        _canMelee = true;
+        _canShoot = true;
     }
     #endregion
 
