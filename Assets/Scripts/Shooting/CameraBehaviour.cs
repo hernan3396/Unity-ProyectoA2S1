@@ -55,10 +55,13 @@ public class CameraBehaviour : MonoBehaviour
         // si la magnitud <= 0.1 -> ponerle el valor inicial!!
         // no pude usar _direction porque ya es un vector normalizado (y su magnitud siempre es 1)
         // con el control puede ser que de algun problema pero de momento no ha pasado
-        if ((aimPosition - (Vector2)_playerPos.position).magnitude < _cameraDeadZone)
-            _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, _initialCamOffset, Time.deltaTime * _cameraSpeed);
-        else
-            _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, _direction * _offsetDistance, Time.deltaTime * _cameraSpeed);
+        Vector3 aimDir = (aimPosition - (Vector2)_playerPos.position);
+        Vector3 camOffset = _initialCamOffset;
+
+        if (aimDir.magnitude > _cameraDeadZone)
+            camOffset = _direction * _offsetDistance;
+
+        _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, camOffset, Time.deltaTime * _cameraSpeed);
     }
 
     private void ControlChanged(string value)
