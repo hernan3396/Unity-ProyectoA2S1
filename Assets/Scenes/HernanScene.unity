@@ -3651,8 +3651,6 @@ MonoBehaviour:
   _meleeArm: {fileID: 1774165657}
   _arm: {fileID: 1864453987}
   _rocketImpulse: 5
-  _meleeFinalPos: {x: 0, y: 0, z: 0}
-  _meleeSpeed: 1
   _crouchingHitbox: {fileID: 2136870131}
   _standingHitbox: {fileID: 625715346}
 --- !u!54 &953797188

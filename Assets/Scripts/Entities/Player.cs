@@ -282,6 +282,10 @@ public class Player : Entity
         // para hacer el ataque a melee
         // solo es aparecer la hitbox que rota
         // con el brazo
+
+        // lo mas seguro que tengas que desactivar el
+        // arma cuando este hecho eso
+
         _canShoot = false;
 
         // aparece el brazo
