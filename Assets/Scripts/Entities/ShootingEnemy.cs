@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class ShootingEnemy : Enemy
 {
-    #region Components
-    private Enemy _enemy;
-    #endregion
-
     #region Movement
     private int _currentWaypoint = 0;
     private bool _isMoving = false;
@@ -14,10 +10,6 @@ public class ShootingEnemy : Enemy
     protected override void Awake()
     {
         base.Awake();
-
-        _enemy = GetComponent<Enemy>();
-
-        // empieza el recorrido
     }
 
     private void Update()
@@ -26,7 +18,6 @@ public class ShootingEnemy : Enemy
 
         if (_enemyOnSight)
         {
-            // frenamos el movimiento
             // apuntamos
             // disparamos
 
