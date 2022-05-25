@@ -18,14 +18,17 @@ public class WaypointsMovement : MonoBehaviour
 
     #region Parameters
     [Header("Parameters")]
+    [SerializeField] private bool _isRanged; // para decidir si el enemigo es melee o ranged
     private float _newWaypointSpeed;
     private int _acceleration;
     private int _speed;
     #endregion
 
+    #region AI
     private int _currentWaypoint = 0;
     private bool _isMoving = false;
     private NavMeshAgent _agent;
+    #endregion
 
     private void Awake()
     {
@@ -51,7 +54,7 @@ public class WaypointsMovement : MonoBehaviour
     private void Update()
     {
         // si ve al enemigo frena, sino sigue su ruta
-        if (_enemy.EnemyOnSight)
+        if (_enemy.EnemyOnSight && _isRanged)
         {
             StopMovement();
             return;

@@ -39,7 +39,7 @@ public abstract class Enemy : Entity
         _targetPos = GameManager.GetInstance.GetPlayerPos;
     }
 
-    #region Parameters
+    #region Parameters  a
     protected virtual void SetStats()
     {
         _hp = _enemyData.Hp;

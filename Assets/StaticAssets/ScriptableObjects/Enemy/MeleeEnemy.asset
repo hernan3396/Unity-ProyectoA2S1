@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: 
-  Hp: 1273891237
-  Invulnerability: 2.189372e+9
-  Speed: 2147483647
-  Accuracy: 1.2738912e+10
-  VisionRange: 123123
-  WeaponList: []
+  Hp: 40
+  Invulnerability: 1
+  Acceleration: 4
+  Speed: 4
+  NewWaypointSpeed: 1
+  Accuracy: 10
+  VisionRange: 30
+  WeaponList:
+  - {fileID: 11400000, guid: 1571cd08073a7044c8a7be841908cf15, type: 2}
