@@ -382,6 +382,11 @@ MonoBehaviour:
   _itemTxt:
   - {fileID: 1917209243}
   - {fileID: 492570246}
+--- !u!1 &38631744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6981510929044844595, guid: add37a49c6e65fa4f89e8eefdf51d282, type: 3}
+  m_PrefabInstance: {fileID: 6981510929729448807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &71204933
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +656,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144462503}
   m_CullTransparentMesh: 1
+--- !u!1 &156346180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1185126578084765940, guid: 53cc0ca9807fc914782da1ffc3b9b6e2, type: 3}
+  m_PrefabInstance: {fileID: 1185126578067635530}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &156346184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156346180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce83dbb19dd5ea47a299c0547a16251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waypointsContainer: {fileID: 739509101}
 --- !u!1 &175612278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3960,6 +3983,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6981510929044844594, guid: add37a49c6e65fa4f89e8eefdf51d282, type: 3}
   m_PrefabInstance: {fileID: 6981510929729448807}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &993942361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38631744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce83dbb19dd5ea47a299c0547a16251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waypointsContainer: {fileID: 2104565662}
 --- !u!1 &1055139439
 GameObject:
   m_ObjectHideFlags: 0
@@ -8833,6 +8869,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI_FlyingEnemy_000
       objectReference: {fileID: 0}
+    - target: {fileID: 6981510929044844595, guid: add37a49c6e65fa4f89e8eefdf51d282, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: add37a49c6e65fa4f89e8eefdf51d282, type: 3}
 --- !u!1001 &8106000879355466670
@@ -8893,6 +8933,10 @@ PrefabInstance:
     - target: {fileID: 4281339124764009067, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
       propertyPath: m_Name
       value: AI_TurretEnemyV2_000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281339124764009067, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}

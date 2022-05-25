@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class WaypointsMovement : MonoBehaviour
 {
     #region Components
@@ -17,7 +18,9 @@ public class WaypointsMovement : MonoBehaviour
 
     #region Parameters
     [Header("Parameters")]
-    [SerializeField] private float _newWaypointSpeed = 1;
+    private float _newWaypointSpeed;
+    private int _acceleration;
+    private int _speed;
     #endregion
 
     private int _currentWaypoint = 0;
@@ -37,22 +40,52 @@ public class WaypointsMovement : MonoBehaviour
             _waypoints.Add(waypoint);
         }
 
-        StartMovement();
+        EnemyData enemy = _enemy.GetEnemyData;
+        _newWaypointSpeed = enemy.NewWaypointSpeed;
+        _acceleration = enemy.Acceleration;
+        _speed = enemy.Speed;
+
+        NextWapyoint();
     }
 
     private void Update()
     {
         // si ve al enemigo frena, sino sigue su ruta
-        // esto esta horrible aca puesto pero funciona
-        // cambiar luego
-        // if (_enemy.EnemyOnSight)
-        // {
-        //     _agent.isStopped = true;
-        //     return;
-        // }
+        if (_enemy.EnemyOnSight)
+        {
+            StopMovement();
+            return;
+        }
 
+        if (!_enemy.EnemyOnSight)
+        {
+            ReturnMovement();
+            Moving();
+            return;
+        }
+    }
+
+    private void NextWapyoint()
+    {
+        if (_isMoving) return;
+
+        _isMoving = true;
+        if (!_agent.enabled) return; // evita que tire error
+        _agent.SetDestination(_waypoints[_currentWaypoint].position);
+    }
+
+    private void ReturnMovement()
+    {
         _agent.isStopped = false;
+    }
 
+    private void StopMovement()
+    {
+        _agent.isStopped = true;
+    }
+
+    private void Moving()
+    {
         if (!_isMoving) return;
 
         if (_agent.remainingDistance <= 0.2f)
@@ -63,17 +96,8 @@ public class WaypointsMovement : MonoBehaviour
             if (_currentWaypoint >= _waypoints.Count)
                 _currentWaypoint = 0;
 
-            Invoke("StartMovement", _newWaypointSpeed);
+            Invoke("NextWapyoint", _newWaypointSpeed);
         }
-    }
-
-    private void StartMovement()
-    {
-        if (_isMoving) return;
-
-        _isMoving = true;
-        if (!_agent.enabled) return; // evita que tire error
-        _agent.SetDestination(_waypoints[_currentWaypoint].position);
     }
 
     private void OnDrawGizmos()

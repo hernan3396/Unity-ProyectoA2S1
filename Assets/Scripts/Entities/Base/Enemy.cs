@@ -111,4 +111,16 @@ public abstract class Enemy : Entity
     {
         throw new System.NotImplementedException();
     }
+
+    #region Getter/Setter
+    public EnemyData GetEnemyData
+    {
+        get { return _enemyData; }
+    }
+
+    public bool EnemyOnSight
+    {
+        get { return _enemyOnSight; }
+    }
+    #endregion
 }
