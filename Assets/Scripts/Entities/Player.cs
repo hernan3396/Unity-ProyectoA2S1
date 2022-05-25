@@ -13,6 +13,8 @@ public class Player : Entity
 
     #region Parameters
     [SerializeField] private PlayerData _playerData;
+    [SerializeField] private float _shakeTime;
+    [SerializeField] private float _shakeIntensity;
     private int _gravityScale;
     private int _jumpForce;
     private int _jumpTime;
@@ -225,6 +227,9 @@ public class Player : Entity
 
         // consume una bala del inventario
         _invManager.RemoveAmount((int)weaponData.BulletType, 1);
+
+        // cameraShake
+        GameManager.GetInstance.CameraShake(_shakeIntensity, _shakeTime);
 
         yield return new WaitForSeconds(weaponData.FireRate);
 

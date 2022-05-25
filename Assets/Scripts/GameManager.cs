@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("TFW no pool")]
+    [SerializeField] private CameraBehaviour _cameraScript;
     [SerializeField] private InventoryManager _invManager;
     [SerializeField] private UIController _uiController;
     [SerializeField] private Transform _playerPos;
@@ -69,6 +70,11 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void CameraShake(float intensity, float time)
+    {
+        _cameraScript.ShakeCamera(intensity, time);
     }
 
     private void OnDestroy()

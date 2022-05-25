@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Cinemachine;
 
@@ -5,23 +6,30 @@ public class CameraBehaviour : MonoBehaviour
 {
     #region Components
     private CinemachineCameraOffset _vCameraOffset;
+    private CinemachineBasicMultiChannelPerlin _vCameraNoise; // Para el Shake
     private Transform _playerPos;
     private Inputs _input;
     private Camera _cam;
     #endregion
 
+    #region Settings
     [SerializeField] private int _cameraDeadZone;
     [SerializeField] private int _offsetDistance;
     [SerializeField] private int _cameraSpeed;
+    private float _shakeTime;
+    private float _totalShakeTime;
+    private float _shakeIntensity;
     private Vector3 _initialCamOffset;
     private bool _isMouse = true;
     private Vector2 aimPosition;
     private Vector2 _direction;
+    #endregion
 
     private void Awake()
     {
         _vCameraOffset = GetComponent<CinemachineCameraOffset>();
         _initialCamOffset = _vCameraOffset.m_Offset;
+        _vCameraNoise = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>(); //Lo que hace el shake
     }
 
     private void Start()
@@ -31,6 +39,14 @@ public class CameraBehaviour : MonoBehaviour
         _input = GameManager.GetInstance.GetInput;
 
         _input.OnControlChanged += ControlChanged;
+    }
+
+    private void Update() {
+        if (_shakeTime > 0)
+        {
+            _shakeTime -= Time.deltaTime;
+            StopShake(_shakeIntensity, _shakeTime);
+        }
     }
 
     private void LateUpdate()
@@ -62,6 +78,18 @@ public class CameraBehaviour : MonoBehaviour
             camOffset = _direction * _offsetDistance;
 
         _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, camOffset, Time.deltaTime * _cameraSpeed);
+    }
+
+    public void ShakeCamera(float intensity, float time)
+    {
+        _vCameraNoise.m_AmplitudeGain = intensity;
+        _totalShakeTime = _shakeTime = time;
+        _shakeIntensity = intensity;
+    }
+
+    private void StopShake(float intensity, float time)
+    {
+        _vCameraNoise.m_AmplitudeGain = Mathf.Lerp(intensity, 0f, 1- (time / _totalShakeTime));
     }
 
     private void ControlChanged(string value)
