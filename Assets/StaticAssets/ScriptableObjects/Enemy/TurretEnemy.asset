@@ -16,6 +16,7 @@ MonoBehaviour:
   Invulnerability: 1
   Acceleration: 8
   Speed: 4
+  NewWaypointSpeed: 1
   Accuracy: 5
   VisionRange: 30
   WeaponList:

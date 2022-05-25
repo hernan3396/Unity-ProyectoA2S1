@@ -13,6 +13,7 @@ public class EnemyData : ScriptableObject
     [Header("Movement")]
     public int Acceleration;
     public int Speed; // velocidad de movimiento
+    public int NewWaypointSpeed = 1;
     #endregion
 
     #region Shooting

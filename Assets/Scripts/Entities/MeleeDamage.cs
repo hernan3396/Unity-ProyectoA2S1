@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class MeleeDamage : MonoBehaviour
 {
-    // private void OnCollisionEnter(Collision other)
-    // {
-    //     if (other.collider.CompareTag("Enemy"))
-    //         other.collider.GetComponent<Enemy>().TakeDamage(10);
-    // }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
-            other.GetComponent<Enemy>().TakeDamage(10);
+        // como las hitbox del player estan en un padre
+        // hay que hacer algo un poco distinto
+        if (other.CompareTag("Player"))
+            other.GetComponentInParent<Player>().TakeDamage(10);
+
+        if (other.TryGetComponent(out Entity entity))
+            entity.TakeDamage(10);
     }
 }

@@ -61,4 +61,11 @@ public abstract class Entity : MonoBehaviour
         yield return new WaitForSeconds(_invulnerability);
         _isInmune = false;
     }
+
+    #region Getter/Setter
+    public WeaponData[] GetWeaponList
+    {
+        get { return _weaponList; }
+    }
+    #endregion
 }
