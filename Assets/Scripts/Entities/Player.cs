@@ -13,11 +13,16 @@ public class Player : Entity
 
     #region Parameters
     [SerializeField] private PlayerData _playerData;
-    [SerializeField] private float _shakeTime;
-    [SerializeField] private float _shakeIntensity;
     private int _gravityScale;
     private int _jumpForce;
     private int _jumpTime;
+    #endregion
+
+    #region CameraShake
+    [Header("Camera Shake")]
+    [SerializeField] private float _shakeIntensity;
+    [SerializeField] private float _shakeTime;
+    private CameraBehaviour _cameraBehaviour;
     #endregion
 
     #region BodyParts
@@ -64,6 +69,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+        _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
         _uiController = GameManager.GetInstance.GetUIController;
         _invManager = GameManager.GetInstance.GetInvManager;
         _dustPool = GameManager.GetInstance.GetDustPool;
@@ -229,7 +235,7 @@ public class Player : Entity
         _invManager.RemoveAmount((int)weaponData.BulletType, 1);
 
         // cameraShake
-        GameManager.GetInstance.CameraShake(_shakeIntensity, _shakeTime);
+        _cameraBehaviour.ShakeCamera(_shakeIntensity, _shakeTime);
 
         yield return new WaitForSeconds(weaponData.FireRate);
 

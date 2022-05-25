@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Cinemachine;
 
@@ -41,7 +40,8 @@ public class CameraBehaviour : MonoBehaviour
         _input.OnControlChanged += ControlChanged;
     }
 
-    private void Update() {
+    private void Update()
+    {
         if (_shakeTime > 0)
         {
             _shakeTime -= Time.deltaTime;
@@ -80,6 +80,11 @@ public class CameraBehaviour : MonoBehaviour
         _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, camOffset, Time.deltaTime * _cameraSpeed);
     }
 
+    public void TestShake()
+    {
+        ShakeCamera(10, 1);
+    }
+
     public void ShakeCamera(float intensity, float time)
     {
         _vCameraNoise.m_AmplitudeGain = intensity;
@@ -89,7 +94,7 @@ public class CameraBehaviour : MonoBehaviour
 
     private void StopShake(float intensity, float time)
     {
-        _vCameraNoise.m_AmplitudeGain = Mathf.Lerp(intensity, 0f, 1- (time / _totalShakeTime));
+        _vCameraNoise.m_AmplitudeGain = Mathf.Lerp(intensity, 0f, 1 - (time / _totalShakeTime));
     }
 
     private void ControlChanged(string value)

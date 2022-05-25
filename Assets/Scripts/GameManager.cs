@@ -140,6 +140,11 @@ public class GameManager : MonoBehaviour
         get { return _input; }
     }
 
+    public CameraBehaviour GetCameraBehaviour
+    {
+        get { return _cameraScript; }
+    }
+
     public UIController GetUIController
     {
         get { return _uiController; }
