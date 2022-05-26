@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3810,6 +3810,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BouncingWall
       objectReference: {fileID: 0}
+    - target: {fileID: 1498285701808920319, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
+      propertyPath: m_TagString
+      value: Armor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
 --- !u!4 &905712017 stripped
@@ -4583,6 +4587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BouncingWall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1498285701808920319, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
+      propertyPath: m_TagString
+      value: Armor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
 --- !u!1 &1067216899
@@ -5073,6 +5081,7 @@ MonoBehaviour:
   _healthPool: {fileID: 2074968387}
   _bloodPool: {fileID: 1227544715}
   _dustPool: {fileID: 674201716}
+  _sparkPool: {fileID: 1520618926}
   _cameraScript: {fileID: 1841007336}
   _invManager: {fileID: 598405689}
   _uiController: {fileID: 28364000}
@@ -7195,6 +7204,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1520618925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1520618927}
+  - component: {fileID: 1520618926}
+  m_Layer: 0
+  m_Name: SparksPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1520618926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520618925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8a21ea17f1b514b9c29ea5a26e0606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectsPool: []
+  _objectPrefab: {fileID: 9010907474688344554, guid: fc6da3bebbb2aea44b56ed3e6f9211f2, type: 3}
+  _objectsAmount: 20
+--- !u!4 &1520618927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520618925}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2033573190}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1565190584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7261,6 +7317,10 @@ PrefabInstance:
     - target: {fileID: 1498285701808920319, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
       propertyPath: m_Name
       value: BouncingWall (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1498285701808920319, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
+      propertyPath: m_TagString
+      value: Armor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
@@ -8170,7 +8230,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7782102, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -8497,6 +8557,10 @@ PrefabInstance:
     - target: {fileID: 1498285701808920319, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
       propertyPath: m_Name
       value: BouncingWall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1498285701808920319, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
+      propertyPath: m_TagString
+      value: Armor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd90c03983a39c8459d47e49657b8bf5, type: 3}
@@ -9132,6 +9196,7 @@ Transform:
   - {fileID: 1496887181}
   - {fileID: 1227544714}
   - {fileID: 674201715}
+  - {fileID: 1520618927}
   m_Father: {fileID: 1500495548}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
