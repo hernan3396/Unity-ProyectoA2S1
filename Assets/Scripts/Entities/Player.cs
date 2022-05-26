@@ -47,6 +47,7 @@ public class Player : Entity
 
     #region Aiming
     [Header("Aiming")]
+    [SerializeField] private Transform _aimDebugSphere;
     private bool _canShoot = true;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
@@ -212,6 +213,7 @@ public class Player : Entity
                 _aimPosition = (Vector2)hit.point;
 
             _aimPosition.z = 0;
+            _aimDebugSphere.position = _aimPosition;
             _arm.right = _aimPosition - _arm.position;
         }
         else
