@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
   m_Name: FlyingEnemy
   m_EditorClassIdentifier: 
-  Hp: 10
+  Hp: 20
   Invulnerability: 1
-  Acceleration: 15
-  Speed: 10
+  Acceleration: 25
+  Speed: 30
   NewWaypointSpeed: 1
   Accuracy: 5
-  VisionRange: 40
+  VisionRange: 30
   WeaponList:
   - {fileID: 11400000, guid: 6a4729f86da24144689e0c425c510843, type: 2}

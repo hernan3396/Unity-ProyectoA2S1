@@ -46,6 +46,7 @@ public class Player : Entity
     #endregion
 
     #region Aiming
+    [Header("Aiming")]
     private bool _canShoot = true;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando

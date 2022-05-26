@@ -72,11 +72,6 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void CameraShake(float intensity, float time)
-    {
-        _cameraScript.ShakeCamera(intensity, time);
-    }
-
     private void OnDestroy()
     {
         if (_instance != this)

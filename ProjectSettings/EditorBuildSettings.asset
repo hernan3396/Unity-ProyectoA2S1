@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PrototipeScene.unity
     guid: c8b89e3edf952124ba448586c91a4da3
+  - enabled: 1
+    path: Assets/Scenes/HernanScene.unity
+    guid: 2682f9be7a27a79478eec331c019b785
   m_configObjects: {}

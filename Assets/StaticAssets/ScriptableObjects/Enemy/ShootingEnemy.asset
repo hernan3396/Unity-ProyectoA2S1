@@ -18,6 +18,6 @@ MonoBehaviour:
   Speed: 4
   NewWaypointSpeed: 1
   Accuracy: 3
-  VisionRange: 30
+  VisionRange: 40
   WeaponList:
   - {fileID: 11400000, guid: 4164be21e44c964439ecb647a11bb58c, type: 2}

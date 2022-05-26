@@ -15,7 +15,7 @@ public class CameraBehaviour : MonoBehaviour
     [SerializeField] private int _cameraDeadZone;
     [SerializeField] private int _offsetDistance;
     [SerializeField] private int _cameraSpeed;
-    private float _shakeTime;
+    private float _shakeTime = 0;
     private float _totalShakeTime;
     private float _shakeIntensity;
     private Vector3 _initialCamOffset;
@@ -55,7 +55,6 @@ public class CameraBehaviour : MonoBehaviour
         {
             Ray ray = _cam.ScreenPointToRay(_input.look);
 
-
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
                 aimPosition = (Vector2)hit.point;
 
@@ -78,11 +77,6 @@ public class CameraBehaviour : MonoBehaviour
             camOffset = _direction * _offsetDistance;
 
         _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, camOffset, Time.deltaTime * _cameraSpeed);
-    }
-
-    public void TestShake()
-    {
-        ShakeCamera(10, 1);
     }
 
     public void ShakeCamera(float intensity, float time)
