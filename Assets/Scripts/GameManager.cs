@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PoolManager _healthPool;
     [SerializeField] private PoolManager _bloodPool;
     [SerializeField] private PoolManager _dustPool;
+    [SerializeField] private PoolManager _sparkPool;
     #endregion
 
     [Header("TFW no pool")]
@@ -113,6 +114,11 @@ public class GameManager : MonoBehaviour
     public PoolManager GetDustPool
     {
         get { return _dustPool; }
+    }
+
+    public PoolManager GetSparkPool
+    {
+        get { return _sparkPool; }
     }
 
     public PoolManager GetBloodPool

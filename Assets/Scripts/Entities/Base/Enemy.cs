@@ -27,6 +27,8 @@ public abstract class Enemy : Entity
     protected bool _canShoot = true;
     #endregion
 
+    
+
     protected override void Awake()
     {
         base.Awake();
@@ -37,6 +39,10 @@ public abstract class Enemy : Entity
     {
         base.Start();
         _targetPos = GameManager.GetInstance.GetPlayerPos;
+        if (_enemyData.TypeEnemy == EnemyData.EnemyType.Flying)
+        {
+            _bloodPool = GameManager.GetInstance.GetSparkPool;
+        }
     }
 
     #region Parameters  a
@@ -93,6 +99,21 @@ public abstract class Enemy : Entity
     #endregion
 
     #region Damage
+
+    private void DamagePS()
+    {
+        GameObject blood = _bloodPool.GetPooledObject();
+        if (!blood) return;
+
+        blood.transform.position = _transform.position;
+        blood.SetActive(true);
+    }
+
+    public override void TakeDamage(int value)
+    {
+        base.TakeDamage(value);
+        DamagePS();
+    }
     protected override void Death()
     {
         GameObject healthPickable = GameManager.GetInstance.GetHealthPool.GetPooledObject();

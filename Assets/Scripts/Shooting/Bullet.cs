@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    #region Components
+    private PoolManager _sparkPool;
+    #endregion
+
     #region Paremeters
     [Header("Parameters")]
     [SerializeField] private float _duration;
@@ -15,6 +19,11 @@ public class Bullet : MonoBehaviour
     {
         _trailRenderer = GetComponent<TrailRenderer>();
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        _sparkPool = GameManager.GetInstance.GetSparkPool;
     }
 
     private void OnEnable()
@@ -51,6 +60,17 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Floor"))
         {
             DeactivateBullet();
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Armor"))
+        {
+            GameObject spark = _sparkPool.GetPooledObject();
+            if (!spark) return;
+
+            spark.transform.position = transform.position;
+            spark.SetActive(true);
+            spark.GetComponent<ParticleSystem>().Play();
             return;
         }
 

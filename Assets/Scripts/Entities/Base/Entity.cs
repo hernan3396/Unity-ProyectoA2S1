@@ -44,12 +44,6 @@ public abstract class Entity : MonoBehaviour
 
         _currentHP -= value;
 
-        GameObject blood = _bloodPool.GetPooledObject();
-        if (!blood) return;
-
-        blood.transform.position = _transform.position;
-        blood.SetActive(true);
-
         if (_currentHP <= 0)
         {
             Death();

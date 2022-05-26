@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEnemy", menuName = "Entity/New Enemy")]
 public class EnemyData : ScriptableObject
 {
+    public enum EnemyType{
+        Normal,
+        Flying
+    }
     #region HP
     [Header("HP")]
     public int Hp;
@@ -24,6 +28,7 @@ public class EnemyData : ScriptableObject
 
     #region WeaponsData
     [Header("Weapons Data")]
-    [SerializeField] public WeaponData[] WeaponList;
+    public WeaponData[] WeaponList;
     #endregion
+    public EnemyType TypeEnemy;
 }
