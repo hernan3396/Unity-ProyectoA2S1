@@ -15,5 +15,6 @@ MonoBehaviour:
   Name: Rocket Launcher
   BulletSpeed: 40
   FireRate: 1
-  _weaponType: 1
   BulletType: 1
+  ShootShake: 8
+  ShakeTime: 0.4

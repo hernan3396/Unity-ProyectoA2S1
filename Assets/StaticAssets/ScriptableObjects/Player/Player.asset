@@ -18,7 +18,8 @@ MonoBehaviour:
   JumpForce: 35
   JumpTime: 1
   Speed: 20
-  RocketJumpingTimer: 1
+  DamageShake: 6
+  ShakeTime: 0.4
   WeaponList:
   - {fileID: 11400000, guid: df88ce252e0b87e4cbadc1b95ec752d8, type: 2}
   - {fileID: 11400000, guid: 2ec59ebb87a85754994f670cedaa5383, type: 2}
