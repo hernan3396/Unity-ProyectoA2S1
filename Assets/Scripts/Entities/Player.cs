@@ -29,6 +29,7 @@ public class Player : Entity
     [SerializeField] private Transform _particlePosOff;
     [SerializeField] private Transform _shootingPos;
     [SerializeField] private Transform _meleeArm;
+    [SerializeField] private Transform _model;
     [SerializeField] private Transform _arm;
     #endregion
 
@@ -221,6 +222,11 @@ public class Player : Entity
             // control
             _arm.right = _input.look;
         }
+
+        if (_arm.right.x > 0)
+            _model.forward = new Vector3(1, 0, 0);
+        else
+            _model.forward = new Vector3(-1, 0, 0);
     }
 
     protected override IEnumerator Shoot(WeaponData weaponData)
