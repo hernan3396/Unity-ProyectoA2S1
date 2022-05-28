@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 11400000, guid: c7909e2a3da3bc14c9a23e319039357c, type: 2}
-  _shakeIntensity: 2
+  _shakeIntensity: 4
   _shakeTime: 0.4
   _particlePosOff: {fileID: 1098778159292022298}
   _shootingPos: {fileID: 1098778159729051649}

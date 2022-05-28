@@ -21,8 +21,14 @@ public class PlayerData : ScriptableObject
     public int Speed;
     #endregion
 
+    #region CameraShake
+    [Header("Camera Shake")]
+    public float DamageShake;
+    public float ShakeTime;
+    #endregion
+
     #region WeaponsData
     [Header("Weapons Data")]
-    [SerializeField] public WeaponData[] WeaponList;
+    public WeaponData[] WeaponList;
     #endregion
 }

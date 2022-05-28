@@ -20,9 +20,9 @@ public class Player : Entity
 
     #region CameraShake
     [Header("Camera Shake")]
-    [SerializeField] private float _shakeIntensity;
-    [SerializeField] private float _shakeTime;
     private CameraBehaviour _cameraBehaviour;
+    private float _damageShake;
+    private float _shakeTime;
     #endregion
 
     #region BodyParts
@@ -96,6 +96,9 @@ public class Player : Entity
         _jumpTime = _playerData.JumpTime;
 
         _speed = _playerData.Speed;
+
+        _damageShake = _playerData.DamageShake;
+        _shakeTime = _playerData.ShakeTime;
 
         _weaponList = _playerData.WeaponList;
     }
@@ -244,7 +247,7 @@ public class Player : Entity
         _invManager.RemoveAmount((int)weaponData.BulletType, 1);
 
         // cameraShake
-        _cameraBehaviour.ShakeCamera(_shakeIntensity, _shakeTime);
+        _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
 
         yield return new WaitForSeconds(weaponData.FireRate);
 
@@ -286,6 +289,7 @@ public class Player : Entity
     public override void TakeDamage(int value)
     {
         base.TakeDamage(value);
+        _cameraBehaviour.ShakeCamera(_damageShake, _shakeTime);
         _uiController.UpdateHealthPoints(_currentHP);
     }
 

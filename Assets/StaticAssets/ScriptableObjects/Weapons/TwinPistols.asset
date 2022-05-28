@@ -15,3 +15,6 @@ MonoBehaviour:
   Name: Twin Pistols
   BulletSpeed: 50
   FireRate: 0.1
+  BulletType: 0
+  ShootShake: 4
+  ShakeTime: 0.4

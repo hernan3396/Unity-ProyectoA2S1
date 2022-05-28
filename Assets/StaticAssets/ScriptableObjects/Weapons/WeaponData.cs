@@ -19,4 +19,10 @@ public class WeaponData : ScriptableObject
     public InventoryManager.ItemID BulletType;
     // pase el enum a InventoryManager para tenerlos en un lado solo
     // y me parecio el correcto ahi
+
+    #region CameraShake
+    [Header("Camera Shake")]
+    public float ShootShake;
+    public float ShakeTime;
+    #endregion
 }
