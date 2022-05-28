@@ -13,6 +13,7 @@ public abstract class Enemy : Entity
     #region BodyParts
     [Header("Body Parts")]
     [SerializeField] protected Transform _shootingPos;
+    [SerializeField] protected Transform _model;
     [SerializeField] protected Transform _arm;
     #endregion
 
@@ -85,6 +86,11 @@ public abstract class Enemy : Entity
     {
         _targetDir = _targetPos.position - _transform.position;
         _arm.right = Vector3.Lerp(_arm.right, _targetDir.normalized, _accuracy * Time.deltaTime);
+
+        if (_arm.right.x > 0)
+            _model.forward = new Vector3(1, 0, 0);
+        else
+            _model.forward = new Vector3(-1, 0, 0);
     }
 
     protected override IEnumerator Shoot(WeaponData weaponData)
