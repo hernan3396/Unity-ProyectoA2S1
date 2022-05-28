@@ -13,10 +13,12 @@ public abstract class Enemy : Entity
     #region BodyParts
     [Header("Body Parts")]
     [SerializeField] protected Transform _shootingPos;
+    [SerializeField] protected Transform _model;
     [SerializeField] protected Transform _arm;
     #endregion
 
     #region Target
+    [SerializeField] private Vector3 _targetOffset = new Vector3(0, 2, 0);
     [SerializeField] protected LayerMask _objLayer;
     protected bool _enemyOnSight = false;
     protected Transform _targetPos;
@@ -83,8 +85,14 @@ public abstract class Enemy : Entity
 
     protected override void Aim()
     {
-        _targetDir = _targetPos.position - _transform.position;
+        _targetDir = _targetPos.position - _arm.position;
+        // Debug.DrawRay(_transform.position, _targetDir, Color.blue);
         _arm.right = Vector3.Lerp(_arm.right, _targetDir.normalized, _accuracy * Time.deltaTime);
+
+        if (_arm.right.x > 0)
+            _model.forward = new Vector3(1, 0, 0);
+        else
+            _model.forward = new Vector3(-1, 0, 0);
     }
 
     protected override IEnumerator Shoot(WeaponData weaponData)
