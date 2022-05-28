@@ -27,7 +27,7 @@ public abstract class Enemy : Entity
     protected bool _canShoot = true;
     #endregion
 
-    
+
 
     protected override void Awake()
     {
@@ -45,7 +45,7 @@ public abstract class Enemy : Entity
         }
     }
 
-    #region Parameters  a
+    #region Parameters
     protected virtual void SetStats()
     {
         _hp = _enemyData.Hp;

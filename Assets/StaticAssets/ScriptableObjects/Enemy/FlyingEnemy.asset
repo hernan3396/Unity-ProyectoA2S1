@@ -21,4 +21,4 @@ MonoBehaviour:
   VisionRange: 30
   WeaponList:
   - {fileID: 11400000, guid: 6a4729f86da24144689e0c425c510843, type: 2}
-  TypeEnemy: 0
+  TypeEnemy: 1
