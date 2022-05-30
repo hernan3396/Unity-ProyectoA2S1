@@ -20,6 +20,12 @@ public class WeaponData : ScriptableObject
     // pase el enum a InventoryManager para tenerlos en un lado solo
     // y me parecio el correcto ahi
 
+    #region Recoil
+    [Header("Recoil")]
+    public int RecoilForce;
+    public float RecoilTime;
+    #endregion
+
     #region CameraShake
     [Header("Camera Shake")]
     public float ShootShake;

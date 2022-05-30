@@ -44,6 +44,7 @@ public class Player : Entity
     [Header("Rocket Jumping")]
     [SerializeField] private int _rocketImpulse = 5;
     private bool _isRocketJumping;
+    private bool _recoil;
     #endregion
 
     #region Aiming
@@ -156,6 +157,8 @@ public class Player : Entity
     #region HorizontalMovement
     protected override void SetNextWaypoint()
     {
+        if (_recoil) return; // por un instante no te podes mover
+
         if (_isRocketJumping)
         {
             _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
@@ -249,6 +252,9 @@ public class Player : Entity
         // cameraShake
         _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
 
+        // recoil de algunas armas
+        StartCoroutine(Recoil(weaponData.RecoilForce, weaponData.RecoilTime));
+
         yield return new WaitForSeconds(weaponData.FireRate);
 
         _canShoot = true;
@@ -337,6 +343,17 @@ public class Player : Entity
     public void RocketJumping(bool value)
     {
         _isRocketJumping = value;
+    }
+
+    // esta puesto aca porque de momento solo funciona para el rocketjump
+    private IEnumerator Recoil(int RecoilForce, float recoilTime)
+    {
+        _recoil = true;
+
+        _rb.AddForce(-_arm.right * RecoilForce, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(recoilTime);
+        _recoil = false;
     }
     #endregion
 
