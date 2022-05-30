@@ -16,5 +16,7 @@ MonoBehaviour:
   BulletSpeed: 40
   FireRate: 1
   BulletType: 1
+  RecoilForce: 200
+  RecoilTime: 0.2
   ShootShake: 8
   ShakeTime: 0.4
