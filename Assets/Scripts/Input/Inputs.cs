@@ -67,6 +67,7 @@ public class Inputs : MonoBehaviour
     public void OnAim(InputValue value)
     {
         // chequear cual es el input
+        // aca se podria hacer un metodo que normalice la input asi si es control o mouse devuelve una posicion en pantalla (?)
         if (_cursorInputForLook && _canMove)
             LookInput(value.Get<Vector2>());
     }
