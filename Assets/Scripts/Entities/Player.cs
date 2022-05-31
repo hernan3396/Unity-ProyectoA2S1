@@ -226,6 +226,7 @@ public class Player : Entity
         else
         {
             // control
+            _aimDebugSphere.position = (Vector2)_transform.position + (_input.look * 5);
             _arm.right = _input.look;
         }
 

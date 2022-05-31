@@ -7,8 +7,10 @@ public class Crosshair : MonoBehaviour
     private Inputs _input;
     private bool _isMouse = true;
 
+    [SerializeField] private Transform _aimDebugSphere;
     [SerializeField] private RectTransform _crosshair;
     [SerializeField] private RectTransform _parent;
+
     private void Awake()
     {
         Cursor.visible = false;
@@ -26,12 +28,24 @@ public class Crosshair : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_isMouse) return;
+        // peligro
+        // fede
+        if (_isMouse)
+        {
+            Vector2 anchoredPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, _input.look, _cam, out anchoredPos);
 
-        Vector2 anchoredPos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, _input.look, _cam, out anchoredPos);
+            _crosshair.anchoredPosition = anchoredPos;
+        }
+        else
+        {
+            Vector2 aimScreenPos;
+            aimScreenPos = _cam.WorldToScreenPoint(_aimDebugSphere.position);
 
-        _crosshair.anchoredPosition = anchoredPos;
+            Vector2 anchoredPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, aimScreenPos, _cam, out anchoredPos);
+            _crosshair.anchoredPosition = anchoredPos;
+        }
     }
 
     private void ControlChanged(string value)
@@ -51,6 +65,5 @@ public class Crosshair : MonoBehaviour
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;
-
     }
 }
