@@ -131,11 +131,6 @@ public abstract class Enemy : Entity
     }
     #endregion
 
-    protected override void SetNextWaypoint()
-    {
-        throw new System.NotImplementedException();
-    }
-
     protected override IEnumerator Melee(WeaponData weaponData)
     {
         throw new System.NotImplementedException();

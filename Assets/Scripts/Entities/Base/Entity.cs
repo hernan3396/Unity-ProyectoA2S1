@@ -30,7 +30,6 @@ public abstract class Entity : MonoBehaviour
         _shooting = GameManager.GetInstance.GetShooting;
     }
 
-    protected abstract void SetNextWaypoint();
     protected abstract void Aim();
     protected abstract IEnumerator Shoot(WeaponData weaponData);
     protected abstract IEnumerator Melee(WeaponData weaponData);
