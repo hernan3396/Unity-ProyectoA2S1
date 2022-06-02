@@ -9,6 +9,7 @@ public class Player : Entity
         Running,
         Jumping,
         Crouching,
+        CrouchRunning,
         Falling,
         RocketJumping,
         Recoil,
@@ -16,6 +17,8 @@ public class Player : Entity
     }
 
     #region Components
+    [Header("Components")]
+    [SerializeField] private Animator _modelAnimator;
     private InventoryManager _invManager;
     private UIController _uiController;
     private Rigidbody _rb;
@@ -409,6 +412,12 @@ public class Player : Entity
             return;
         }
 
+        if (_crouching && (Mathf.Abs(_rb.velocity.x) > 0 || _input.move.x != 0))
+        {
+            ChangeState(States.CrouchRunning);
+            return;
+        }
+
         if (_crouching)
         {
             ChangeState(States.Crouching);
@@ -428,7 +437,10 @@ public class Player : Entity
     {
         // hacer el cambio de animacion
         _currentState = newState;
-        _uiController.UpdateState(_currentState.ToString());
+
+        string currentStateString = _currentState.ToString();
+        _modelAnimator.Play(currentStateString);
+        _uiController.UpdateState(currentStateString);
     }
     #endregion
 

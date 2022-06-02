@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe85f536c3afac341bb41172a895c31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modelAnimator: {fileID: 871341101554425012}
   _playerData: {fileID: 11400000, guid: c7909e2a3da3bc14c9a23e319039357c, type: 2}
   _particlePosOff: {fileID: 1098778159292022298}
   _shootingPos: {fileID: 1098778159729051649}
@@ -1425,19 +1426,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a98d00bddebe4c44b0ef0a081e51521, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.42349058
+      value: 0.07608427
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a98d00bddebe4c44b0ef0a081e51521, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.43539947
+      value: 0.040300008
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a98d00bddebe4c44b0ef0a081e51521, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.541285
+      value: 0.69349706
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a98d00bddebe4c44b0ef0a081e51521, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5814582
+      value: -0.7152964
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a98d00bddebe4c44b0ef0a081e51521, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1449,7 +1450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a98d00bddebe4c44b0ef0a081e51521, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -20.903992
+      value: 63.373
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1a98d00bddebe4c44b0ef0a081e51521, type: 3}
       propertyPath: m_ConstrainProportionsScale
