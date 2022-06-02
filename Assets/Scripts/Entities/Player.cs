@@ -385,6 +385,12 @@ public class Player : Entity
     #region States
     private void ManageState()
     {
+        if (_recoil)
+        {
+            ChangeState(States.Recoil);
+            return;
+        }
+
         if (_isRocketJumping)
         {
             ChangeState(States.RocketJumping);

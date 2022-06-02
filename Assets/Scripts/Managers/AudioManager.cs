@@ -5,29 +5,40 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    private static AudioManager _instance;
+    public enum AudioList
+    {
+        AllMusic
+    }
 
+    [SerializeField] private List<AudioCompressionFormat> _audioList;
+
+    #region Sources
+    [Header("Sources")]
     [SerializeField] private AudioSource _musicSource;
-    [SerializeField] private AudioClip _audioClip;
+    [SerializeField] private AudioSource _soundSource;
+    #endregion
+
+    #region Mixer
+    [Header("Mixer")]
+    [SerializeField] private AudioMixer _mixer;
+    private bool _isFading = false;
+    #endregion
+
+    private static AudioManager _instance;
 
     private void Awake()
     {
         if (_instance != null && _instance != this)
-        {
             Destroy(this.gameObject);
-        }
         else
-        {
             _instance = this;
-        }
 
-        PlayMusic();
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void PlayMusic()
+    public void PlaySfx()
     {
-        _musicSource.clip = _audioClip;
-        _musicSource.Play();
+
     }
 
     private void OnDestroy()
