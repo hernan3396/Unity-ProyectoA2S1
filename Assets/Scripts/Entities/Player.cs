@@ -403,7 +403,7 @@ public class Player : Entity
             return;
         }
 
-        // a veces estas parado en el 
+        // a veces estas parado en el
         //  piso con una velocidad
         // muy chica (casi 0)
         if (_rb.velocity.y < 0 && !_isGrounded)
@@ -435,6 +435,8 @@ public class Player : Entity
 
     private void ChangeState(States newState)
     {
+        // https://docs.unity3d.com/ScriptReference/Animator.Play.html
+        // ver ese link con normalizeTime o hacerlo a mano con los bool/trigger del animator
         // hacer el cambio de animacion
         _currentState = newState;
 
