@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: f848ab993a9120e4980f642e4d3ee9c6, type: 2}
+  _modelAnimator: {fileID: 5602208558910888299}
   _shootingPos: {fileID: 4562753628608874289}
   _model: {fileID: 383908655689642441}
   _arm: {fileID: 4562753629927273248}

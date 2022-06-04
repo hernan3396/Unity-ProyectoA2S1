@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
 {
     [Header("Debug Menu")]
     [SerializeField] private GameObject _debugMenu;
+    [SerializeField] private TMP_Text _stateText;
 
     [Header("Health")]
     [SerializeField] private TMP_Text _healthPoints;
@@ -49,6 +50,11 @@ public class UIController : MonoBehaviour
     public void UpdateItemText(int itemID, int value)
     {
         _itemTxt[itemID].text = value.ToString();
+    }
+
+    public void UpdateState(string newState)
+    {
+        _stateText.text = $"State: {newState}";
     }
 
     private void OnDestroy()

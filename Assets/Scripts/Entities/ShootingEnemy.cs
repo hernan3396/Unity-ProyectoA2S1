@@ -10,6 +10,7 @@ public class ShootingEnemy : Enemy
     private void Update()
     {
         _enemyOnSight = DetectEnemy();
+        ManageState();
 
         if (_enemyOnSight)
         {

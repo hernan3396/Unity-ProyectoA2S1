@@ -3,8 +3,15 @@ using System.Collections;
 
 public abstract class Enemy : Entity
 {
+    protected enum States
+    {
+        Shooting,
+        Wandering
+    }
+
     #region Paremeters
     [SerializeField] protected EnemyData _enemyData;
+    protected States _currentState;
     protected float _visionRange;
     protected int _acceleration;
     protected float _accuracy;
@@ -12,6 +19,7 @@ public abstract class Enemy : Entity
 
     #region BodyParts
     [Header("Body Parts")]
+    [SerializeField] protected Animator _modelAnimator;
     [SerializeField] protected Transform _shootingPos;
     [SerializeField] protected Transform _model;
     [SerializeField] protected Transform _arm;
@@ -28,8 +36,6 @@ public abstract class Enemy : Entity
     #region Shooting
     protected bool _canShoot = true;
     #endregion
-
-
 
     protected override void Awake()
     {
@@ -131,10 +137,24 @@ public abstract class Enemy : Entity
     }
     #endregion
 
-    protected override void SetNextWaypoint()
+    #region States
+    protected void ManageState()
     {
-        throw new System.NotImplementedException();
+        if (_enemyOnSight)
+        {
+            ChangeState(States.Shooting);
+            return;
+        }
+
+        ChangeState(States.Wandering);
     }
+
+    protected void ChangeState(States newState)
+    {
+        _currentState = newState;
+        _modelAnimator.Play(newState.ToString());
+    }
+    #endregion
 
     protected override IEnumerator Melee(WeaponData weaponData)
     {
