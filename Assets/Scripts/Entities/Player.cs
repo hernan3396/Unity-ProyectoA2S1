@@ -346,6 +346,8 @@ public class Player : Entity
         // aparece el brazo
         _meleeArm.gameObject.SetActive(true);
 
+        _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
+
         yield return new WaitForSeconds(weaponData.FireRate);
 
         // "apaga" el brazo

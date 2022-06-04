@@ -2494,6 +2494,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI_MeleeEnemy_000
       objectReference: {fileID: 0}
+    - target: {fileID: 6295443945630478547, guid: 59e7c980480098e4d9fe9be88d1598d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59e7c980480098e4d9fe9be88d1598d4, type: 3}
 --- !u!1 &340370658
@@ -3049,6 +3053,10 @@ PrefabInstance:
     - target: {fileID: 6295443945630478547, guid: 59e7c980480098e4d9fe9be88d1598d4, type: 3}
       propertyPath: m_Name
       value: AI_MeleeEnemy_000 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295443945630478547, guid: 59e7c980480098e4d9fe9be88d1598d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59e7c980480098e4d9fe9be88d1598d4, type: 3}
@@ -17899,6 +17907,14 @@ PrefabInstance:
     - target: {fileID: 1098778159239488070, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098778159610435507, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098778160592008863, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3683750470536969682, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_Enabled
