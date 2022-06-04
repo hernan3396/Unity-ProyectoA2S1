@@ -11,9 +11,10 @@ public class PlayerData : ScriptableObject
 
     #region Jumping
     [Header("Jumping")]
-    public int GravityScale; // no esta
-    public int JumpForce; // no esta
-    public int JumpTime; // no esta
+    public int GravityScale;
+    public int JumpForce;
+    public int JumpTime;
+    public int FallingMaxSpeed;
     #endregion
 
     #region Movement

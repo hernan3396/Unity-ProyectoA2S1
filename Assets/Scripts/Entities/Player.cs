@@ -30,6 +30,7 @@ public class Player : Entity
     #region Parameters
     [SerializeField] private PlayerData _playerData;
     private States _currentState;
+    private float _fallingMaxSpeed;
     private int _gravityScale;
     private int _jumpForce;
     private int _jumpTime;
@@ -113,6 +114,7 @@ public class Player : Entity
         _gravityScale = _playerData.GravityScale;
         _jumpForce = _playerData.JumpForce;
         _jumpTime = _playerData.JumpTime;
+        _fallingMaxSpeed = _playerData.FallingMaxSpeed;
 
         _speed = _playerData.Speed;
 
@@ -176,6 +178,9 @@ public class Player : Entity
     private void FixedUpdate()
     {
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
+
+        if (_rb.velocity.y < -_fallingMaxSpeed)
+            _rb.velocity = new Vector3(_rb.velocity.x, -_fallingMaxSpeed, _rb.velocity.z);
 
         if (_currentState != States.RocketJumping && _currentState != States.Recoil)
         {
