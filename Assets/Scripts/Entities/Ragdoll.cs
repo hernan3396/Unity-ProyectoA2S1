@@ -8,7 +8,8 @@ public class Ragdoll : MonoBehaviour
     private Animator _anim;
     private Rigidbody[] _rb;
 
-    private void Start() {
+    private void Start()
+    {
         _rb = transform.GetComponentsInChildren<Rigidbody>();
         _anim = GetComponent<Animator>();
         SetEnabled(false);
@@ -28,7 +29,8 @@ public class Ragdoll : MonoBehaviour
         GetComponentInParent<WaypointsMovement>().enabled = !enabled;
     }
 
-    public void DeathRagdoll(){
+    public void DeathRagdoll()
+    {
         SetEnabled(true);
     }
 }

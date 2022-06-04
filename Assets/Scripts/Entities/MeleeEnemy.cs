@@ -24,6 +24,7 @@ public class MeleeEnemy : Enemy
     private void Update()
     {
         _enemyOnSight = DetectEnemy();
+        ManageState();
 
         if (_enemyOnSight)
         {
