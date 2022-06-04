@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PoolManager _bulletPool;
     [SerializeField] private PoolManager _rocketPool;
     [SerializeField] private PoolManager _healthPool;
+    [SerializeField] private PoolManager _ammoPool;
     [SerializeField] private PoolManager _bloodPool;
     [SerializeField] private PoolManager _dustPool;
     [SerializeField] private PoolManager _sparkPool;
@@ -109,6 +110,11 @@ public class GameManager : MonoBehaviour
     public PoolManager GetHealthPool
     {
         get { return _healthPool; }
+    }
+
+    public PoolManager GetAmmoPool
+    {
+        get { return _ammoPool; }
     }
 
     public PoolManager GetDustPool

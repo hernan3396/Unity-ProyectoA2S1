@@ -8,6 +8,7 @@ public abstract class Enemy : Entity
     protected float _visionRange;
     protected int _acceleration;
     protected float _accuracy;
+    protected bool _melee = false;
     #endregion
 
     #region BodyParts
@@ -117,6 +118,12 @@ public abstract class Enemy : Entity
         blood.SetActive(true);
     }
 
+    public bool SetMeleeDamage
+    {
+        get { return _melee; }
+        set { _melee = value; }
+    }
+
     public override void TakeDamage(int value)
     {
         base.TakeDamage(value);
@@ -124,10 +131,20 @@ public abstract class Enemy : Entity
     }
     protected override void Death()
     {
-        GameObject healthPickable = GameManager.GetInstance.GetHealthPool.GetPooledObject();
-        healthPickable.transform.position = _transform.position;
-        healthPickable.SetActive(true);
-        gameObject.SetActive(false);
+        
+       if (_melee)
+       {
+           GameObject ammoPickable = GameManager.GetInstance.GetAmmoPool.GetPooledObject();
+           ammoPickable.transform.position = _transform.position;
+           ammoPickable.SetActive(true);
+       }
+       else
+       {
+            GameObject healthPickable = GameManager.GetInstance.GetHealthPool.GetPooledObject();
+            healthPickable.transform.position = _transform.position;
+            healthPickable.SetActive(true);
+       }
+        gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll();
     }
     #endregion
 

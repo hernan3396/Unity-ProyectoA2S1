@@ -803,6 +803,18 @@ MonoBehaviour:
   - m_Rig: {fileID: 8303573328153689386}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &6849929270724655968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4923987374867964935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3c60832875bbd42bddc1265dac4c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4957878265554238920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8333627713332763490, guid: 5253a591a5e7d2148bdfa766b450741c, type: 3}

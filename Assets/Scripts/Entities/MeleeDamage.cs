@@ -10,6 +10,9 @@ public class MeleeDamage : MonoBehaviour
             other.GetComponentInParent<Player>().TakeDamage(10);
 
         if (other.TryGetComponent(out Entity entity))
-            entity.TakeDamage(10);
+            {
+                entity.TakeDamage(10);
+                other.gameObject.GetComponent<Enemy>().SetMeleeDamage = true;
+            }
     }
 }

@@ -73,7 +73,10 @@ public class Rocket : MonoBehaviour
             }
 
             if (collider.gameObject.CompareTag("Enemy"))
+            {
                 collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+                collider.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
+            }
         }
 
         GameObject explosion = _explosionPool.GetPooledObject();
