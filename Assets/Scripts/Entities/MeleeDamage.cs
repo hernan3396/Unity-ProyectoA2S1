@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MeleeDamage : MonoBehaviour
@@ -5,7 +6,7 @@ public class MeleeDamage : MonoBehaviour
     [SerializeField] private bool _isPlayer = false; // para saber de donde leer la _weaponData
     private int _damage;
 
-    private void Awake()
+    private void Start()
     {
         // le asigna el valor al daño del melee
         // en funcion de lo que esta en el scriptable
@@ -29,5 +30,15 @@ public class MeleeDamage : MonoBehaviour
 
         if (other.TryGetComponent(out Entity entity))
             entity.TakeDamage(_damage);
+
+        if (other.CompareTag("Bullet"))
+            ReflectBullet(other.GetComponent<Rigidbody>());
+    }
+
+    private void ReflectBullet(Rigidbody rb)
+    {
+        // de momento esta implementacion no causa
+        // ningun problema
+        rb.velocity = -rb.velocity;
     }
 }
