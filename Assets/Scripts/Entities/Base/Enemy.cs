@@ -150,7 +150,15 @@ public abstract class Enemy : Entity
             healthPickable.transform.position = _transform.position;
             healthPickable.SetActive(true);
        }
-        gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll();
+       if (gameObject.GetComponentInChildren<Ragdoll>())
+       {
+           gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll();
+       }
+       else
+       {
+           gameObject.SetActive(false);
+       }
+        
     }
     #endregion
 
