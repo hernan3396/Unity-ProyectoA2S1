@@ -3,7 +3,22 @@ using System.Collections;
 
 public class Player : Entity
 {
+    private enum States
+    {
+        Idle,
+        Running,
+        Jumping,
+        Crouching,
+        CrouchRunning,
+        Falling,
+        RocketJumping,
+        Recoil,
+        Stop // para frenar al personaje (para pausas y eso)
+    }
+
     #region Components
+    [Header("Components")]
+    [SerializeField] private Animator _modelAnimator;
     private InventoryManager _invManager;
     private UIController _uiController;
     private Rigidbody _rb;
@@ -13,6 +28,7 @@ public class Player : Entity
 
     #region Parameters
     [SerializeField] private PlayerData _playerData;
+    private States _currentState;
     private int _gravityScale;
     private int _jumpForce;
     private int _jumpTime;
@@ -107,25 +123,13 @@ public class Player : Entity
 
     private void Update()
     {
+        if (_currentState == States.Stop) return;
+
+        ManageState();
         Aim();
 
-        if (_isGrounded && _input.jump)
-            Jump();
-
-        if (_isGrounded && _input.Crouching)
-            Crouch(true);
-
-        if (_crouching && !_input.Crouching)
-            Crouch(false);
-
-        if (_jumping)
-        {
-            _jumpTimer -= Time.deltaTime;
-
-            if (_jumpTimer <= 0 || !_input.jump)
-                StopJump();
-        }
-
+        // la parte de disparar la hice por fuera de los estados
+        // porque siempre podes disparar
         if (_canShoot)
         {
             if (_input.IsShooting)
@@ -145,26 +149,46 @@ public class Player : Entity
                 StartCoroutine(Melee(_weaponList[(int)WeaponData.Weapons.Bat]));
             }
         }
+
+        if (_currentState == States.Running || _currentState == States.Idle || _currentState == States.Crouching)
+        {
+            if (_input.jump) Jump();
+            if (_input.Crouching) Crouch(true);
+            if (_crouching && !_input.Crouching) Crouch(false);
+            return;
+        }
+
+        if (_currentState == States.Jumping)
+        {
+            _jumpTimer -= Time.deltaTime;
+
+            if (_jumpTimer <= 0 || !_input.jump)
+                StopJump();
+
+            return;
+        }
     }
 
     private void FixedUpdate()
     {
-        SetNextWaypoint();
-
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
-    }
 
-    #region HorizontalMovement
-    protected override void SetNextWaypoint()
-    {
-        if (_recoil) return; // por un instante no te podes mover
+        if (_currentState != States.RocketJumping && _currentState != States.Recoil)
+        {
+            HorizontalMovement();
+            return;
+        }
 
-        if (_isRocketJumping)
+        if (_currentState == States.RocketJumping)
         {
             _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
             return;
         }
+    }
 
+    #region HorizontalMovement
+    protected void HorizontalMovement()
+    {
         _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
     }
     #endregion
@@ -355,6 +379,70 @@ public class Player : Entity
 
         yield return new WaitForSeconds(recoilTime);
         _recoil = false;
+    }
+    #endregion
+
+    #region States
+    private void ManageState()
+    {
+        if (_recoil)
+        {
+            ChangeState(States.Recoil);
+            return;
+        }
+
+        if (_isRocketJumping)
+        {
+            ChangeState(States.RocketJumping);
+            return;
+        }
+
+        if (_rb.velocity.y > 0)
+        {
+            ChangeState(States.Jumping);
+            return;
+        }
+
+        // a veces estas parado en el
+        //  piso con una velocidad
+        // muy chica (casi 0)
+        if (_rb.velocity.y < 0 && !_isGrounded)
+        {
+            ChangeState(States.Falling);
+            return;
+        }
+
+        if (_crouching && (Mathf.Abs(_rb.velocity.x) > 0 || _input.move.x != 0))
+        {
+            ChangeState(States.CrouchRunning);
+            return;
+        }
+
+        if (_crouching)
+        {
+            ChangeState(States.Crouching);
+            return;
+        }
+
+        if (Mathf.Abs(_rb.velocity.x) > 0 || _input.move.x != 0)
+        {
+            ChangeState(States.Running);
+            return;
+        }
+
+        ChangeState(States.Idle);
+    }
+
+    private void ChangeState(States newState)
+    {
+        // https://docs.unity3d.com/ScriptReference/Animator.Play.html
+        // ver ese link con normalizeTime o hacerlo a mano con los bool/trigger del animator
+        // hacer el cambio de animacion
+        _currentState = newState;
+
+        string currentStateString = _currentState.ToString();
+        _modelAnimator.Play(currentStateString);
+        _uiController.UpdateState(currentStateString);
     }
     #endregion
 

@@ -13,7 +13,7 @@ public class Crosshair : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.visible = false;
+        // Cursor.visible = false;
         _crosshair.gameObject.SetActive(true);
     }
 
