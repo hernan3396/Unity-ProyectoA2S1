@@ -147,28 +147,28 @@ public abstract class Enemy : Entity
     }
     protected override void Death()
     {
-        
-       if (_melee)
-       {
-           GameObject ammoPickable = GameManager.GetInstance.GetAmmoPool.GetPooledObject();
-           ammoPickable.transform.position = _transform.position;
-           ammoPickable.SetActive(true);
-       }
-       else
-       {
+
+        if (_melee)
+        {
+            GameObject ammoPickable = GameManager.GetInstance.GetAmmoPool.GetPooledObject();
+            ammoPickable.transform.position = _transform.position;
+            ammoPickable.SetActive(true);
+        }
+        else
+        {
             GameObject healthPickable = GameManager.GetInstance.GetHealthPool.GetPooledObject();
             healthPickable.transform.position = _transform.position;
             healthPickable.SetActive(true);
-       }
-       if (gameObject.GetComponentInChildren<Ragdoll>())
-       {
-           gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll();
-       }
-       else
-       {
-           gameObject.SetActive(false);
-       }
-        
+        }
+        if (gameObject.GetComponentInChildren<Ragdoll>())
+        {
+            gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+
     }
     #endregion
 

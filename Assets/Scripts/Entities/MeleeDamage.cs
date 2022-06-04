@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class MeleeDamage : MonoBehaviour
@@ -28,8 +27,11 @@ public class MeleeDamage : MonoBehaviour
         if (other.CompareTag("Player"))
             other.GetComponentInParent<Player>().TakeDamage(_damage);
 
-        if (other.TryGetComponent(out Entity entity))
-            entity.TakeDamage(_damage);
+        if (other.TryGetComponent(out Enemy enemy))
+        {
+            enemy.SetMeleeDamage = true;
+            enemy.TakeDamage(_damage);
+        }
 
         if (other.CompareTag("Bullet"))
             ReflectBullet(other.GetComponent<Rigidbody>());

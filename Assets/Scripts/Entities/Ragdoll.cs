@@ -25,8 +25,10 @@ public class Ragdoll : MonoBehaviour
 
         _anim.enabled = !enabled;
         GetComponentInParent<CapsuleCollider>().enabled = !enabled;
-        GetComponentInParent<ShootingEnemy>().enabled = !enabled;
-        GetComponentInParent<WaypointsMovement>().enabled = !enabled;
+        GetComponentInParent<Entity>().enabled = !enabled;
+
+        if (TryGetComponent(out WaypointsMovement waypointsMovement))
+            waypointsMovement.enabled = !enabled;
     }
 
     public void DeathRagdoll()
