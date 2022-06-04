@@ -5,7 +5,7 @@ public abstract class Enemy : Entity
 {
     protected enum States
     {
-        Idle,
+        Shooting,
         Wandering
     }
 
@@ -142,11 +142,11 @@ public abstract class Enemy : Entity
     {
         if (_enemyOnSight)
         {
-            _currentState = States.Idle;
+            ChangeState(States.Shooting);
             return;
         }
 
-        _currentState = States.Wandering;
+        ChangeState(States.Wandering);
     }
 
     protected void ChangeState(States newState)
