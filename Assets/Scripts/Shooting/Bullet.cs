@@ -53,6 +53,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+            other.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
             DeactivateBullet();
             return;
         }

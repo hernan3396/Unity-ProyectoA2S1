@@ -9,6 +9,9 @@ TagManager:
   - Health
   - BounceWall
   - Bullet
+  - Armor
+  - Melee
+  - Ammo
   layers:
   - Default
   - TransparentFX
