@@ -3,7 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEnemy", menuName = "Entity/New Enemy")]
 public class EnemyData : ScriptableObject
 {
-    public enum EnemyType{
+    public enum EnemyType
+    {
         Normal,
         Flying
     }
@@ -24,6 +25,7 @@ public class EnemyData : ScriptableObject
     [Header("Shooting")]
     public float Accuracy; // que tan rapido es en apuntar
     public int VisionRange;
+    public float ShootAccuracy; // que tan impreciso es al disparar
     #endregion
 
     #region WeaponsData

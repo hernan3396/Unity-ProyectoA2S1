@@ -12,6 +12,7 @@ public abstract class Enemy : Entity
     #region Paremeters
     [SerializeField] protected EnemyData _enemyData;
     protected States _currentState;
+    protected float _shootAccuracy;
     protected float _visionRange;
     protected int _acceleration;
     protected float _accuracy;
@@ -67,6 +68,7 @@ public abstract class Enemy : Entity
 
         _accuracy = _enemyData.Accuracy;
         _visionRange = _enemyData.VisionRange;
+        _shootAccuracy = _enemyData.ShootAccuracy;
 
         _weaponList = _enemyData.WeaponList;
     }
@@ -107,9 +109,17 @@ public abstract class Enemy : Entity
         _canShoot = false;
 
         yield return new WaitForSeconds(weaponData.FireRate);
-        _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, _targetDir, weaponData.BulletSpeed);
+        Vector3 shootOff = GenerateRandomVector(_shootAccuracy);
+        _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, _targetDir + shootOff, weaponData.BulletSpeed);
 
         _canShoot = true;
+    }
+
+    protected Vector3 GenerateRandomVector(float range)
+    {
+        float xValue = Random.Range(-range, range);
+        float yValue = Random.Range(-range, range);
+        return new Vector3(xValue, yValue, 0);
     }
     #endregion
 

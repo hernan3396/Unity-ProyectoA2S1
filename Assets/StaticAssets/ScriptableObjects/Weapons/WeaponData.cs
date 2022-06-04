@@ -31,4 +31,15 @@ public class WeaponData : ScriptableObject
     public float ShootShake;
     public float ShakeTime;
     #endregion
+
+    // no me gusta como esta hecho pero
+    // tampoco se me ocurrio como hacerlo
+    // distinto ya que el daño de las armas
+    // depende de que bala disparen y no del
+    // daño en si de ellas mismas, a lo mejor
+    // se podria hacer un sistema como el del melee
+    // donde el proyectil que dispara tenga un valor
+    // dependiendo del arma que la dispare
+    [Header("Melee Damage")]
+    public int MeleeDamage;
 }

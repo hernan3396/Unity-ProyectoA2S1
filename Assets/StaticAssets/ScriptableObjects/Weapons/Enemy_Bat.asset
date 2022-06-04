@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4722789990270ba44bc38ae88bf77739, type: 3}
-  m_Name: Bat
+  m_Name: Enemy_Bat
   m_EditorClassIdentifier: 
   Name: Bat
   BulletSpeed: 0
@@ -18,6 +18,6 @@ MonoBehaviour:
   BulletType: 2
   RecoilForce: 0
   RecoilTime: 0
-  ShootShake: 8
-  ShakeTime: 0.4
-  MeleeDamage: 40
+  ShootShake: 0
+  ShakeTime: 0
+  MeleeDamage: 25
