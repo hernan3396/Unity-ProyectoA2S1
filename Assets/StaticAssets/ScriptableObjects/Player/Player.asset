@@ -17,6 +17,7 @@ MonoBehaviour:
   GravityScale: 10
   JumpForce: 35
   JumpTime: 1
+  FallingMaxSpeed: 50
   Speed: 20
   DamageShake: 6
   ShakeTime: 0.4
