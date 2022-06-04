@@ -13,6 +13,7 @@ public class Player : Entity
         Falling,
         RocketJumping,
         Recoil,
+        Melee,
         Stop // para frenar al personaje (para pausas y eso)
     }
 
@@ -67,6 +68,7 @@ public class Player : Entity
     [Header("Aiming")]
     [SerializeField] private Transform _aimDebugSphere;
     private bool _canShoot = true;
+    private bool _isMelee = false;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
     #endregion
@@ -126,7 +128,9 @@ public class Player : Entity
         if (_currentState == States.Stop) return;
 
         ManageState();
-        Aim();
+
+        if (_currentState != States.Melee)
+            Aim();
 
         // la parte de disparar la hice por fuera de los estados
         // porque siempre podes disparar
@@ -342,6 +346,7 @@ public class Player : Entity
         // arma cuando este hecho eso
 
         _canShoot = false;
+        _isMelee = !_canShoot;
 
         // aparece el brazo
         _meleeArm.gameObject.SetActive(true);
@@ -354,6 +359,7 @@ public class Player : Entity
         _meleeArm.gameObject.SetActive(false);
 
         _canShoot = true;
+        _isMelee = !_canShoot;
     }
     #endregion
 
@@ -387,6 +393,12 @@ public class Player : Entity
     #region States
     private void ManageState()
     {
+        if (_isMelee)
+        {
+            ChangeState(States.Melee);
+            return;
+        }
+
         if (_recoil)
         {
             ChangeState(States.Recoil);
