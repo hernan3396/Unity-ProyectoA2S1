@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
     [Header("Pools")]
     // esto despues se puede pasar a un array de poolmanagers
     // y usar un enum para mantener el orden
+    [SerializeField] private PoolManager _enemiesBulletPool;
+    [SerializeField] private PoolManager _playerBulletPool;
     [SerializeField] private PoolManager _explosionPool;
-    [SerializeField] private PoolManager _bulletPool;
     [SerializeField] private PoolManager _rocketPool;
     [SerializeField] private PoolManager _healthPool;
     [SerializeField] private PoolManager _ammoPool;
@@ -92,9 +93,14 @@ public class GameManager : MonoBehaviour
         get { return _playerPos; }
     }
 
-    public PoolManager GetBulletPool
+    public PoolManager GetPlayerBullet
     {
-        get { return _bulletPool; }
+        get { return _playerBulletPool; }
+    }
+
+    public PoolManager GetEnemyBullet
+    {
+        get { return _enemiesBulletPool; }
     }
 
     public PoolManager GetRocketPool

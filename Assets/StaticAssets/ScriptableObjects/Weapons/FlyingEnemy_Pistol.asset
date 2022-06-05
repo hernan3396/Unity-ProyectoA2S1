@@ -15,4 +15,9 @@ MonoBehaviour:
   Name: FlyingEnemy_Pistol
   BulletSpeed: 30
   FireRate: 0.5
-  BulletType: 0
+  BulletType: 2
+  RecoilForce: 0
+  RecoilTime: 0
+  ShootShake: 0
+  ShakeTime: 0
+  MeleeDamage: 0

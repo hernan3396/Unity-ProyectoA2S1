@@ -6,8 +6,9 @@ public class InventoryManager : MonoBehaviour
     // la vida deberia ser un item?
     public enum ItemID
     {
-        Bullet,
+        PlayerBullet,
         Rocket,
+        EnemyBullet,
         None
     }
 
@@ -68,8 +69,8 @@ public class InventoryManager : MonoBehaviour
         // es un metodo para debugging
         // asi que no importa que haya quedado
         // super raro escrito
-        _items[(int)ItemID.Bullet].SetAmount(_itemData[(int)ItemID.Bullet].MaxStack);
-        _uiController.UpdateItemText((int)ItemID.Bullet, _items[(int)ItemID.Bullet].GetCurrentAmonut);
+        _items[(int)ItemID.PlayerBullet].SetAmount(_itemData[(int)ItemID.PlayerBullet].MaxStack);
+        _uiController.UpdateItemText((int)ItemID.PlayerBullet, _items[(int)ItemID.PlayerBullet].GetCurrentAmonut);
         _items[(int)ItemID.Rocket].SetAmount(_itemData[(int)ItemID.Rocket].MaxStack);
         _uiController.UpdateItemText((int)ItemID.Rocket, _items[(int)ItemID.Rocket].GetCurrentAmonut);
     }

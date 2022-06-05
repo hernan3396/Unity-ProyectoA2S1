@@ -15,4 +15,9 @@ MonoBehaviour:
   Name: Enemy_Pistol
   BulletSpeed: 20
   FireRate: 1
-  BulletType: 0
+  BulletType: 2
+  RecoilForce: 0
+  RecoilTime: 0
+  ShootShake: 0
+  ShakeTime: 0
+  MeleeDamage: 0

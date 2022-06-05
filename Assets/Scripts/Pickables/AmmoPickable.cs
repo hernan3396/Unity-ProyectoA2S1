@@ -24,7 +24,7 @@ public class AmmoPickable : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             // Debug.Log("agarrado");
-            _invManage.AddAmount((int)InventoryManager.ItemID.Bullet, _bulletRestockAmount);
+            _invManage.AddAmount((int)InventoryManager.ItemID.PlayerBullet, _bulletRestockAmount);
             _invManage.AddAmount((int)InventoryManager.ItemID.Rocket, _rocketRestockAmount);
             DesactivateAmmo();
             return;

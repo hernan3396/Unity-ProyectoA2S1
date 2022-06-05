@@ -6,16 +6,18 @@ using UnityEngine;
 // al metodo Shoot;
 public class Shooting : MonoBehaviour
 {
-    private PoolManager[] _pools = new PoolManager[2]; // este numero es la cantidad de armas que tenes (que disparan)
+    private PoolManager[] _pools = new PoolManager[3]; // este numero es la cantidad de armas que tenes (que disparan)
 
     private void Start()
     {
-        _pools[(int)InventoryManager.ItemID.Bullet] = GameManager.GetInstance.GetBulletPool;
+        _pools[(int)InventoryManager.ItemID.PlayerBullet] = GameManager.GetInstance.GetPlayerBullet;
+        _pools[(int)InventoryManager.ItemID.EnemyBullet] = GameManager.GetInstance.GetEnemyBullet;
         _pools[(int)InventoryManager.ItemID.Rocket] = GameManager.GetInstance.GetRocketPool;
     }
 
     public void Shoot(int bulletType, Vector3 bulletPos, Vector3 direction, int bulletSpeed)
     {
+        Debug.Log(bulletType);
         GameObject bullet = _pools[bulletType].GetPooledObject(); // obtiene una bala de la pool
         if (!bullet) return;
 

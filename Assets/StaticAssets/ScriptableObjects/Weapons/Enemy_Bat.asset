@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Bat
   BulletSpeed: 0
   FireRate: 0.5
-  BulletType: 2
+  BulletType: 3
   RecoilForce: 0
   RecoilTime: 0
   ShootShake: 0
