@@ -30,6 +30,10 @@ public class WaypointsMovement : MonoBehaviour
     private NavMeshAgent _agent;
     #endregion
 
+    #region Pause
+    private Vector2 _lastVelocity;
+    private bool _onPause;
+    #endregion
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
@@ -51,8 +55,14 @@ public class WaypointsMovement : MonoBehaviour
         NextWapyoint();
     }
 
+    private void Start()
+    {
+        GameManager.GetInstance.onGamePause += OnPause;
+    }
+
     private void Update()
     {
+        if (_onPause) return;
         // si ve al enemigo frena, sino sigue su ruta
         if (_enemy.EnemyOnSight && _isRanged)
         {
@@ -74,6 +84,9 @@ public class WaypointsMovement : MonoBehaviour
 
         _isMoving = true;
         if (!_agent.enabled) return; // evita que tire error
+        // espero que frene el error que tira cuando muere el objeto
+        // e intenta encontrar un nuevo waypoint
+        if (_enemy.GetCurrentState == Enemy.States.Dead) return;
         _agent.SetDestination(_waypoints[_currentWaypoint].position);
     }
 
@@ -85,6 +98,8 @@ public class WaypointsMovement : MonoBehaviour
     private void StopMovement()
     {
         _agent.isStopped = true;
+        _lastVelocity = _agent.velocity;
+        _agent.velocity = Vector2.zero;
     }
 
     private void Moving()
@@ -102,6 +117,24 @@ public class WaypointsMovement : MonoBehaviour
             Invoke("NextWapyoint", _newWaypointSpeed);
         }
     }
+
+    #region Pause
+    private void OnPause(bool value)
+    {
+        _onPause = value;
+
+        if (_onPause)
+            StopMovement();
+        else
+        {
+            ReturnMovement();
+            _agent.velocity = _lastVelocity;
+            // queda medio feo aca pero para no escribir un
+            // metodo nuevo que sea practicamente este con un cambio
+            // en una linea lo hago aca
+        }
+    }
+    #endregion
 
     private void OnDrawGizmos()
     {
@@ -125,5 +158,10 @@ public class WaypointsMovement : MonoBehaviour
         }
 
         Gizmos.DrawLine(previousWaypoint, _waypointsContainer.GetChild(0).position);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 }
