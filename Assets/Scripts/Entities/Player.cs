@@ -14,7 +14,6 @@ public class Player : Entity
         RocketJumping,
         Recoil,
         Melee,
-        Stop // para frenar al personaje (para pausas y eso)
     }
 
     #region Components
@@ -81,6 +80,11 @@ public class Player : Entity
     private bool _crouching = false; // se podria hacer sin esta variable pero asi se ejecuta solo las veces necesarias el metodo Crouch()
     #endregion
 
+    #region Pause
+    private Vector2 _lastVelocity;
+    private bool _onPause;
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -102,6 +106,7 @@ public class Player : Entity
         _uiController.UpdateHealthPoints(_currentHP);
 
         _input.OnControlChanged += ControlChanged;
+        GameManager.GetInstance.onGamePause += OnPause;
     }
 
     #region Parameters
@@ -127,7 +132,7 @@ public class Player : Entity
 
     private void Update()
     {
-        if (_currentState == States.Stop) return;
+        if (_onPause) return;
 
         ManageState();
 
@@ -177,6 +182,8 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
+        if (_onPause) return;
+
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
 
         if (_rb.velocity.y < -_fallingMaxSpeed)
@@ -465,9 +472,37 @@ public class Player : Entity
     }
     #endregion
 
+    #region Pause
+    private void OnPause(bool value)
+    {
+        _onPause = value;
+
+        if (_onPause)
+            PausePlayer();
+        else
+            ResumePlayer();
+    }
+
+    private void PausePlayer()
+    {
+        _lastVelocity = _rb.velocity;
+        _rb.velocity = Vector2.zero;
+        _rb.useGravity = false;
+        _modelAnimator.speed = 0;
+    }
+
+    private void ResumePlayer()
+    {
+        _rb.velocity = _lastVelocity;
+        _rb.useGravity = true;
+        _modelAnimator.speed = 1;
+    }
+    #endregion
+
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 
     #region Getter/Setter
