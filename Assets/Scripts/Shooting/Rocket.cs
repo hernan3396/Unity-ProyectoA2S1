@@ -15,6 +15,11 @@ public class Rocket : MonoBehaviour
     [SerializeField] private int _damage;
     #endregion
 
+    #region Pause
+    private Vector2 _lastVelocity;
+    private bool _isPaused;
+    #endregion
+
     private TrailRenderer _trailRenderer;
     private Transform _transform;
     private Rigidbody _rb;
@@ -29,6 +34,7 @@ public class Rocket : MonoBehaviour
     private void Start()
     {
         _explosionPool = GameManager.GetInstance.GetExplosionPool;
+        GameManager.GetInstance.onGamePause += OnPause;
     }
 
     private void OnEnable()
@@ -100,7 +106,28 @@ public class Rocket : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player")) return; // evita que explote al dispararla
 
+        if (other.gameObject.CompareTag("Bullet")) return;
+
         Explosion();
+    }
+
+    #region Pause
+    private void OnPause(bool value)
+    {
+        if (value)
+        {
+            _lastVelocity = _rb.velocity;
+            _rb.velocity = Vector2.zero;
+            return;
+        }
+
+        _rb.velocity = _lastVelocity;
+    }
+    #endregion
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 
     private void OnDrawGizmos()

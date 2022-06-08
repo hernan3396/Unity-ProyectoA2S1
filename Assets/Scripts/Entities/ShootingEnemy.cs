@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ShootingEnemy : Enemy
 {
     protected override void Awake()
@@ -9,6 +7,8 @@ public class ShootingEnemy : Enemy
 
     private void Update()
     {
+        if (_onPause) return;
+
         _enemyOnSight = DetectEnemy();
         ManageState();
 

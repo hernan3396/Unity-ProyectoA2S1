@@ -23,6 +23,8 @@ public class MeleeEnemy : Enemy
 
     private void Update()
     {
+        if (_onPause) return;
+
         _enemyOnSight = DetectEnemy();
         ManageState();
 
@@ -66,6 +68,20 @@ public class MeleeEnemy : Enemy
     public void EnemyOutRange()
     {
         _enemyOnRange = false;
+    }
+    #endregion
+
+    #region Pause
+    protected override void PauseEnemy()
+    {
+        base.PauseEnemy();
+        _agent.isStopped = true;
+    }
+
+    protected override void ResumeEnemy()
+    {
+        base.ResumeEnemy();
+        _agent.isStopped = false;
     }
     #endregion
 }

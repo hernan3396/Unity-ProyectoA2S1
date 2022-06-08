@@ -3,10 +3,11 @@ using System.Collections;
 
 public abstract class Enemy : Entity
 {
-    protected enum States
+    public enum States
     {
         Shooting,
-        Wandering
+        Wandering,
+        Dead
     }
 
     #region Paremeters
@@ -39,6 +40,10 @@ public abstract class Enemy : Entity
     protected bool _canShoot = true;
     #endregion
 
+    #region Pause
+    protected bool _onPause;
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -50,9 +55,9 @@ public abstract class Enemy : Entity
         base.Start();
         _targetPos = GameManager.GetInstance.GetPlayerPos;
         if (_enemyData.TypeEnemy == EnemyData.EnemyType.Flying)
-        {
             _bloodPool = GameManager.GetInstance.GetSparkPool;
-        }
+
+        GameManager.GetInstance.onGamePause += OnPause;
     }
 
     #region Parameters
@@ -110,6 +115,13 @@ public abstract class Enemy : Entity
 
         yield return new WaitForSeconds(weaponData.FireRate);
         Vector3 shootOff = GenerateRandomVector(_shootAccuracy);
+
+        // mientras estas en pausa 
+        //para que no dispare una
+        // bala extra
+        while (_onPause)
+            yield return null;
+
         _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, _targetDir + shootOff, weaponData.BulletSpeed);
 
         _canShoot = true;
@@ -175,6 +187,12 @@ public abstract class Enemy : Entity
     #region States
     protected void ManageState()
     {
+        if (_hp <= 0)
+        {
+            ChangeState(States.Dead);
+            return;
+        }
+
         if (_enemyOnSight)
         {
             ChangeState(States.Shooting);
@@ -191,9 +209,41 @@ public abstract class Enemy : Entity
     }
     #endregion
 
+    #region Pause
+    protected void OnPause(bool value)
+    {
+        _onPause = value;
+
+        if (_onPause)
+            PauseEnemy();
+        else
+            ResumeEnemy();
+    }
+
+    protected virtual void PauseEnemy()
+    {
+        // para luego si es necesario
+        // _lastVelocity = _rb.velocity;
+        // _rb.velocity = Vector2.zero;
+        // _rb.useGravity = false;
+        _modelAnimator.speed = 0;
+    }
+
+    protected virtual void ResumeEnemy()
+    {
+        // _rb.velocity = _lastVelocity;
+        // _rb.useGravity = true;
+        _modelAnimator.speed = 1;
+    }
+    #endregion
     protected override IEnumerator Melee(WeaponData weaponData)
     {
         throw new System.NotImplementedException();
+    }
+
+    private void OnDisable()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 
     #region Getter/Setter
@@ -205,6 +255,11 @@ public abstract class Enemy : Entity
     public bool EnemyOnSight
     {
         get { return _enemyOnSight; }
+    }
+
+    public States GetCurrentState
+    {
+        get { return _currentState; }
     }
     #endregion
 }

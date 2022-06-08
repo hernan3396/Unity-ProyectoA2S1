@@ -12,6 +12,11 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int _damage;
     #endregion
 
+    #region Pause
+    private Vector2 _lastVelocity;
+    private bool _isPaused;
+    #endregion
+
     private TrailRenderer _trailRenderer;
     private Rigidbody _rb;
 
@@ -24,6 +29,8 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         _sparkPool = GameManager.GetInstance.GetSparkPool;
+
+        GameManager.GetInstance.onGamePause += OnPause;
     }
 
     private void OnEnable()
@@ -37,6 +44,25 @@ public class Bullet : MonoBehaviour
         _trailRenderer.Clear();
         _rb.velocity = Vector3.zero;
         gameObject.SetActive(false);
+    }
+
+    #region Pause
+    private void OnPause(bool value)
+    {
+        if (value)
+        {
+            _lastVelocity = _rb.velocity;
+            _rb.velocity = Vector2.zero;
+            return;
+        }
+
+        _rb.velocity = _lastVelocity;
+    }
+    #endregion
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 
     private void OnCollisionEnter(Collision other)
