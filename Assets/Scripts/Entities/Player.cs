@@ -371,6 +371,7 @@ public class Player : Entity
 
     private void StartDeath()
     {
+        // para que se vea un poco la animacion de muerte
         ChangeState(States.Dead);
         GameManager.GetInstance.StartGameOver();
         Invoke("Death", _deathDuration);
