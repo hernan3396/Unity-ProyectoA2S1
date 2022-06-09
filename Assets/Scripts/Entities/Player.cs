@@ -14,6 +14,7 @@ public class Player : Entity
         RocketJumping,
         Recoil,
         Melee,
+        Dead
     }
 
     #region Components
@@ -29,6 +30,7 @@ public class Player : Entity
     #region Parameters
     [SerializeField] private PlayerData _playerData;
     private States _currentState;
+    private float _deathDuration;
     private float _fallingMaxSpeed;
     private int _gravityScale;
     private int _jumpForce;
@@ -114,6 +116,7 @@ public class Player : Entity
     {
         _hp = _playerData.Hp;
         _currentHP = _hp;
+        _deathDuration = _playerData.DeathDuration;
         _invulnerability = _playerData.Invulnerability;
 
         _gravityScale = _playerData.GravityScale;
@@ -132,6 +135,7 @@ public class Player : Entity
 
     private void Update()
     {
+        if (_currentState == States.Dead) return;
         if (_onPause) return;
 
         ManageState();
@@ -182,6 +186,7 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
+        if (_currentState == States.Dead) return;
         if (_onPause) return;
 
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
@@ -335,9 +340,31 @@ public class Player : Entity
 
     public override void TakeDamage(int value)
     {
-        base.TakeDamage(value);
+        if (_isInmune) return;
+        _isInmune = true;
+        StartCoroutine("InmuneReset");
+
+        _currentHP -= value;
+
+        if (_currentHP <= 0)
+            StartDeath();
+
         _cameraBehaviour.ShakeCamera(_damageShake, _shakeTime);
         _uiController.UpdateHealthPoints(_currentHP);
+    }
+    #endregion
+
+    #region Death
+    public void DebugDead()
+    {
+        StartDeath();
+    }
+
+    private void StartDeath()
+    {
+        ChangeState(States.Dead);
+        GameManager.GetInstance.StartGameOver();
+        Invoke("Death", _deathDuration);
     }
 
     protected override void Death()

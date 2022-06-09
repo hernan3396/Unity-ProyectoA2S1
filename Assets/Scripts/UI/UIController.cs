@@ -22,6 +22,11 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text[] _itemTxt;
     #endregion
 
+    #region DeathScreen
+    [Header("Death Screen")]
+    [SerializeField] private GameObject _deathScreen;
+    #endregion
+
     private void Awake()
     {
 #if UNITY_EDITOR
@@ -32,6 +37,7 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         GameManager.GetInstance.onGamePause += OnGamePaused;
+        GameManager.GetInstance.onStartGameOver += OnStartGameOver;
     }
 
     private void OnGamePaused(bool isPaused)
@@ -57,8 +63,14 @@ public class UIController : MonoBehaviour
         _stateText.text = $"State: {newState}";
     }
 
+    private void OnStartGameOver()
+    {
+        _deathScreen.SetActive(true);
+    }
+
     private void OnDestroy()
     {
         GameManager.GetInstance.onGamePause -= OnGamePaused;
+        GameManager.GetInstance.onStartGameOver -= OnStartGameOver;
     }
 }

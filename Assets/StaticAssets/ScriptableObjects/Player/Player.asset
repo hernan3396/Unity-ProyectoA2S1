@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Hp: 100
+  DeathDuration: 3
   Invulnerability: 2
   GravityScale: 10
   JumpForce: 35

@@ -6,6 +6,7 @@ public class PlayerData : ScriptableObject
     #region HP
     [Header("HP")]
     public int Hp;
+    public float DeathDuration;
     public float Invulnerability;
     #endregion
 

@@ -36,6 +36,14 @@ public class GameManager : MonoBehaviour
     private bool _isPaused = false;
     #endregion
 
+    #region GameOver
+    public delegate void OnGameOver();
+    public event OnGameOver onGameOver;
+
+    public delegate void OnStartGameOver();
+    public event OnStartGameOver onStartGameOver;
+    #endregion
+
     [SerializeField] private Camera _mainCamera;
 
     private void Awake()
@@ -67,7 +75,14 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene("PrototipeScene"); // cambiar luego
+        if (onGameOver != null)
+            onGameOver();
+    }
+
+    public void StartGameOver()
+    {
+        if (onStartGameOver != null)
+            onStartGameOver();
     }
 
     public void QuitGame()
