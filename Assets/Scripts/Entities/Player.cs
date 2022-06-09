@@ -20,6 +20,7 @@ public class Player : Entity
     #region Components
     [Header("Components")]
     [SerializeField] private Animator _modelAnimator;
+    private CheckpointManager _checkpointManager;
     private InventoryManager _invManager;
     private UIController _uiController;
     private Rigidbody _rb;
@@ -98,6 +99,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+        _checkpointManager = GameManager.GetInstance.GetCheckpointManager;
         _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
         _uiController = GameManager.GetInstance.GetUIController;
         _invManager = GameManager.GetInstance.GetInvManager;
@@ -106,9 +108,11 @@ public class Player : Entity
         _input = GameManager.GetInstance.GetInput;
 
         _uiController.UpdateHealthPoints(_currentHP);
+        SetInitPos();
 
         _input.OnControlChanged += ControlChanged;
         GameManager.GetInstance.onGamePause += OnPause;
+        GameManager.GetInstance.onGameOver += OnGameOver;
     }
 
     #region Parameters
@@ -130,6 +134,11 @@ public class Player : Entity
         _shakeTime = _playerData.ShakeTime;
 
         _weaponList = _playerData.WeaponList;
+    }
+
+    private void SetInitPos()
+    {
+        _transform.position = _checkpointManager.GetCurrentCheckpoint;
     }
     #endregion
 
@@ -371,6 +380,13 @@ public class Player : Entity
     {
         GameManager.GetInstance.GameOver();
     }
+
+    private void OnGameOver()
+    {
+        SetInitPos();
+        _currentHP = _hp;
+        ChangeState(States.Idle);
+    }
     #endregion
 
     #region Melee
@@ -530,6 +546,7 @@ public class Player : Entity
     {
         _input.OnControlChanged -= ControlChanged;
         GameManager.GetInstance.onGamePause -= OnPause;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 
     #region Getter/Setter
