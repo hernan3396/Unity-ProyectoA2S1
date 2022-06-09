@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] private float _duration;
     [SerializeField] private int _damage;
+    private float _initialTime;
     #endregion
 
     #region Pause
@@ -24,6 +25,8 @@ public class Bullet : MonoBehaviour
     {
         _trailRenderer = GetComponent<TrailRenderer>();
         _rb = GetComponent<Rigidbody>();
+
+        _initialTime = _trailRenderer.time;
     }
 
     private void Start()
@@ -53,10 +56,12 @@ public class Bullet : MonoBehaviour
         {
             _lastVelocity = _rb.velocity;
             _rb.velocity = Vector2.zero;
+            _trailRenderer.time = Mathf.Infinity;
             return;
         }
 
         _rb.velocity = _lastVelocity;
+        _trailRenderer.time = _initialTime;
     }
     #endregion
 

@@ -42,6 +42,9 @@ public abstract class Enemy : Entity
 
     #region Pause
     protected bool _onPause;
+
+    // test de las corrutinas
+    private Coroutine _shootCoroutine;
     #endregion
 
     protected override void Awake()
