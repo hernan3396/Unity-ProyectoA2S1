@@ -31,7 +31,6 @@ public class Player : Entity
     #region Parameters
     [SerializeField] private PlayerData _playerData;
     private States _currentState;
-    private float _deathDuration;
     private float _fallingMaxSpeed;
     private int _gravityScale;
     private int _jumpForce;
@@ -120,7 +119,6 @@ public class Player : Entity
     {
         _hp = _playerData.Hp;
         _currentHP = _hp;
-        _deathDuration = _playerData.DeathDuration;
         _invulnerability = _playerData.Invulnerability;
 
         _gravityScale = _playerData.GravityScale;
@@ -349,14 +347,7 @@ public class Player : Entity
 
     public override void TakeDamage(int value)
     {
-        if (_isInmune) return;
-        _isInmune = true;
-        StartCoroutine("InmuneReset");
-
-        _currentHP -= value;
-
-        if (_currentHP <= 0)
-            StartDeath();
+        base.TakeDamage(value);
 
         _cameraBehaviour.ShakeCamera(_damageShake, _shakeTime);
         _uiController.UpdateHealthPoints(_currentHP);
@@ -366,20 +357,13 @@ public class Player : Entity
     #region Death
     public void DebugDead()
     {
-        StartDeath();
-    }
-
-    private void StartDeath()
-    {
-        // para que se vea un poco la animacion de muerte
-        ChangeState(States.Dead);
-        GameManager.GetInstance.StartGameOver();
-        Invoke("Death", _deathDuration);
+        Death();
     }
 
     protected override void Death()
     {
-        GameManager.GetInstance.GameOver();
+        ChangeState(States.Dead);
+        GameManager.GetInstance.StartGameOver();
     }
 
     private void OnGameOver()

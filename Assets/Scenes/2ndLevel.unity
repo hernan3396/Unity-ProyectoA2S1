@@ -9258,6 +9258,7 @@ MonoBehaviour:
   _playerPos: {fileID: 953797186}
   _shooting: {fileID: 1132458192}
   _input: {fileID: 1182343651}
+  _deathDuration: 3
   _mainCamera: {fileID: 963194227}
 --- !u!114 &1132458192
 MonoBehaviour:

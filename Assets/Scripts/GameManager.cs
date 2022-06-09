@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region GameOver
+    [Header("Game Over")]
+    [SerializeField] private float _deathDuration;
+
     public delegate void OnGameOver();
     public event OnGameOver onGameOver;
 
@@ -84,6 +87,8 @@ public class GameManager : MonoBehaviour
     {
         if (onStartGameOver != null)
             onStartGameOver();
+
+        Invoke("GameOver", _deathDuration);
     }
 
     public void QuitGame()
