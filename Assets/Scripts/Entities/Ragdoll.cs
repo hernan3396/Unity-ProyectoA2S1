@@ -23,8 +23,8 @@ public class Ragdoll : MonoBehaviour
         _anim.enabled = !enabled;
     }
 
-    public void DeathRagdoll()
+    public void DeathRagdoll(bool value)
     {
-        SetEnabled(true);
+        SetEnabled(value);
     }
 }

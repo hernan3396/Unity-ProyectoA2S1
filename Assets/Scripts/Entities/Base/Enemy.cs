@@ -186,7 +186,7 @@ public abstract class Enemy : Entity
 
         if (gameObject.GetComponentInChildren<Ragdoll>())
         {
-            gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll();
+            gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll(true);
         }
         else
         {
@@ -265,6 +265,9 @@ public abstract class Enemy : Entity
         _currentHP = _hp;
         _collider.enabled = true;
         _isDead = false;
+
+        if (gameObject.GetComponentInChildren<Ragdoll>())
+            gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll(false);
     }
     #endregion
 
@@ -294,6 +297,11 @@ public abstract class Enemy : Entity
     public States GetCurrentState
     {
         get { return _currentState; }
+    }
+
+    public bool IsDead
+    {
+        get { return _isDead; }
     }
     #endregion
 }

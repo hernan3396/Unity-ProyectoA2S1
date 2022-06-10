@@ -65,6 +65,12 @@ public class WaypointsMovement : MonoBehaviour
 
     private void Update()
     {
+        if (_enemy.IsDead)
+        {
+            StopMovement();
+            return;
+        }
+
         if (_onGameOver) return;
         if (_onPause) return;
         // si ve al enemigo frena, sino sigue su ruta
