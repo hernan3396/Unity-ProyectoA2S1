@@ -107,7 +107,6 @@ public class Player : Entity
         _input = GameManager.GetInstance.GetInput;
 
         SetLastCheckpointStats();
-        _uiController.UpdateHealthPoints(_currentHP);
 
         _input.OnControlChanged += ControlChanged;
         GameManager.GetInstance.onGamePause += OnPause;
@@ -142,6 +141,8 @@ public class Player : Entity
 
         if (lastHp > 0)
             _currentHP = lastHp;
+
+        _uiController.UpdateHealthPoints(_currentHP);
     }
     #endregion
 
@@ -374,7 +375,6 @@ public class Player : Entity
     private void OnGameOver()
     {
         SetLastCheckpointStats();
-        _currentHP = _hp;
         ChangeState(States.Idle);
     }
     #endregion

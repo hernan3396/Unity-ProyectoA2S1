@@ -7,6 +7,8 @@ public class ShootingEnemy : Enemy
 
     private void Update()
     {
+        if (_isDead) return;
+        if (_isGameOver) return;
         if (_onPause) return;
 
         _enemyOnSight = DetectEnemy();

@@ -32,6 +32,7 @@ public class WaypointsMovement : MonoBehaviour
 
     #region Pause
     private Vector2 _lastVelocity;
+    private bool _onGameOver;
     private bool _onPause;
     #endregion
     private void Awake()
@@ -58,10 +59,13 @@ public class WaypointsMovement : MonoBehaviour
     private void Start()
     {
         GameManager.GetInstance.onGamePause += OnPause;
+        GameManager.GetInstance.onStartGameOver += OnStartGameOver;
+        GameManager.GetInstance.onGameOver += OnGameOver;
     }
 
     private void Update()
     {
+        if (_onGameOver) return;
         if (_onPause) return;
         // si ve al enemigo frena, sino sigue su ruta
         if (_enemy.EnemyOnSight && _isRanged)
@@ -136,6 +140,20 @@ public class WaypointsMovement : MonoBehaviour
     }
     #endregion
 
+    #region GameOver
+    protected void OnStartGameOver()
+    {
+        _onGameOver = true;
+        StopMovement();
+    }
+
+    protected void OnGameOver()
+    {
+        _onGameOver = false;
+        ReturnMovement();
+    }
+    #endregion
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
@@ -160,8 +178,10 @@ public class WaypointsMovement : MonoBehaviour
         Gizmos.DrawLine(previousWaypoint, _waypointsContainer.GetChild(0).position);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameManager.GetInstance.onGamePause -= OnPause;
+        GameManager.GetInstance.onStartGameOver -= OnStartGameOver;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 }

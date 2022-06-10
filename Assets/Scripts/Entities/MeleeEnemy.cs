@@ -23,6 +23,7 @@ public class MeleeEnemy : Enemy
 
     private void Update()
     {
+        if (_isGameOver) return;
         if (_onPause) return;
 
         _enemyOnSight = DetectEnemy();

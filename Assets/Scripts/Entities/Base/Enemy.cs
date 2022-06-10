@@ -18,6 +18,9 @@ public abstract class Enemy : Entity
     protected int _acceleration;
     protected float _accuracy;
     protected bool _melee = false;
+    protected Vector2 _initPos;
+    protected bool _isGameOver;
+    protected bool _isDead;
     #endregion
 
     #region BodyParts
@@ -26,6 +29,7 @@ public abstract class Enemy : Entity
     [SerializeField] protected Transform _shootingPos;
     [SerializeField] protected Transform _model;
     [SerializeField] protected Transform _arm;
+    private CapsuleCollider _collider;
     #endregion
 
     #region Target
@@ -51,6 +55,7 @@ public abstract class Enemy : Entity
     {
         base.Awake();
         SetStats();
+        _collider = GetComponent<CapsuleCollider>();
     }
 
     protected override void Start()
@@ -61,6 +66,8 @@ public abstract class Enemy : Entity
             _bloodPool = GameManager.GetInstance.GetSparkPool;
 
         GameManager.GetInstance.onGamePause += OnPause;
+        GameManager.GetInstance.onStartGameOver += OnStartGameOver;
+        GameManager.GetInstance.onGameOver += OnGameOver;
     }
 
     #region Parameters
@@ -79,6 +86,8 @@ public abstract class Enemy : Entity
         _shootAccuracy = _enemyData.ShootAccuracy;
 
         _weaponList = _enemyData.WeaponList;
+
+        _initPos = _transform.position;
     }
     #endregion
 
@@ -162,7 +171,6 @@ public abstract class Enemy : Entity
     }
     protected override void Death()
     {
-
         if (_melee)
         {
             GameObject ammoPickable = GameManager.GetInstance.GetAmmoPool.GetPooledObject();
@@ -175,6 +183,7 @@ public abstract class Enemy : Entity
             healthPickable.transform.position = _transform.position;
             healthPickable.SetActive(true);
         }
+
         if (gameObject.GetComponentInChildren<Ragdoll>())
         {
             gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll();
@@ -184,6 +193,8 @@ public abstract class Enemy : Entity
             gameObject.SetActive(false);
         }
 
+        _isDead = true;
+        _collider.enabled = false;
     }
     #endregion
 
@@ -239,14 +250,34 @@ public abstract class Enemy : Entity
         _modelAnimator.speed = 1;
     }
     #endregion
+
+    #region GameOver
+    protected void OnStartGameOver()
+    {
+        _isGameOver = true;
+        _enemyOnSight = false;
+    }
+
+    protected void OnGameOver()
+    {
+        _transform.position = _initPos;
+        _isGameOver = false;
+        _currentHP = _hp;
+        _collider.enabled = true;
+        _isDead = false;
+    }
+    #endregion
+
     protected override IEnumerator Melee(WeaponData weaponData)
     {
         throw new System.NotImplementedException();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameManager.GetInstance.onGamePause -= OnPause;
+        GameManager.GetInstance.onStartGameOver -= OnStartGameOver;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 
     #region Getter/Setter
