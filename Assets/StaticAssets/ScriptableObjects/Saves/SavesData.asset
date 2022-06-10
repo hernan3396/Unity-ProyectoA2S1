@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SavesData
   m_EditorClassIdentifier: 
   CurrentCheckpoint: {x: 0, y: 0}
-  CurrentLevel: 
+  CurrentLevel: 2ndLevel
   BulletAmount: 0
   RocketAmount: 0
+  Health: 0
