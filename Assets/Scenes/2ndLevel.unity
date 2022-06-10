@@ -9251,10 +9251,10 @@ MonoBehaviour:
   _bloodPool: {fileID: 1227544715}
   _dustPool: {fileID: 674201716}
   _sparkPool: {fileID: 1520618926}
-  _checkpointManager: {fileID: 1132458194}
   _cameraScript: {fileID: 1841007336}
   _invManager: {fileID: 598405689}
   _uiController: {fileID: 28364000}
+  _savesManager: {fileID: 1132458194}
   _playerPos: {fileID: 953797186}
   _shooting: {fileID: 1132458192}
   _input: {fileID: 1182343651}

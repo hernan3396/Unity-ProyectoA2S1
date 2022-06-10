@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("TFW no pool")]
-    [SerializeField] private CheckpointManager _checkpointManager;
     [SerializeField] private CameraBehaviour _cameraScript;
     [SerializeField] private InventoryManager _invManager;
     [SerializeField] private UIController _uiController;
+    [SerializeField] private SavesManager _savesManager;
     [SerializeField] private Transform _playerPos;
     [SerializeField] private Shooting _shooting;
     [SerializeField] private Inputs _input;
@@ -184,9 +184,9 @@ public class GameManager : MonoBehaviour
         get { return _uiController; }
     }
 
-    public CheckpointManager GetCheckpointManager
+    public SavesManager GetSavesManager
     {
-        get { return _checkpointManager; }
+        get { return _savesManager; }
     }
 
     public InventoryManager GetInvManager

@@ -7,4 +7,5 @@ public class SavesData : ScriptableObject
     public string CurrentLevel;
     public int BulletAmount;
     public int RocketAmount;
+    public int Health;
 }

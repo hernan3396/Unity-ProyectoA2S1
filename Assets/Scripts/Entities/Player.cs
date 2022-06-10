@@ -20,7 +20,7 @@ public class Player : Entity
     #region Components
     [Header("Components")]
     [SerializeField] private Animator _modelAnimator;
-    private CheckpointManager _checkpointManager;
+    private SavesManager _savesManager;
     private InventoryManager _invManager;
     private UIController _uiController;
     private Rigidbody _rb;
@@ -98,7 +98,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
-        _checkpointManager = GameManager.GetInstance.GetCheckpointManager;
+        _savesManager = GameManager.GetInstance.GetSavesManager;
         _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
         _uiController = GameManager.GetInstance.GetUIController;
         _invManager = GameManager.GetInstance.GetInvManager;
@@ -106,8 +106,8 @@ public class Player : Entity
         _cam = GameManager.GetInstance.GetMainCamera;
         _input = GameManager.GetInstance.GetInput;
 
+        SetLastCheckpointStats();
         _uiController.UpdateHealthPoints(_currentHP);
-        SetInitPos();
 
         _input.OnControlChanged += ControlChanged;
         GameManager.GetInstance.onGamePause += OnPause;
@@ -134,9 +134,14 @@ public class Player : Entity
         _weaponList = _playerData.WeaponList;
     }
 
-    private void SetInitPos()
+    private void SetLastCheckpointStats()
     {
-        _transform.position = _checkpointManager.GetCurrentCheckpoint;
+        _transform.position = _savesManager.GetCurrentCheckpoint;
+
+        int lastHp = _savesManager.GetHealth;
+
+        if (lastHp > 0)
+            _currentHP = lastHp;
     }
     #endregion
 
@@ -368,7 +373,7 @@ public class Player : Entity
 
     private void OnGameOver()
     {
-        SetInitPos();
+        SetLastCheckpointStats();
         _currentHP = _hp;
         ChangeState(States.Idle);
     }
@@ -538,6 +543,11 @@ public class Player : Entity
     public Rigidbody GetRB
     {
         get { return _rb; }
+    }
+
+    public int GetHealth
+    {
+        get { return _currentHP; }
     }
     #endregion
 }

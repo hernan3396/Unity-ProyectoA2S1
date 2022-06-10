@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
 
     #region Components
     private UIController _uiController;
+    private SavesManager _savesManager;
     #endregion
 
     [SerializeField] private InventoryItemData[] _itemData; // los prefabs con info
@@ -22,6 +23,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         _uiController = GameManager.GetInstance.GetUIController;
+        _savesManager = GameManager.GetInstance.GetSavesManager;
 
         PopulateInventory();
     }
@@ -29,21 +31,30 @@ public class InventoryManager : MonoBehaviour
     // creates initial list for items
     private void PopulateInventory()
     {
+        // esta medio feo pero para esto
+        // los playerprefs deberian tener algo asi
+        // como una ID para poder identificarlos mas facil
+        // pero como son solo 2 items que hay que recordar
+        // quedara asi
         _items = new InventoryItem[_itemData.Length];
 
         for (int i = 0; i < _itemData.Length; i++)
         {
             _items[i] = new InventoryItem();
             _items[i].SetData(_itemData[i]);
-            _items[i].SetAmount(0);
-
-            // aca leerias de los player prefs cuantas tenia
-            // anteriormente el player, de momento seteo el maximo
-            // que viene en ItemData.MaxStack
-            _items[i].SetAmount(_itemData[i].MaxStack);
-
-            _uiController.UpdateItemText(i, _items[i].GetCurrentAmonut);
         }
+
+        int index;
+
+        index = (int)ItemID.PlayerBullet;
+        _items[index].SetAmount(_savesManager.GetBulletAmount);
+
+        _uiController.UpdateItemText(index, _items[index].GetCurrentAmonut);
+
+        index = (int)ItemID.Rocket;
+        _items[index].SetAmount(_savesManager.GetRocketAmount);
+
+        _uiController.UpdateItemText(index, _items[index].GetCurrentAmonut);
     }
 
     public void AddAmount(int itemID, int value)
@@ -112,6 +123,11 @@ public class InventoryItem
     public int GetCurrentAmonut
     {
         get { return Amount; }
+    }
+
+    public int GetMaxStack
+    {
+        get { return Data.MaxStack; }
     }
     #endregion
 }
