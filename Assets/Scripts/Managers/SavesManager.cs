@@ -11,8 +11,6 @@ public class SavesManager : MonoBehaviour
 
     private void Awake()
     {
-        // _currentCheckpoint = new Vector2(PlayerPrefs.GetFloat("SCC_CheckpointX"), PlayerPrefs.GetFloat("SCC_CheckpointY"));
-        // Debug.Log(_currentCheckpoint);
         LoadData();
     }
 
@@ -26,9 +24,35 @@ public class SavesManager : MonoBehaviour
 
     private void LoadData()
     {
-        _savesData.CurrentCheckpoint = new Vector2(PlayerPrefs.GetFloat("SCC_CheckpointX"), PlayerPrefs.GetFloat("SCC_CheckpointY"));
-        _savesData.Health = PlayerPrefs.GetInt("SCC_Health");
+        if (PlayerPrefs.HasKey("SCC_CheckpointX") || PlayerPrefs.HasKey("SCC_CheckpointY"))
+            _savesData.CurrentCheckpoint = new Vector2(PlayerPrefs.GetFloat("SCC_CheckpointX"), PlayerPrefs.GetFloat("SCC_CheckpointY"));
+        else
+            _savesData.CurrentCheckpoint = _savesData.InitialCheckpoint;
+
+        // asumimos que si se guardo la vida (por ejemplo)
+        // se guardaron los otros stats
+        // y usamos el initial amount por si queremos arrancar el nivel con una cantidad X de
+        // municion, vida, etc (ejemplo empieza sin balas)
+        if (PlayerPrefs.HasKey("SCC_Health"))
+        {
+            _savesData.Health = PlayerPrefs.GetInt("SCC_Health");
+            _savesData.BulletAmount = PlayerPrefs.GetInt("SCC_Bullets");
+            _savesData.RocketAmount = PlayerPrefs.GetInt("SCC_Rockets");
+
+        }
+        else
+        {
+            _savesData.Health = _savesData.InitialHealth;
+            _savesData.BulletAmount = _savesData.InitialBulletAmount;
+            _savesData.RocketAmount = _savesData.InitialRocketAmount;
+        }
+
+
         _savesData.CurrentLevel = SceneManager.GetActiveScene().name;
+
+        // si no hay nada de eso carga los datos que tenga el _savesData
+        // los cuales se configuran a mano
+        // sirve para iniciar el nivel en las condiciones que querramos
     }
 
     public void SetCheckpoint(Transform destination)
@@ -47,7 +71,21 @@ public class SavesManager : MonoBehaviour
         PlayerPrefs.SetInt("SCC_Bullets", _savesData.BulletAmount);
 
         _savesData.RocketAmount = _invManager.GetAmount((int)InventoryManager.ItemID.Rocket);
-        PlayerPrefs.SetInt("SCC_Bullets", _savesData.RocketAmount);
+        PlayerPrefs.SetInt("SCC_Rockets", _savesData.RocketAmount);
+    }
+
+    public void DeleteCheckpoints(bool keepStats)
+    {
+        PlayerPrefs.DeleteKey("SCC_CheckpointX");
+        PlayerPrefs.DeleteKey("SCC_CheckpointY");
+        PlayerPrefs.DeleteKey("SCC_Level");
+
+        // si (no) queres mantener las balas en el cambio de nivel
+        // para hacer que arranque sin balas x ejemplo
+        if (keepStats) return;
+        PlayerPrefs.DeleteKey("SCC_Health");
+        PlayerPrefs.DeleteKey("SCC_Bullets");
+        PlayerPrefs.DeleteKey("SCC_Rockets");
     }
 
     public Vector2 GetCurrentCheckpoint
