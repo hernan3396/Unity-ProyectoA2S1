@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SavesData_Lvl01
   m_EditorClassIdentifier: 
   CurrentLevel: PrimerNivel
-  InitialCheckpoint: {x: 222, y: 31}
-  CurrentCheckpoint: {x: 222, y: 31}
+  InitialCheckpoint: {x: -40, y: 24}
+  CurrentCheckpoint: {x: 260, y: 40}
   InitialBulletAmount: 0
   BulletAmount: 0
   InitialRocketAmount: 0

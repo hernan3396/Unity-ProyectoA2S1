@@ -12,6 +12,7 @@ TagManager:
   - Armor
   - Melee
   - Ammo
+  - Rocket
   layers:
   - Default
   - TransparentFX
