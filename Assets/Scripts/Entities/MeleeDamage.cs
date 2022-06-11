@@ -41,6 +41,6 @@ public class MeleeDamage : MonoBehaviour
     {
         // de momento esta implementacion no causa
         // ningun problema
-        rb.velocity = -rb.velocity;
+        rb.velocity = -rb.velocity * 2;
     }
 }

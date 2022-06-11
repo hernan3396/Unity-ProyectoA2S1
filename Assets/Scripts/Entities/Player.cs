@@ -14,11 +14,13 @@ public class Player : Entity
         RocketJumping,
         Recoil,
         Melee,
+        Dead
     }
 
     #region Components
     [Header("Components")]
     [SerializeField] private Animator _modelAnimator;
+    private SavesManager _savesManager;
     private InventoryManager _invManager;
     private UIController _uiController;
     private Rigidbody _rb;
@@ -96,6 +98,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+        _savesManager = GameManager.GetInstance.GetSavesManager;
         _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
         _uiController = GameManager.GetInstance.GetUIController;
         _invManager = GameManager.GetInstance.GetInvManager;
@@ -103,10 +106,11 @@ public class Player : Entity
         _cam = GameManager.GetInstance.GetMainCamera;
         _input = GameManager.GetInstance.GetInput;
 
-        _uiController.UpdateHealthPoints(_currentHP);
+        SetLastCheckpointStats();
 
         _input.OnControlChanged += ControlChanged;
         GameManager.GetInstance.onGamePause += OnPause;
+        GameManager.GetInstance.onGameOver += OnGameOver;
     }
 
     #region Parameters
@@ -128,10 +132,23 @@ public class Player : Entity
 
         _weaponList = _playerData.WeaponList;
     }
+
+    private void SetLastCheckpointStats()
+    {
+        _transform.position = _savesManager.GetCurrentCheckpoint;
+
+        int lastHp = _savesManager.GetHealth;
+
+        if (lastHp > 0)
+            _currentHP = lastHp;
+
+        _uiController.UpdateHealthPoints(_currentHP);
+    }
     #endregion
 
     private void Update()
     {
+        if (_currentState == States.Dead) return;
         if (_onPause) return;
 
         ManageState();
@@ -182,6 +199,7 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
+        if (_currentState == States.Dead) return;
         if (_onPause) return;
 
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
@@ -336,13 +354,28 @@ public class Player : Entity
     public override void TakeDamage(int value)
     {
         base.TakeDamage(value);
+
         _cameraBehaviour.ShakeCamera(_damageShake, _shakeTime);
         _uiController.UpdateHealthPoints(_currentHP);
+    }
+    #endregion
+
+    #region Death
+    public void DebugDead()
+    {
+        Death();
     }
 
     protected override void Death()
     {
-        GameManager.GetInstance.GameOver();
+        ChangeState(States.Dead);
+        GameManager.GetInstance.StartGameOver();
+    }
+
+    private void OnGameOver()
+    {
+        SetLastCheckpointStats();
+        ChangeState(States.Idle);
     }
     #endregion
 
@@ -503,12 +536,18 @@ public class Player : Entity
     {
         _input.OnControlChanged -= ControlChanged;
         GameManager.GetInstance.onGamePause -= OnPause;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 
     #region Getter/Setter
     public Rigidbody GetRB
     {
         get { return _rb; }
+    }
+
+    public int GetHealth
+    {
+        get { return _currentHP; }
     }
     #endregion
 }

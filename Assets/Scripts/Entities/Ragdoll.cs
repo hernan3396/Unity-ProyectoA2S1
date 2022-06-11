@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ragdoll : MonoBehaviour
@@ -24,15 +21,10 @@ public class Ragdoll : MonoBehaviour
         }
 
         _anim.enabled = !enabled;
-        GetComponentInParent<CapsuleCollider>().enabled = !enabled;
-        GetComponentInParent<Enemy>()._canShoot = false;
-
-        if (TryGetComponent(out WaypointsMovement waypointsMovement))
-            waypointsMovement.enabled = !enabled;
     }
 
-    public void DeathRagdoll()
+    public void DeathRagdoll(bool value)
     {
-        SetEnabled(true);
+        SetEnabled(value);
     }
 }

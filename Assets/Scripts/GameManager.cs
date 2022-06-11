@@ -24,7 +24,9 @@ public class GameManager : MonoBehaviour
     [Header("TFW no pool")]
     [SerializeField] private CameraBehaviour _cameraScript;
     [SerializeField] private InventoryManager _invManager;
+    [SerializeField] private LevelManager _levelManager;
     [SerializeField] private UIController _uiController;
+    [SerializeField] private SavesManager _savesManager;
     [SerializeField] private Transform _playerPos;
     [SerializeField] private Shooting _shooting;
     [SerializeField] private Inputs _input;
@@ -34,6 +36,17 @@ public class GameManager : MonoBehaviour
     public delegate void OnGamePause(bool isGamePaused);
     public event OnGamePause onGamePause;
     private bool _isPaused = false;
+    #endregion
+
+    #region GameOver
+    [Header("Game Over")]
+    [SerializeField] private float _deathDuration;
+
+    public delegate void OnGameOver();
+    public event OnGameOver onGameOver;
+
+    public delegate void OnStartGameOver();
+    public event OnStartGameOver onStartGameOver;
     #endregion
 
     [SerializeField] private Camera _mainCamera;
@@ -60,14 +73,18 @@ public class GameManager : MonoBehaviour
             onGamePause(_isPaused);
     }
 
-    public void LoadScene(string scene)
-    {
-        SceneManager.LoadScene(scene);
-    }
-
     public void GameOver()
     {
-        SceneManager.LoadScene("PrototipeScene"); // cambiar luego
+        if (onGameOver != null)
+            onGameOver();
+    }
+
+    public void StartGameOver()
+    {
+        if (onStartGameOver != null)
+            onStartGameOver();
+
+        Invoke("GameOver", _deathDuration);
     }
 
     public void QuitGame()
@@ -161,6 +178,11 @@ public class GameManager : MonoBehaviour
     public UIController GetUIController
     {
         get { return _uiController; }
+    }
+
+    public SavesManager GetSavesManager
+    {
+        get { return _savesManager; }
     }
 
     public InventoryManager GetInvManager
