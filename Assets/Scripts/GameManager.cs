@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [Header("TFW no pool")]
     [SerializeField] private CameraBehaviour _cameraScript;
     [SerializeField] private InventoryManager _invManager;
+    [SerializeField] private LevelManager _levelManager;
     [SerializeField] private UIController _uiController;
     [SerializeField] private SavesManager _savesManager;
     [SerializeField] private Transform _playerPos;
@@ -70,11 +71,6 @@ public class GameManager : MonoBehaviour
 
         if (onGamePause != null)
             onGamePause(_isPaused);
-    }
-
-    public void LoadScene(string scene)
-    {
-        SceneManager.LoadScene(scene);
     }
 
     public void GameOver()

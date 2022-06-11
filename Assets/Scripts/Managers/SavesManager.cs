@@ -3,7 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class SavesManager : MonoBehaviour
 {
+    // quedo un poquito feo pero como nunca lo habia hecho
+    // con un scriptable object hice un poco de freestyle
+    // y al menos funciona
     [SerializeField] private SavesData _savesData;
+    [SerializeField] private bool _inMenu = false;
     private InventoryManager _invManager; // referencia a la # de balas
     private Player _player; // referencia a los stats del player
     // se usa para cuando guardas un checkpoint
@@ -18,6 +22,8 @@ public class SavesManager : MonoBehaviour
     {
         // ya que esta este me parecio al pedo crear 
         // otra referencia en el game manager
+        if (_inMenu) return;
+
         _player = GameManager.GetInstance.GetPlayerPos.GetComponent<Player>();
         _invManager = GameManager.GetInstance.GetInvManager;
     }
@@ -38,7 +44,6 @@ public class SavesManager : MonoBehaviour
             _savesData.Health = PlayerPrefs.GetInt("SCC_Health");
             _savesData.BulletAmount = PlayerPrefs.GetInt("SCC_Bullets");
             _savesData.RocketAmount = PlayerPrefs.GetInt("SCC_Rockets");
-
         }
         else
         {
@@ -47,8 +52,10 @@ public class SavesManager : MonoBehaviour
             _savesData.RocketAmount = _savesData.InitialRocketAmount;
         }
 
-
-        _savesData.CurrentLevel = SceneManager.GetActiveScene().name;
+        if (PlayerPrefs.HasKey("SCC_Level"))
+            _savesData.CurrentLevel = PlayerPrefs.GetString("SCC_Level");
+        else
+            _savesData.CurrentLevel = SceneManager.GetActiveScene().name;
 
         // si no hay nada de eso carga los datos que tenga el _savesData
         // los cuales se configuran a mano
@@ -61,11 +68,16 @@ public class SavesManager : MonoBehaviour
         PlayerPrefs.SetFloat("SCC_CheckpointY", destination.position.y);
         _savesData.CurrentCheckpoint = destination.position;
 
-        _savesData.Health = _player.GetHealth;
-        PlayerPrefs.SetInt("SCC_Health", _savesData.Health);
-
         _savesData.CurrentLevel = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetString("SCC_Level", _savesData.CurrentLevel);
+
+        SaveStats();
+    }
+
+    public void SaveStats()
+    {
+        _savesData.Health = _player.GetHealth;
+        PlayerPrefs.SetInt("SCC_Health", _savesData.Health);
 
         _savesData.BulletAmount = _invManager.GetAmount((int)InventoryManager.ItemID.PlayerBullet);
         PlayerPrefs.SetInt("SCC_Bullets", _savesData.BulletAmount);
