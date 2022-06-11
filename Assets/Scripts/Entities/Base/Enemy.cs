@@ -41,7 +41,7 @@ public abstract class Enemy : Entity
     #endregion
 
     #region Shooting
-    protected bool _canShoot = true;
+    public bool _canShoot = true;
     #endregion
 
     #region Pause

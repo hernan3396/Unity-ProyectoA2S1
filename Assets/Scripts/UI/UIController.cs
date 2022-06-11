@@ -10,6 +10,8 @@ public class UIController : MonoBehaviour
 
     [Header("Health")]
     [SerializeField] private TMP_Text _healthPoints;
+    [SerializeField] private GameObject _lifeBar;
+    [SerializeField] private PlayerData _playerData; 
 
     #region Pause
     [Header("Pause")]
@@ -38,6 +40,7 @@ public class UIController : MonoBehaviour
     {
         GameManager.GetInstance.onGamePause += OnGamePaused;
         GameManager.GetInstance.onStartGameOver += OnStartGameOver;
+        _lifeBar.GetComponent<Slider>().maxValue = _playerData.Hp;
     }
 
     private void OnGamePaused(bool isPaused)
@@ -51,6 +54,7 @@ public class UIController : MonoBehaviour
     public void UpdateHealthPoints(int value)
     {
         _healthPoints.text = "HP: " + value.ToString();
+        _lifeBar.GetComponent<Slider>().value = value;
     }
 
     public void UpdateItemText(int itemID, int value)
