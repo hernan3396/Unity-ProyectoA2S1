@@ -23,6 +23,7 @@ public class MeleeEnemy : Enemy
 
     private void Update()
     {
+        if (_isDead) return;
         if (_isGameOver) return;
         if (_onPause) return;
 
