@@ -235,6 +235,7 @@ MonoBehaviour:
   _objLayer:
     serializedVersion: 2
     m_Bits: 64
+  _canShoot: 1
 --- !u!1 &4562753629927273255
 GameObject:
   m_ObjectHideFlags: 0
