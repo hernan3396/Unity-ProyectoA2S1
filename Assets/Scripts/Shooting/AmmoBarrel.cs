@@ -15,6 +15,8 @@ public class AmmoBarrel : MonoBehaviour
     public void SpawnAmmo()
     {
         GameObject ammo = _ammoPool.GetPooledObject();
+        if (!ammo) return;
+        
         ammo.transform.position = (Vector2)_spawnPosition.position;
         ammo.SetActive(true);
 
