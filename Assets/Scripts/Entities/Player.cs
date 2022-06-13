@@ -462,6 +462,10 @@ public class Player : Entity
             return;
         }
 
+        // en vez de 0 le puse 
+        // un dos para que en
+        // el cambio de animaciones
+        // no se chotee
         if (_rb.velocity.y > 0)
         {
             ChangeState(States.Jumping);
