@@ -50,6 +50,8 @@ public class Player : Entity
     [SerializeField] private Transform _meleeArm;
     [SerializeField] private Transform _model;
     [SerializeField] private Transform _arm;
+    [SerializeField] private GameObject _gunModel;
+    [SerializeField] private GameObject _batModel;
     #endregion
 
     #region Jumping
@@ -395,6 +397,8 @@ public class Player : Entity
 
         // aparece el brazo
         _meleeArm.gameObject.SetActive(true);
+        _batModel.SetActive(true);
+        _gunModel.SetActive(false);
 
         _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
 
@@ -402,6 +406,8 @@ public class Player : Entity
 
         // "apaga" el brazo
         _meleeArm.gameObject.SetActive(false);
+        _batModel.SetActive(false);
+        _gunModel.SetActive(true);
 
         _canShoot = true;
         _isMelee = !_canShoot;
@@ -500,7 +506,12 @@ public class Player : Entity
         _currentState = newState;
 
         string currentStateString = _currentState.ToString();
-        _modelAnimator.Play(currentStateString);
+
+        if (_currentState == States.Melee)
+            _modelAnimator.Play(currentStateString, 1);
+        else
+            _modelAnimator.Play(currentStateString);
+
         _uiController.UpdateState(currentStateString);
     }
     #endregion
