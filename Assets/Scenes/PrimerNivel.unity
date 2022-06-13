@@ -7200,7 +7200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffe2702972603348b9c59a2f5579d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savesData: {fileID: 11400000, guid: 2e9ce19db684db34c84e8a9eac63a1fb, type: 2}
+  _savesData: {fileID: 11400000, guid: a90515314177c2e439fc06c8f6e3f03d, type: 2}
   _inMenu: 0
 --- !u!114 &1132458195
 MonoBehaviour:
@@ -8039,9 +8039,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4419665207115290045, guid: c8fc00bbed5efc84ebdbd00dd1d957bb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8733361421645772538, guid: c8fc00bbed5efc84ebdbd00dd1d957bb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8fc00bbed5efc84ebdbd00dd1d957bb, type: 3}

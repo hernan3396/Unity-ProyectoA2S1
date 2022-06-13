@@ -422,8 +422,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1145155449}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1145155453}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -431,7 +431,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PrototipeScene
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &433699703
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: RESTART
+  m_text: MAIN MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 374466c33c1e8e243b958355c997673e, type: 2}
   m_sharedMaterial: {fileID: 5199931665142496009, guid: 374466c33c1e8e243b958355c997673e, type: 2}
@@ -618,6 +618,8 @@ GameObject:
   - component: {fileID: 1145155450}
   - component: {fileID: 1145155449}
   - component: {fileID: 1145155451}
+  - component: {fileID: 1145155453}
+  - component: {fileID: 1145155452}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -637,13 +639,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398f18a5b858274418080bcf261913c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiController: {fileID: 0}
-  _bulletPool: {fileID: 0}
+  _enemiesBulletPool: {fileID: 0}
+  _playerBulletPool: {fileID: 0}
+  _explosionPool: {fileID: 0}
   _rocketPool: {fileID: 0}
   _healthPool: {fileID: 0}
+  _ammoPool: {fileID: 0}
+  _bloodPool: {fileID: 0}
+  _dustPool: {fileID: 0}
+  _sparkPool: {fileID: 0}
+  _cameraScript: {fileID: 0}
+  _invManager: {fileID: 0}
+  _levelManager: {fileID: 1145155453}
+  _uiController: {fileID: 0}
+  _savesManager: {fileID: 1145155452}
   _playerPos: {fileID: 0}
   _shooting: {fileID: 0}
   _input: {fileID: 0}
+  _deathDuration: 0
   _mainCamera: {fileID: 0}
 --- !u!4 &1145155450
 Transform:
@@ -673,6 +686,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firstSelectedButton: {fileID: 433699702}
+  _loadGameButton: {fileID: 1558858738}
+--- !u!114 &1145155452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145155448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffe2702972603348b9c59a2f5579d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _savesData: {fileID: 11400000, guid: bcd9b8f921f52f14998074670b60b05a, type: 2}
+  _inMenu: 1
+--- !u!114 &1145155453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145155448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527bb3aa704e7c847b044f7e4542cbdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1365571034
 GameObject:
   m_ObjectHideFlags: 0
