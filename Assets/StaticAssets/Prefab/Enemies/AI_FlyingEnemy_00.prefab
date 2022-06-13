@@ -290,9 +290,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: dd0e1aa8001177943926de206853e3c1, type: 2}
-  _modelAnimator: {fileID: 0}
-  _shootingPos: {fileID: 0}
-  _model: {fileID: 0}
+  _modelAnimator: {fileID: 7196141275327265415}
+  _shootingPos: {fileID: 8977799801349428507}
+  _model: {fileID: 371745614663773898}
   _arm: {fileID: 4178200324403926951}
   _targetOffset: {x: 0, y: 2, z: 0}
   _objLayer:
@@ -708,18 +708,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 720486202065263993}
     m_Active: 1
   m_Effectors: []
---- !u!114 &7241262934137294863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036782316802258032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3c60832875bbd42bddc1265dac4c46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1059483851200570285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +765,18 @@ MonoBehaviour:
   - {fileID: 2466455728248117008}
   - {fileID: 6570348264434416015}
   - {fileID: 4232147179066981465}
+--- !u!114 &7241262934137294863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036782316802258032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3c60832875bbd42bddc1265dac4c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1079470177744694719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8333627713332763490, guid: 5253a591a5e7d2148bdfa766b450741c, type: 3}
