@@ -52,7 +52,6 @@ public abstract class Enemy : Entity
     #endregion
 
     #region Sound
-    private AudioManager _audioManager;
     private ExternalSound _extSound;
     #endregion
 
@@ -69,8 +68,6 @@ public abstract class Enemy : Entity
         _targetPos = GameManager.GetInstance.GetPlayerPos;
         if (_enemyData.TypeEnemy == EnemyData.EnemyType.Flying)
             _bloodPool = GameManager.GetInstance.GetSparkPool;
-
-        _audioManager = AudioManager.GetInstance;
 
         if (TryGetComponent(out ExternalSound extSound))
             _extSound = extSound;

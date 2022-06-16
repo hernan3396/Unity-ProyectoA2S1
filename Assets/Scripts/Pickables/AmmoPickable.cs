@@ -11,11 +11,11 @@ public class AmmoPickable : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _invManage = GameManager.GetInstance.GetInvManager;
     }
 
     private void Start()
     {
+        _invManage = GameManager.GetInstance.GetInvManager;
         _audioManager = AudioManager.GetInstance;
     }
 
