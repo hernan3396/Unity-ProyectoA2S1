@@ -594,18 +594,9 @@ public class Player : Entity
 
     private void ChangeState(States newState)
     {
-        // https://docs.unity3d.com/ScriptReference/Animator.Play.html
-        // ver ese link con normalizeTime o hacerlo a mano con los bool/trigger del animator
-        // hacer el cambio de animacion
         _currentState = newState;
 
         string currentStateString = _currentState.ToString();
-
-        // if (_currentState == States.Melee)
-        //     _modelAnimator.Play(currentStateString, 1);
-        // else
-        //     _modelAnimator.Play(currentStateString);
-
         _uiController.UpdateState(currentStateString);
     }
     #endregion
