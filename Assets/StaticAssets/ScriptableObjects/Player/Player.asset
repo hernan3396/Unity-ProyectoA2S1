@@ -16,7 +16,7 @@ MonoBehaviour:
   DeathDuration: 3
   Invulnerability: 2
   GravityScale: 10
-  JumpForce: 35
+  JumpForce: 40
   JumpTime: 1
   FallingMaxSpeed: 50
   Speed: 20

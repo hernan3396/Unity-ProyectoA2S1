@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5282ed0c1a11ad45825e38106295f38, type: 3}
-  m_Name: SavesData_SegundoNivel
+  m_Name: SavesData_Menu 1
   m_EditorClassIdentifier: 
-  CurrentLevel: PrimerNivel
-  InitialCheckpoint: {x: -4, y: 100}
-  CurrentCheckpoint: {x: 29, y: 23.04}
-  InitialBulletAmount: 300
+  CurrentLevel: 
+  InitialCheckpoint: {x: 0, y: 0}
+  CurrentCheckpoint: {x: 0, y: 0}
+  InitialBulletAmount: 0
   BulletAmount: 0
-  InitialRocketAmount: 3
+  InitialRocketAmount: 0
   RocketAmount: 0
-  InitialHealth: 100
-  Health: 100
+  InitialHealth: 0
+  Health: 0
