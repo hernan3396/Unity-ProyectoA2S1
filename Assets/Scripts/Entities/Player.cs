@@ -37,7 +37,7 @@ public class Player : Entity
 
     #region Parameters
     [SerializeField] private PlayerData _playerData;
-    private States _currentState;
+    private States _currentState = States.Idle;
     private float _fallingMaxSpeed;
     private int _gravityScale;
     private int _jumpForce;
@@ -121,6 +121,8 @@ public class Player : Entity
         _input.OnControlChanged += ControlChanged;
         GameManager.GetInstance.onGamePause += OnPause;
         GameManager.GetInstance.onGameOver += OnGameOver;
+
+        _uiController.UpdateState(_currentState.ToString());
     }
 
     #region Parameters
@@ -158,13 +160,9 @@ public class Player : Entity
 
     private void Update()
     {
+
         if (_currentState == States.Dead) return;
         if (_onPause) return;
-
-        ManageState();
-
-        if (_currentState != States.Melee)
-            Aim();
 
         // la parte de disparar la hice por fuera de los estados
         // porque siempre podes disparar
@@ -188,22 +186,43 @@ public class Player : Entity
             }
         }
 
-        if (_currentState == States.Running || _currentState == States.Idle || _currentState == States.Crouching)
+        switch (_currentState)
         {
-            if (_input.jump) Jump();
-            if (_input.Crouching) Crouch(true);
-            if (_crouching && !_input.Crouching) Crouch(false);
-            return;
-        }
+            case States.Idle:
+                Idle();
+                break;
 
-        if (_currentState == States.Jumping)
-        {
-            _jumpTimer -= Time.deltaTime;
+            case States.Running:
+                Running();
+                break;
 
-            if (_jumpTimer <= 0 || !_input.jump)
-                StopJump();
+            case States.Crouching:
+                Crouching();
+                break;
 
-            return;
+            case States.CrouchRunning:
+                CrouchRunning();
+                break;
+
+            case States.Jumping:
+                Jumping();
+                break;
+
+            case States.Falling:
+                Falling();
+                break;
+
+            case States.RocketJumping:
+                RocketJumping();
+                break;
+
+            case States.Recoil:
+                Recoil();
+                break;
+
+            case States.Melee:
+                MeleeState();
+                break;
         }
     }
 
@@ -214,20 +233,9 @@ public class Player : Entity
 
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
 
+        // limitar la velocidad de caida
         if (_rb.velocity.y < -_fallingMaxSpeed)
             _rb.velocity = new Vector3(_rb.velocity.x, -_fallingMaxSpeed, _rb.velocity.z);
-
-        if (_currentState != States.RocketJumping && _currentState != States.Recoil)
-        {
-            HorizontalMovement();
-            return;
-        }
-
-        if (_currentState == States.RocketJumping)
-        {
-            _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
-            return;
-        }
     }
 
     #region HorizontalMovement
@@ -255,6 +263,8 @@ public class Player : Entity
     #region Jumping
     private void Jump()
     {
+        if (!_isGrounded) return;
+
         _jumping = true;
         _jumpTimer = _jumpTime; // timer para limitar el salto
         _rb.velocity = new Vector3(_rb.velocity.x, _jumpForce, _rb.velocity.z);
@@ -326,7 +336,11 @@ public class Player : Entity
         _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
 
         // recoil de algunas armas
-        StartCoroutine(Recoil(weaponData.RecoilForce, weaponData.RecoilTime));
+        if (weaponData.RecoilTime > 0)
+        {
+            StartCoroutine(Recoil(weaponData.RecoilForce, weaponData.RecoilTime));
+            ChangeState(States.Recoil);
+        }
 
         yield return new WaitForSeconds(weaponData.FireRate);
 
@@ -397,14 +411,6 @@ public class Player : Entity
     #region Melee
     protected override IEnumerator Melee(WeaponData weaponData)
     {
-        // ahora usamos la direccion del mouse
-        // para hacer el ataque a melee
-        // solo es aparecer la hitbox que rota
-        // con el brazo
-
-        // lo mas seguro que tengas que desactivar el
-        // arma cuando este hecho eso
-
         _canShoot = false;
         _isMelee = !_canShoot;
 
@@ -414,6 +420,7 @@ public class Player : Entity
         _gunModel.SetActive(false);
 
         _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
+        ChangeState(States.Melee);
 
         yield return new WaitForSeconds(weaponData.FireRate);
 
@@ -440,6 +447,7 @@ public class Player : Entity
     public void RocketJumping(bool value)
     {
         _isRocketJumping = value;
+        ChangeState(States.RocketJumping);
     }
 
     // esta puesto aca porque de momento solo funciona para el rocketjump
@@ -455,64 +463,114 @@ public class Player : Entity
     #endregion
 
     #region States
-    private void ManageState()
+    private void Idle()
     {
-        if (_isMelee)
-        {
-            ChangeState(States.Melee);
-            return;
-        }
+        Aim();
+        HorizontalMovement(); // esta para frenar al player en 0 cuando estas moviendote
 
-        if (_recoil)
-        {
-            ChangeState(States.Recoil);
-            return;
-        }
-
-        if (_isRocketJumping)
-        {
-            ChangeState(States.RocketJumping);
-            return;
-        }
-
-        // en vez de 0 le puse 
-        // un dos para que en
-        // el cambio de animaciones
-        // no se chotee
-        if (_rb.velocity.y > 0)
-        {
+        if (_input.jump)
             ChangeState(States.Jumping);
-            return;
-        }
 
-        // a veces estas parado en el
-        //  piso con una velocidad
-        // muy chica (casi 0)
-        if (_rb.velocity.y < 0 && !_isGrounded)
-        {
-            ChangeState(States.Falling);
-            return;
-        }
-
-        if (_crouching && (Mathf.Abs(_rb.velocity.x) > 0 || _input.move.x != 0))
-        {
-            ChangeState(States.CrouchRunning);
-            return;
-        }
-
-        if (_crouching)
-        {
-            ChangeState(States.Crouching);
-            return;
-        }
-
-        if (Mathf.Abs(_rb.velocity.x) > 0 || _input.move.x != 0)
-        {
+        if (_input.move.x != 0)
             ChangeState(States.Running);
-            return;
+
+        if (_input.Crouching)
+        {
+            Crouch(true);
+            ChangeState(States.Crouching);
         }
 
-        ChangeState(States.Idle);
+        if (_input.jump)
+            ChangeState(States.Jumping);
+    }
+
+    private void Running()
+    {
+        HorizontalMovement();
+        Aim();
+
+        if (_rb.velocity.x == 0 && _input.move.x == 0)
+            ChangeState(States.Idle);
+
+        if (_input.Crouching)
+        {
+            Crouch(true);
+            ChangeState(States.Crouching);
+        }
+
+        if (_input.jump)
+            ChangeState(States.Jumping);
+    }
+
+    private void Crouching()
+    {
+        Aim();
+
+        if (!_input.Crouching)
+        {
+            Crouch(false);
+            ChangeState(States.Idle);
+        }
+
+        if (_input.move.x != 0)
+            ChangeState(States.CrouchRunning);
+    }
+
+    private void CrouchRunning()
+    {
+        HorizontalMovement();
+        Aim();
+
+        if (_rb.velocity.x == 0 && _input.move.x == 0)
+            ChangeState(States.Crouching);
+
+        if (!_input.Crouching)
+        {
+            Crouch(false);
+            ChangeState(States.Idle);
+        }
+    }
+
+    private void Jumping()
+    {
+        Aim();
+        Jump();
+        HorizontalMovement();
+
+        if (_rb.velocity.y < 0)
+            ChangeState(States.Falling);
+    }
+
+    private void Falling()
+    {
+        Aim();
+        HorizontalMovement();
+
+        if (_isGrounded)
+            ChangeState(States.Idle);
+    }
+
+    private void RocketJumping()
+    {
+        Aim();
+        _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
+
+        if (_isGrounded)
+            ChangeState(States.Idle);
+    }
+
+    private void Recoil()
+    {
+        if (!_recoil)
+            ChangeState(States.Idle);
+    }
+
+    private void MeleeState()
+    {
+        HorizontalMovement();
+
+        if (!_isMelee)
+            ChangeState(States.Idle);
     }
 
     private void ChangeState(States newState)
