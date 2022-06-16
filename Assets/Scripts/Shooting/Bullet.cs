@@ -2,10 +2,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    #region Components
+    private PoolManager _sparkPool;
+    #endregion
+
     #region Paremeters
     [Header("Parameters")]
     [SerializeField] private float _duration;
     [SerializeField] private int _damage;
+    private float _initialTime;
+    #endregion
+
+    #region Pause
+    private Vector2 _lastVelocity;
+    private bool _isPaused;
     #endregion
 
     private TrailRenderer _trailRenderer;
@@ -15,6 +25,15 @@ public class Bullet : MonoBehaviour
     {
         _trailRenderer = GetComponent<TrailRenderer>();
         _rb = GetComponent<Rigidbody>();
+
+        _initialTime = _trailRenderer.time;
+    }
+
+    private void Start()
+    {
+        _sparkPool = GameManager.GetInstance.GetSparkPool;
+
+        GameManager.GetInstance.onGamePause += OnPause;
     }
 
     private void OnEnable()
@@ -28,6 +47,27 @@ public class Bullet : MonoBehaviour
         _trailRenderer.Clear();
         _rb.velocity = Vector3.zero;
         gameObject.SetActive(false);
+    }
+
+    #region Pause
+    private void OnPause(bool value)
+    {
+        if (value)
+        {
+            _lastVelocity = _rb.velocity;
+            _rb.velocity = Vector2.zero;
+            _trailRenderer.time = Mathf.Infinity;
+            return;
+        }
+
+        _rb.velocity = _lastVelocity;
+        _trailRenderer.time = _initialTime;
+    }
+    #endregion
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -44,6 +84,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+            other.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
             DeactivateBullet();
             return;
         }
@@ -51,6 +92,17 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Floor"))
         {
             DeactivateBullet();
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Armor"))
+        {
+            GameObject spark = _sparkPool.GetPooledObject();
+            if (!spark) return;
+
+            spark.transform.position = transform.position;
+            spark.SetActive(true);
+            spark.GetComponent<ParticleSystem>().Play();
             return;
         }
 

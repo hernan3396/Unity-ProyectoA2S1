@@ -7,6 +7,7 @@ public class Inputs : MonoBehaviour
     // luego las lees de otro y haces las cosas
     #region Movement
     private bool _canMove = true;
+    public bool Crouching;
     public Vector2 move;
     #endregion
 
@@ -49,12 +50,24 @@ public class Inputs : MonoBehaviour
     {
         move = newMoveDirection;
     }
+
+    public void OnCrouch(InputValue value)
+    {
+        if (!_canMove) return;
+        CrouchInput(value.isPressed);
+    }
+
+    public void CrouchInput(bool newCrouchState)
+    {
+        Crouching = newCrouchState;
+    }
     #endregion
 
     #region Aiming
     public void OnAim(InputValue value)
     {
         // chequear cual es el input
+        // aca se podria hacer un metodo que normalice la input asi si es control o mouse devuelve una posicion en pantalla (?)
         if (_cursorInputForLook && _canMove)
             LookInput(value.Get<Vector2>());
     }

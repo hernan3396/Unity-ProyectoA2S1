@@ -12,6 +12,6 @@ public class TempCheckpoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            other.transform.position = _objective.position;
+            GameManager.GetInstance.GetPlayerPos.position = _objective.position;
     }
 }

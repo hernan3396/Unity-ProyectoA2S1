@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
+  m_Name: ShootingEnemy
+  m_EditorClassIdentifier: 
+  Hp: 20
+  Invulnerability: 1
+  Acceleration: 8
+  Speed: 4
+  NewWaypointSpeed: 1
+  Accuracy: 3
+  VisionRange: 40
+  ShootAccuracy: 3
+  WeaponList:
+  - {fileID: 11400000, guid: 4164be21e44c964439ecb647a11bb58c, type: 2}
+  TypeEnemy: 0

@@ -6,15 +6,27 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     #region Components
-    [SerializeField] private UIController _uiController;
+    #region Pools
+    [Header("Pools")]
     // esto despues se puede pasar a un array de poolmanagers
     // y usar un enum para mantener el orden
+    [SerializeField] private PoolManager _enemiesBulletPool;
+    [SerializeField] private PoolManager _playerBulletPool;
     [SerializeField] private PoolManager _explosionPool;
-    [SerializeField] private PoolManager _bulletPool;
     [SerializeField] private PoolManager _rocketPool;
     [SerializeField] private PoolManager _healthPool;
+    [SerializeField] private PoolManager _ammoPool;
     [SerializeField] private PoolManager _bloodPool;
     [SerializeField] private PoolManager _dustPool;
+    [SerializeField] private PoolManager _sparkPool;
+    #endregion
+
+    [Header("TFW no pool")]
+    [SerializeField] private CameraBehaviour _cameraScript;
+    [SerializeField] private InventoryManager _invManager;
+    [SerializeField] private LevelManager _levelManager;
+    [SerializeField] private UIController _uiController;
+    [SerializeField] private SavesManager _savesManager;
     [SerializeField] private Transform _playerPos;
     [SerializeField] private Shooting _shooting;
     [SerializeField] private Inputs _input;
@@ -24,6 +36,17 @@ public class GameManager : MonoBehaviour
     public delegate void OnGamePause(bool isGamePaused);
     public event OnGamePause onGamePause;
     private bool _isPaused = false;
+    #endregion
+
+    #region GameOver
+    [Header("Game Over")]
+    [SerializeField] private float _deathDuration;
+
+    public delegate void OnGameOver();
+    public event OnGameOver onGameOver;
+
+    public delegate void OnStartGameOver();
+    public event OnStartGameOver onStartGameOver;
     #endregion
 
     [SerializeField] private Camera _mainCamera;
@@ -50,14 +73,18 @@ public class GameManager : MonoBehaviour
             onGamePause(_isPaused);
     }
 
-    public void LoadScene(string scene)
-    {
-        SceneManager.LoadScene(scene);
-    }
-
     public void GameOver()
     {
-        SceneManager.LoadScene("PrototipeScene"); // cambiar luego
+        if (onGameOver != null)
+            onGameOver();
+    }
+
+    public void StartGameOver()
+    {
+        if (onStartGameOver != null)
+            onStartGameOver();
+
+        Invoke("GameOver", _deathDuration);
     }
 
     public void QuitGame()
@@ -83,9 +110,14 @@ public class GameManager : MonoBehaviour
         get { return _playerPos; }
     }
 
-    public PoolManager GetBulletPool
+    public PoolManager GetPlayerBullet
     {
-        get { return _bulletPool; }
+        get { return _playerBulletPool; }
+    }
+
+    public PoolManager GetEnemyBullet
+    {
+        get { return _enemiesBulletPool; }
     }
 
     public PoolManager GetRocketPool
@@ -103,9 +135,19 @@ public class GameManager : MonoBehaviour
         get { return _healthPool; }
     }
 
+    public PoolManager GetAmmoPool
+    {
+        get { return _ammoPool; }
+    }
+
     public PoolManager GetDustPool
     {
         get { return _dustPool; }
+    }
+
+    public PoolManager GetSparkPool
+    {
+        get { return _sparkPool; }
     }
 
     public PoolManager GetBloodPool
@@ -128,8 +170,23 @@ public class GameManager : MonoBehaviour
         get { return _input; }
     }
 
+    public CameraBehaviour GetCameraBehaviour
+    {
+        get { return _cameraScript; }
+    }
+
     public UIController GetUIController
     {
         get { return _uiController; }
+    }
+
+    public SavesManager GetSavesManager
+    {
+        get { return _savesManager; }
+    }
+
+    public InventoryManager GetInvManager
+    {
+        get { return _invManager; }
     }
 }

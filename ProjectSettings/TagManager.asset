@@ -7,6 +7,12 @@ TagManager:
   - Floor
   - Enemy
   - Health
+  - BounceWall
+  - Bullet
+  - Armor
+  - Melee
+  - Ammo
+  - Rocket
   layers:
   - Default
   - TransparentFX

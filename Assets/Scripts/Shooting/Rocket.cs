@@ -15,6 +15,11 @@ public class Rocket : MonoBehaviour
     [SerializeField] private int _damage;
     #endregion
 
+    #region Pause
+    private Vector2 _lastVelocity;
+    private bool _isPaused;
+    #endregion
+
     private TrailRenderer _trailRenderer;
     private Transform _transform;
     private Rigidbody _rb;
@@ -29,6 +34,7 @@ public class Rocket : MonoBehaviour
     private void Start()
     {
         _explosionPool = GameManager.GetInstance.GetExplosionPool;
+        GameManager.GetInstance.onGamePause += OnPause;
     }
 
     private void OnEnable()
@@ -55,7 +61,9 @@ public class Rocket : MonoBehaviour
             if (collider.gameObject.CompareTag("Player"))
             {
                 // Debug.Log(collider.name);
-                Player player = collider.gameObject.GetComponent<Player>();
+                // Player player = collider.gameObject.GetComponent<Player>();
+                // no se si es lo correcto
+                Player player = collider.gameObject.GetComponentInParent<Player>();
                 player.RocketJumping(true);
                 player.TakeDamage(_damage / 8); // _damage es (o era) 40 y lo divide para hacerle solo 5 de daño al player
                 // mover esto al player??
@@ -71,7 +79,10 @@ public class Rocket : MonoBehaviour
             }
 
             if (collider.gameObject.CompareTag("Enemy"))
+            {
                 collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+                collider.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
+            }
         }
 
         GameObject explosion = _explosionPool.GetPooledObject();
@@ -95,7 +106,28 @@ public class Rocket : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player")) return; // evita que explote al dispararla
 
+        if (other.gameObject.CompareTag("Bullet")) return;
+
         Explosion();
+    }
+
+    #region Pause
+    private void OnPause(bool value)
+    {
+        if (value)
+        {
+            _lastVelocity = _rb.velocity;
+            _rb.velocity = Vector2.zero;
+            return;
+        }
+
+        _rb.velocity = _lastVelocity;
+    }
+    #endregion
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 
     private void OnDrawGizmos()

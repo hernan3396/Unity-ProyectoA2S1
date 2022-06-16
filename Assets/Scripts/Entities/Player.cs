@@ -1,41 +1,60 @@
 using UnityEngine;
-using DG.Tweening;
 using System.Collections;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
+    private enum States
+    {
+        Idle,
+        Running,
+        Jumping,
+        Crouching,
+        CrouchRunning,
+        Falling,
+        RocketJumping,
+        Recoil,
+        Melee,
+        Dead
+    }
+
     #region Components
+    [Header("Components")]
+    [SerializeField] private Animator _modelAnimator;
+    private SavesManager _savesManager;
+    private InventoryManager _invManager;
     private UIController _uiController;
-    private Shooting _shooting;
     private Rigidbody _rb;
     private Inputs _input;
     private Camera _cam;
     #endregion
 
-    #region HealthPoints
-    [SerializeField] private float _invulnerability = 2;
-    [SerializeField] private int _maxHealthPoints = 100;
-    private PoolManager _bloodPool;
-    private bool _isInmune = false;
-    private int _healthPoints;
+    #region Parameters
+    [SerializeField] private PlayerData _playerData;
+    private States _currentState;
+    private float _fallingMaxSpeed;
+    private int _gravityScale;
+    private int _jumpForce;
+    private int _jumpTime;
+    #endregion
+
+    #region CameraShake
+    [Header("Camera Shake")]
+    private CameraBehaviour _cameraBehaviour;
+    private float _damageShake;
+    private float _shakeTime;
     #endregion
 
     #region BodyParts
-    [Header("Body Parts")]
+    [SerializeField] private Transform _particlePosOff;
     [SerializeField] private Transform _shootingPos;
     [SerializeField] private Transform _meleeArm;
+    [SerializeField] private Transform _model;
     [SerializeField] private Transform _arm;
-    private Transform _transform;
+    [SerializeField] private GameObject _gunModel;
+    [SerializeField] private GameObject _batModel;
     #endregion
 
     #region Jumping
-    [Header("Jumping")]
-    [SerializeField] private float _heightModifier = 2; // para la altura de la caja que detecta si esta o no en el piso
-    [SerializeField] private float _gravityScale = 10f;
-    [SerializeField] private int _jumpForce = 15;
-    [SerializeField] private float _jumpTime = 1;
-    [SerializeField] private float _floorDistance; // distancia para dibujar la caja en el piso
-    [SerializeField] private int _speed = 20;
     private bool _isGrounded = true;
     private bool _jumping = false;
     private PoolManager _dustPool;
@@ -44,111 +63,184 @@ public class Player : MonoBehaviour
 
     #region RocketJumping
     [Header("Rocket Jumping")]
-    [SerializeField] private float _rocketJumpingTimer = 1; // el tiempo maximo que pasa en el estado de "Rocket jumping"
-    private bool _isRocketJumping = false;
-    private float _rocketTimer;
+    [SerializeField] private int _rocketImpulse = 5;
+    private bool _isRocketJumping;
+    private bool _recoil;
     #endregion
 
     #region Aiming
     [Header("Aiming")]
-    [SerializeField] private float _fireRate = 0.5f;
-    [SerializeField] private int _bulletSpeed = 20;
+    [SerializeField] private Transform _aimDebugSphere;
     private bool _canShoot = true;
+    private bool _isMelee = false;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
     #endregion
 
-    #region Melee
-    [Header("Melee")]
-    // esta parte se va a ver cambiada cuando tengamos la animacion
-    // lo mas seguro es que lo hagamos desde ahi
-    [SerializeField] private Vector3 _meleeFinalPos; // el angulo final
-    [SerializeField] private float _meleeSpeed = 1; // el tiempo que demora en "Hacer" la animacion del melee
-    private Quaternion _meleeInitialRot; // el angulo del que empieza
-    private bool _canMelee = true;
+    #region Crouching
+    [Header("Crouching")]
+    [SerializeField] private GameObject _crouchingHitbox;
+    [SerializeField] private GameObject _standingHitbox;
+    private bool _crouching = false; // se podria hacer sin esta variable pero asi se ejecuta solo las veces necesarias el metodo Crouch()
     #endregion
 
-    private void Awake()
-    {
-        _transform = GetComponent<Transform>();
-        _input = GetComponent<Inputs>();
-        _rb = GetComponent<Rigidbody>();
+    #region Pause
+    private Vector2 _lastVelocity;
+    private bool _onPause;
+    #endregion
 
-        _meleeInitialRot = _meleeArm.rotation;
+    protected override void Awake()
+    {
+        base.Awake();
+        SetStats();
+
+        _rb = GetComponent<Rigidbody>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        _savesManager = GameManager.GetInstance.GetSavesManager;
+        _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
         _uiController = GameManager.GetInstance.GetUIController;
-        _bloodPool = GameManager.GetInstance.GetBloodPool;
+        _invManager = GameManager.GetInstance.GetInvManager;
         _dustPool = GameManager.GetInstance.GetDustPool;
-        _shooting = GameManager.GetInstance.GetShooting;
         _cam = GameManager.GetInstance.GetMainCamera;
         _input = GameManager.GetInstance.GetInput;
 
-        _healthPoints = _maxHealthPoints;
-        _uiController.UpdateHealthPoints(_healthPoints); // seteo inicial de la UI
+        SetLastCheckpointStats();
 
         _input.OnControlChanged += ControlChanged;
+        GameManager.GetInstance.onGamePause += OnPause;
+        GameManager.GetInstance.onGameOver += OnGameOver;
     }
+
+    #region Parameters
+    private void SetStats()
+    {
+        _hp = _playerData.Hp;
+        _currentHP = _hp;
+        _invulnerability = _playerData.Invulnerability;
+
+        _gravityScale = _playerData.GravityScale;
+        _jumpForce = _playerData.JumpForce;
+        _jumpTime = _playerData.JumpTime;
+        _fallingMaxSpeed = _playerData.FallingMaxSpeed;
+
+        _speed = _playerData.Speed;
+
+        _damageShake = _playerData.DamageShake;
+        _shakeTime = _playerData.ShakeTime;
+
+        _weaponList = _playerData.WeaponList;
+    }
+
+    private void SetLastCheckpointStats()
+    {
+        _transform.position = _savesManager.GetCurrentCheckpoint;
+
+        int lastHp = _savesManager.GetHealth;
+
+        if (lastHp > 0)
+            _currentHP = lastHp;
+
+        _uiController.UpdateHealthPoints(_currentHP);
+    }
+    #endregion
 
     private void Update()
     {
-        Aim();
+        if (_currentState == States.Dead) return;
+        if (_onPause) return;
 
-        if (_isGrounded && _input.jump)
-            Jump();
+        ManageState();
 
-        if (_jumping)
+        if (_currentState != States.Melee)
+            Aim();
+
+        // la parte de disparar la hice por fuera de los estados
+        // porque siempre podes disparar
+        if (_canShoot)
+        {
+            if (_input.IsShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.TwinPistols]));
+                return;
+            }
+
+            if (_input.CannonShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.RocketLauncher]));
+                return;
+            }
+
+            if (_input.Melee)
+            {
+                StartCoroutine(Melee(_weaponList[(int)WeaponData.Weapons.Bat]));
+            }
+        }
+
+        if (_currentState == States.Running || _currentState == States.Idle || _currentState == States.Crouching)
+        {
+            if (_input.jump) Jump();
+            if (_input.Crouching) Crouch(true);
+            if (_crouching && !_input.Crouching) Crouch(false);
+            return;
+        }
+
+        if (_currentState == States.Jumping)
         {
             _jumpTimer -= Time.deltaTime;
 
             if (_jumpTimer <= 0 || !_input.jump)
                 StopJump();
+
+            return;
         }
-
-        if (_isRocketJumping)
-        {
-            _rocketTimer -= Time.deltaTime;
-
-            if (_rocketTimer <= 0)
-                RocketJumping(false);
-        }
-
-        // aca realmente deberiamos tener una variable
-        // que tenga la info de arma seleccionada
-        if (_canShoot && _input.IsShooting)
-            StartCoroutine("Shoot", (int)Shooting.BulletType.BULLETPOOL);
-
-        if (_canShoot && _input.CannonShooting)
-            StartCoroutine("Shoot", (int)Shooting.BulletType.ROCKETPOOL);
-
-        if (_canMelee && _input.Melee)
-            StartCoroutine("Melee");
     }
 
     private void FixedUpdate()
     {
-        Move();
+        if (_currentState == States.Dead) return;
+        if (_onPause) return;
 
         _rb.AddForce(Physics.gravity * _gravityScale, ForceMode.Acceleration); // simula una gravedad mas pesada
 
-        // este cambiarlo luego con un collider pero de momento funciona
-        if (Physics.BoxCast(_transform.position, _transform.localScale / 2, Vector3.down, out RaycastHit hit, Quaternion.identity, _floorDistance * _heightModifier))
+        if (_rb.velocity.y < -_fallingMaxSpeed)
+            _rb.velocity = new Vector3(_rb.velocity.x, -_fallingMaxSpeed, _rb.velocity.z);
+
+        if (_currentState != States.RocketJumping && _currentState != States.Recoil)
         {
-            _isGrounded = hit.transform.CompareTag("Floor");
+            HorizontalMovement();
             return;
         }
 
-        _isGrounded = false;
+        if (_currentState == States.RocketJumping)
+        {
+            _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
+            return;
+        }
     }
 
     #region HorizontalMovement
-    private void Move()
+    protected void HorizontalMovement()
     {
-        // Debug.Log(_input.move);
-        if (_isRocketJumping) return;
         _rb.velocity = new Vector3(_input.move.x * _speed, _rb.velocity.y);
+    }
+    #endregion
+
+    #region Grounded
+    // para no andar chambiando con _isGrounded = !_isGrounded
+    // porque asumo que puede llegar a dar algun problema
+    public void IsGrounded()
+    {
+        _isGrounded = true;
+        _isRocketJumping = false;
+    }
+
+    public void NotGrounded()
+    {
+        _isGrounded = false;
     }
     #endregion
 
@@ -163,7 +255,7 @@ public class Player : MonoBehaviour
         if (!dust) return;
 
         // sino aparece en el centro
-        Vector3 dustPosition = _transform.position + (Vector3.down * _heightModifier);
+        Vector3 dustPosition = _particlePosOff.position;
         dust.transform.position = dustPosition;
         dust.SetActive(true);
     }
@@ -178,7 +270,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Aiming
-    private void Aim()
+    protected override void Aim()
     {
         if (_isMouse)
         {
@@ -188,24 +280,43 @@ public class Player : MonoBehaviour
                 _aimPosition = (Vector2)hit.point;
 
             _aimPosition.z = 0;
+            _aimDebugSphere.position = _aimPosition;
             _arm.right = _aimPosition - _arm.position;
         }
         else
         {
             // control
+            _aimDebugSphere.position = (Vector2)_transform.position + (_input.look * 5);
             _arm.right = _input.look;
         }
+
+        if (_arm.right.x > 0)
+            _model.forward = new Vector3(1, 0, 0);
+        else
+            _model.forward = new Vector3(-1, 0, 0);
     }
 
-    private IEnumerator Shoot(int bulletType)
+    protected override IEnumerator Shoot(WeaponData weaponData)
     {
+        // chequea si hay balas
+        if (_invManager.GetAmount((int)weaponData.BulletType) <= 0) yield break;
+
+        // si hay balas sigue adelante
         _canShoot = false;
 
-        // Vector3 bulletDirection = (_aimPosition - _arm.position).normalized;
-        // aca revisar _aimPosition porque creo que no es necesario tenerlo
         Vector3 bulletDirection = _arm.right;
-        _shooting.Shoot(bulletType, _shootingPos.position, bulletDirection, _bulletSpeed);
-        yield return new WaitForSeconds(_fireRate);
+        _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
+
+        // consume una bala del inventario
+        _invManager.RemoveAmount((int)weaponData.BulletType, 1);
+
+        // cameraShake
+        _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
+
+        // recoil de algunas armas
+        StartCoroutine(Recoil(weaponData.RecoilForce, weaponData.RecoilTime));
+
+        yield return new WaitForSeconds(weaponData.FireRate);
 
         _canShoot = true;
     }
@@ -230,46 +341,85 @@ public class Player : MonoBehaviour
     #region Damage
     public void AddHealth(int value)
     {
-        if (_healthPoints + value <= _maxHealthPoints)
+        if (_currentHP + value <= _hp)
         {
-            _healthPoints += value;
+            _currentHP += value;
         }
         else
         {
-            _healthPoints = _maxHealthPoints;
+            _currentHP = _hp;
         }
-        _uiController.UpdateHealthPoints(_healthPoints);
+
+        _uiController.UpdateHealthPoints(_currentHP);
     }
 
-    public void TakeDamage(int value)
+    public override void TakeDamage(int value)
     {
-        if (_isInmune) return;
-        _isInmune = true;
+        base.TakeDamage(value);
 
-        GameObject blood = _bloodPool.GetPooledObject();
-        if (!blood) return;
+        _cameraBehaviour.ShakeCamera(_damageShake, _shakeTime);
+        _uiController.UpdateHealthPoints(_currentHP);
+    }
+    #endregion
 
-        blood.transform.position = _transform.position;
-        blood.SetActive(true);
-
-        _healthPoints -= value;
-        _uiController.UpdateHealthPoints(_healthPoints);
-
-        StartCoroutine("InmuneReset");
-
-        if (_healthPoints <= 0)
-            Death();
+    #region Death
+    public void DebugDead()
+    {
+        Death();
     }
 
-    private IEnumerator InmuneReset()
+    protected override void Death()
     {
-        yield return new WaitForSeconds(_invulnerability);
-        _isInmune = false;
+        ChangeState(States.Dead);
+        GameManager.GetInstance.StartGameOver();
     }
 
-    private void Death()
+    private void OnGameOver()
     {
-        GameManager.GetInstance.GameOver();
+        SetLastCheckpointStats();
+        ChangeState(States.Idle);
+    }
+    #endregion
+
+    #region Melee
+    protected override IEnumerator Melee(WeaponData weaponData)
+    {
+        // ahora usamos la direccion del mouse
+        // para hacer el ataque a melee
+        // solo es aparecer la hitbox que rota
+        // con el brazo
+
+        // lo mas seguro que tengas que desactivar el
+        // arma cuando este hecho eso
+
+        _canShoot = false;
+        _isMelee = !_canShoot;
+
+        // aparece el brazo
+        _meleeArm.gameObject.SetActive(true);
+        _batModel.SetActive(true);
+        _gunModel.SetActive(false);
+
+        _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
+
+        yield return new WaitForSeconds(weaponData.FireRate);
+
+        // "apaga" el brazo
+        _meleeArm.gameObject.SetActive(false);
+        _batModel.SetActive(false);
+        _gunModel.SetActive(true);
+
+        _canShoot = true;
+        _isMelee = !_canShoot;
+    }
+    #endregion
+
+    #region Crouching
+    private void Crouch(bool value)
+    {
+        _crouchingHitbox.SetActive(value);
+        _standingHitbox.SetActive(!value);
+        _crouching = value;
     }
     #endregion
 
@@ -277,41 +427,142 @@ public class Player : MonoBehaviour
     public void RocketJumping(bool value)
     {
         _isRocketJumping = value;
+    }
+
+    // esta puesto aca porque de momento solo funciona para el rocketjump
+    private IEnumerator Recoil(int RecoilForce, float recoilTime)
+    {
+        _recoil = true;
+
+        _rb.AddForce(-_arm.right * RecoilForce, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(recoilTime);
+        _recoil = false;
+    }
+    #endregion
+
+    #region States
+    private void ManageState()
+    {
+        if (_isMelee)
+        {
+            ChangeState(States.Melee);
+            return;
+        }
+
+        if (_recoil)
+        {
+            ChangeState(States.Recoil);
+            return;
+        }
 
         if (_isRocketJumping)
-            _rocketTimer = _rocketJumpingTimer;
-    }
-    #endregion
+        {
+            ChangeState(States.RocketJumping);
+            return;
+        }
 
-    #region Melee
-    private IEnumerator Melee()
+        // en vez de 0 le puse 
+        // un dos para que en
+        // el cambio de animaciones
+        // no se chotee
+        if (_rb.velocity.y > 0)
+        {
+            ChangeState(States.Jumping);
+            return;
+        }
+
+        // a veces estas parado en el
+        //  piso con una velocidad
+        // muy chica (casi 0)
+        if (_rb.velocity.y < 0 && !_isGrounded)
+        {
+            ChangeState(States.Falling);
+            return;
+        }
+
+        if (_crouching && (Mathf.Abs(_rb.velocity.x) > 0 || _input.move.x != 0))
+        {
+            ChangeState(States.CrouchRunning);
+            return;
+        }
+
+        if (_crouching)
+        {
+            ChangeState(States.Crouching);
+            return;
+        }
+
+        if (Mathf.Abs(_rb.velocity.x) > 0 || _input.move.x != 0)
+        {
+            ChangeState(States.Running);
+            return;
+        }
+
+        ChangeState(States.Idle);
+    }
+
+    private void ChangeState(States newState)
     {
-        // falta que use la direccion del mouse
-        // o la rotacion del personaje
-        _canMelee = false;
+        // https://docs.unity3d.com/ScriptReference/Animator.Play.html
+        // ver ese link con normalizeTime o hacerlo a mano con los bool/trigger del animator
+        // hacer el cambio de animacion
+        _currentState = newState;
 
-        // rota el "Bate"
-        _meleeArm.gameObject.SetActive(true);
-        _meleeArm.DORotate(_meleeFinalPos, _meleeSpeed);
+        string currentStateString = _currentState.ToString();
 
-        yield return new WaitForSeconds(_meleeSpeed);
+        if (_currentState == States.Melee)
+            _modelAnimator.Play(currentStateString, 1);
+        else
+            _modelAnimator.Play(currentStateString);
 
-        // lo devuelve a su posicion inicial
-        _meleeArm.gameObject.SetActive(false);
-        _meleeArm.rotation = _meleeInitialRot;
-
-        _canMelee = true;
+        _uiController.UpdateState(currentStateString);
     }
     #endregion
+
+    #region Pause
+    private void OnPause(bool value)
+    {
+        _onPause = value;
+
+        if (_onPause)
+            PausePlayer();
+        else
+            ResumePlayer();
+    }
+
+    private void PausePlayer()
+    {
+        _lastVelocity = _rb.velocity;
+        _rb.velocity = Vector2.zero;
+        _rb.useGravity = false;
+        _modelAnimator.speed = 0;
+    }
+
+    private void ResumePlayer()
+    {
+        _rb.velocity = _lastVelocity;
+        _rb.useGravity = true;
+        _modelAnimator.speed = 1;
+    }
+    #endregion
+
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;
+        GameManager.GetInstance.onGamePause -= OnPause;
+        GameManager.GetInstance.onGameOver -= OnGameOver;
     }
 
-    #region Getters/Setters
+    #region Getter/Setter
     public Rigidbody GetRB
     {
         get { return _rb; }
+    }
+
+    public int GetHealth
+    {
+        get { return _currentHP; }
     }
     #endregion
 }
