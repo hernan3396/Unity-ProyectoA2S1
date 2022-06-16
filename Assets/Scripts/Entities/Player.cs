@@ -467,6 +467,11 @@ public class Player : Entity
     {
         Aim();
         HorizontalMovement(); // esta para frenar al player en 0 cuando estas moviendote
+        _modelAnimator.SetBool("isRunning", false);
+        _modelAnimator.SetBool("isCrouching", false);
+        _modelAnimator.SetBool("isFalling", false);
+        _modelAnimator.SetBool("isRocketJumping", false);
+        _modelAnimator.SetBool("isRecoil", false);
 
         if (_input.jump)
             ChangeState(States.Jumping);
@@ -479,15 +484,13 @@ public class Player : Entity
             Crouch(true);
             ChangeState(States.Crouching);
         }
-
-        if (_input.jump)
-            ChangeState(States.Jumping);
     }
 
     private void Running()
     {
-        HorizontalMovement();
         Aim();
+        HorizontalMovement();
+        _modelAnimator.SetBool("isRunning", true);
 
         if (_rb.velocity.x == 0 && _input.move.x == 0)
             ChangeState(States.Idle);
@@ -500,11 +503,16 @@ public class Player : Entity
 
         if (_input.jump)
             ChangeState(States.Jumping);
+
+        if (!_isGrounded)
+            ChangeState(States.Falling);
     }
 
     private void Crouching()
     {
         Aim();
+        _modelAnimator.SetBool("isCrouching", true);
+        _modelAnimator.SetBool("isRunning", false);
 
         if (!_input.Crouching)
         {
@@ -520,6 +528,7 @@ public class Player : Entity
     {
         HorizontalMovement();
         Aim();
+        _modelAnimator.SetBool("isRunning", true);
 
         if (_rb.velocity.x == 0 && _input.move.x == 0)
             ChangeState(States.Crouching);
@@ -529,6 +538,9 @@ public class Player : Entity
             Crouch(false);
             ChangeState(States.Idle);
         }
+
+        if (!_isGrounded)
+            ChangeState(States.Falling);
     }
 
     private void Jumping()
@@ -536,6 +548,7 @@ public class Player : Entity
         Aim();
         Jump();
         HorizontalMovement();
+        _modelAnimator.SetTrigger("Jumping");
 
         if (_rb.velocity.y < 0)
             ChangeState(States.Falling);
@@ -545,6 +558,8 @@ public class Player : Entity
     {
         Aim();
         HorizontalMovement();
+        _modelAnimator.ResetTrigger("Jumping");
+        _modelAnimator.SetBool("isFalling", true);
 
         if (_isGrounded)
             ChangeState(States.Idle);
@@ -554,6 +569,7 @@ public class Player : Entity
     {
         Aim();
         _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
+        _modelAnimator.SetBool("isRocketJumping", true);
 
         if (_isGrounded)
             ChangeState(States.Idle);
@@ -561,6 +577,8 @@ public class Player : Entity
 
     private void Recoil()
     {
+        _modelAnimator.SetBool("isRecoil", true);
+
         if (!_recoil)
             ChangeState(States.Idle);
     }
@@ -568,6 +586,7 @@ public class Player : Entity
     private void MeleeState()
     {
         HorizontalMovement();
+        _modelAnimator.Play(_currentState.ToString(), 1);
 
         if (!_isMelee)
             ChangeState(States.Idle);
@@ -582,10 +601,10 @@ public class Player : Entity
 
         string currentStateString = _currentState.ToString();
 
-        if (_currentState == States.Melee)
-            _modelAnimator.Play(currentStateString, 1);
-        else
-            _modelAnimator.Play(currentStateString);
+        // if (_currentState == States.Melee)
+        //     _modelAnimator.Play(currentStateString, 1);
+        // else
+        //     _modelAnimator.Play(currentStateString);
 
         _uiController.UpdateState(currentStateString);
     }
