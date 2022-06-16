@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 1098778159239488066}
   - component: {fileID: 1098778159239488067}
   - component: {fileID: 1098778159239488068}
+  - component: {fileID: 1195504933981289602}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -177,6 +178,14 @@ MonoBehaviour:
   _aimDebugSphere: {fileID: 1532354100615980540}
   _crouchingHitbox: {fileID: 1098778160304661748}
   _standingHitbox: {fileID: 1098778159332917397}
+--- !u!81 &1195504933981289602
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098778159239488070}
+  m_Enabled: 1
 --- !u!1 &1098778159292022299
 GameObject:
   m_ObjectHideFlags: 0
