@@ -51,6 +51,10 @@ public abstract class Enemy : Entity
     private Coroutine _shootCoroutine;
     #endregion
 
+    #region Sound
+    private ExternalSound _extSound;
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -64,6 +68,9 @@ public abstract class Enemy : Entity
         _targetPos = GameManager.GetInstance.GetPlayerPos;
         if (_enemyData.TypeEnemy == EnemyData.EnemyType.Flying)
             _bloodPool = GameManager.GetInstance.GetSparkPool;
+
+        if (TryGetComponent(out ExternalSound extSound))
+            _extSound = extSound;
 
         GameManager.GetInstance.onGamePause += OnPause;
         GameManager.GetInstance.onStartGameOver += OnStartGameOver;
@@ -167,6 +174,10 @@ public abstract class Enemy : Entity
     public override void TakeDamage(int value)
     {
         base.TakeDamage(value);
+
+        if (_extSound)
+            _extSound.PlaySFX();
+
         DamagePS();
     }
     protected override void Death()

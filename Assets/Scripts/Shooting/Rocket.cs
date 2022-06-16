@@ -21,12 +21,14 @@ public class Rocket : MonoBehaviour
     #endregion
 
     private TrailRenderer _trailRenderer;
+    private ExternalSound _extSound;
     private Transform _transform;
     private Rigidbody _rb;
 
     private void Awake()
     {
         _trailRenderer = GetComponent<TrailRenderer>();
+        _extSound = GetComponent<ExternalSound>();
         _transform = GetComponent<Transform>();
         _rb = GetComponent<Rigidbody>();
     }
@@ -92,6 +94,7 @@ public class Rocket : MonoBehaviour
         explosion.SetActive(true);
         explosion.GetComponent<ParticleSystem>().Play();
 
+        _extSound.PlaySFX();
         DeactivateBullet();
     }
 

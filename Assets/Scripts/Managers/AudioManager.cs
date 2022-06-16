@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -7,10 +7,14 @@ public class AudioManager : MonoBehaviour
 {
     public enum AudioList
     {
-        AllMusic
+        // aca poner los sonidos
+        OST,
+        Gunshoots,
+        Pickables,
+        PlayerSFX
     }
 
-    [SerializeField] private List<AudioCompressionFormat> _audioList;
+    [SerializeField] private List<AudioScriptable> _audioList;
 
     #region Sources
     [Header("Sources")]
@@ -34,16 +38,100 @@ public class AudioManager : MonoBehaviour
             _instance = this;
 
         DontDestroyOnLoad(gameObject);
+
+        PlayMusic(AudioList.OST);
     }
 
-    public void PlaySfx()
+    public void TestSFX()
     {
+        PlaySound(AudioList.Gunshoots);
+    }
 
+    public void PlaySound(AudioList audioItem, bool randomSound = false, int index = 0)
+    {
+        AudioScriptable audioScript = _audioList[(int)audioItem];
+
+        if (!audioScript) return;
+
+        _soundSource.volume = Random.Range(audioScript.volume.x, audioScript.volume.y);
+        _soundSource.pitch = Random.Range(audioScript.pitch.x, audioScript.pitch.y);
+
+        if (randomSound)
+            _soundSource.PlayOneShot(audioScript.GetRandom());
+        else
+            _soundSource.PlayOneShot(audioScript.GetAudioClip(index));
+    }
+
+    public void PlayMusic(AudioList audioItem, bool randomSound = false, int index = 0)
+    {
+        if (_isFading) return;
+
+        AudioScriptable audioScript = _audioList[(int)audioItem];
+        if (!audioScript || !audioScript.IsMusic) return;
+
+        if (randomSound)
+            _musicSource.clip = audioScript.GetRandom();
+        else
+            _musicSource.clip = audioScript.GetAudioClip(index);
+
+        _musicSource.volume = Random.Range(audioScript.volume.x, audioScript.volume.y);
+        _musicSource.pitch = Random.Range(audioScript.pitch.x, audioScript.pitch.y);
+
+        _musicSource.Play();
+    }
+
+    private void FadeBetweenMusic(AudioList musicClip)
+    {
+        _isFading = true;
+        StartCoroutine("FadeOut", musicClip);
+    }
+
+    private IEnumerator FadeOut(AudioList musicClip)
+    {
+        float musicVolume;
+        _mixer.GetFloat("MusicVolume", out musicVolume);
+
+        while (musicVolume > -80)
+        {
+            _mixer.SetFloat("MusicVolume", musicVolume -= 2f);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        PlayMusic(musicClip);
+        StartCoroutine("FadeIn");
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float musicVolume;
+        _mixer.GetFloat("MusicVolume", out musicVolume);
+
+        while (musicVolume < -20)
+        {
+            _mixer.SetFloat("MusicVolume", musicVolume += 2f);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        _isFading = false;
+    }
+
+    // si bien se podrian juntar con
+    // PlaySound() creo que como trata de
+    // un sonido 3d es valido separarlos 
+    public void RandomizeExternalSound(AudioSource audioSource, AudioScriptable audioScript)
+    {
+        if (!audioScript) return;
+
+        audioSource.clip = audioScript.GetAudioClip(0);
+        audioSource.volume = Random.Range(audioScript.volume.x, audioScript.volume.y);
+        audioSource.pitch = Random.Range(audioScript.pitch.x, audioScript.pitch.y);
+
+        audioSource.Play();
     }
 
     private void OnDestroy()
     {
-        if (_instance != this)
+        if (_instance != null)
         {
             _instance = null;
         }

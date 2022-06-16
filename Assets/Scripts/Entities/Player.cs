@@ -17,12 +17,19 @@ public class Player : Entity
         Dead
     }
 
+    private enum SFX
+    {
+        Jump,
+        Damage
+    }
+
     #region Components
     [Header("Components")]
     [SerializeField] private Animator _modelAnimator;
     private SavesManager _savesManager;
     private InventoryManager _invManager;
     private UIController _uiController;
+    private AudioManager _audioManager;
     private Rigidbody _rb;
     private Inputs _input;
     private Camera _cam;
@@ -107,6 +114,7 @@ public class Player : Entity
         _dustPool = GameManager.GetInstance.GetDustPool;
         _cam = GameManager.GetInstance.GetMainCamera;
         _input = GameManager.GetInstance.GetInput;
+        _audioManager = AudioManager.GetInstance;
 
         SetLastCheckpointStats();
 
@@ -251,6 +259,7 @@ public class Player : Entity
         _jumpTimer = _jumpTime; // timer para limitar el salto
         _rb.velocity = new Vector3(_rb.velocity.x, _jumpForce, _rb.velocity.z);
 
+        _audioManager.PlaySound(AudioManager.AudioList.PlayerSFX);
         GameObject dust = _dustPool.GetPooledObject();
         if (!dust) return;
 
@@ -307,6 +316,9 @@ public class Player : Entity
         Vector3 bulletDirection = _arm.right;
         _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
 
+        // Reproduce un sonido
+        _audioManager.PlaySound(AudioManager.AudioList.Gunshoots, false, 0);
+
         // consume una bala del inventario
         _invManager.RemoveAmount((int)weaponData.BulletType, 1);
 
@@ -357,6 +369,7 @@ public class Player : Entity
     {
         base.TakeDamage(value);
 
+        _audioManager.PlaySound(AudioManager.AudioList.PlayerSFX, false, (int)SFX.Damage);
         _cameraBehaviour.ShakeCamera(_damageShake, _shakeTime);
         _uiController.UpdateHealthPoints(_currentHP);
     }
