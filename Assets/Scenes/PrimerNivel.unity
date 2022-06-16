@@ -6088,6 +6088,8 @@ MonoBehaviour:
   _audioList:
   - {fileID: 11400000, guid: 90f05a286be9b844fa99bb8b10e6f4fc, type: 2}
   - {fileID: 11400000, guid: ac8dfeb666a41a544a377d4196e07d1b, type: 2}
+  - {fileID: 11400000, guid: 3e5af349f4e11154a9dde9130493a262, type: 2}
+  - {fileID: 11400000, guid: 08e7b760594de1b4cb5ce80867a426d3, type: 2}
   _musicSource: {fileID: 771447337}
   _soundSource: {fileID: 83252840}
   _mixer: {fileID: 24100000, guid: 2bebab1ff7217fb4894e188c0ce4bce8, type: 2}

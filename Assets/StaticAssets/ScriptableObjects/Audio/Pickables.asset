@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 005abeaa996441a46820ca0032609697, type: 3}
-  m_Name: TestSFX
+  m_Name: Pickables
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 2c1bc1c544995f643b62e7a8aaa26090, type: 3}
+  - {fileID: 8300000, guid: 6fcd0dda3856fac41b771f52243da168, type: 3}
+  - {fileID: 8300000, guid: 8c3a8ea333572b048a3b3fe28240268d, type: 3}
   IsMusic: 0
   volume: {x: 0.7, y: 1}
   pitch: {x: 0.7, y: 1.3}

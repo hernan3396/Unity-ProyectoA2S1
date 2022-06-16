@@ -9,7 +9,9 @@ public class AudioManager : MonoBehaviour
     {
         // aca poner los sonidos
         OST,
-        TestSFX
+        Gunshoots,
+        Pickables,
+        PlayerSFX
     }
 
     [SerializeField] private List<AudioScriptable> _audioList;
@@ -42,7 +44,7 @@ public class AudioManager : MonoBehaviour
 
     public void TestSFX()
     {
-        PlaySound(AudioList.TestSFX);
+        PlaySound(AudioList.Gunshoots);
     }
 
     public void PlaySound(AudioList audioItem, bool randomSound = false, int index = 0)
@@ -120,6 +122,7 @@ public class AudioManager : MonoBehaviour
     {
         if (!audioScript) return;
 
+        audioSource.clip = audioScript.GetAudioClip(0);
         audioSource.volume = Random.Range(audioScript.volume.x, audioScript.volume.y);
         audioSource.pitch = Random.Range(audioScript.pitch.x, audioScript.pitch.y);
 

@@ -6,12 +6,18 @@ public class HealthPickable : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] private int _curation;
     #endregion
+    private AudioManager _audioManager;
 
     private Rigidbody _rb;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        _audioManager = AudioManager.GetInstance;
     }
 
     private void DesactivateHealth()
@@ -26,6 +32,7 @@ public class HealthPickable : MonoBehaviour
         {
             // Debug.Log("agarrado");
             other.gameObject.GetComponent<Player>().AddHealth(_curation);
+            _audioManager.PlaySound(AudioManager.AudioList.Pickables);
             DesactivateHealth();
             return;
         }

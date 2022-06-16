@@ -4,6 +4,7 @@ public class AmmoPickable : MonoBehaviour
 {
     private Rigidbody _rb;
     private InventoryManager _invManage;
+    private AudioManager _audioManager;
     [SerializeField] private int _bulletRestockAmount;
     [SerializeField] private int _rocketRestockAmount;
 
@@ -11,6 +12,11 @@ public class AmmoPickable : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _invManage = GameManager.GetInstance.GetInvManager;
+    }
+
+    private void Start()
+    {
+        _audioManager = AudioManager.GetInstance;
     }
 
     private void DesactivateAmmo()
@@ -26,6 +32,7 @@ public class AmmoPickable : MonoBehaviour
             // Debug.Log("agarrado");
             _invManage.AddAmount((int)InventoryManager.ItemID.PlayerBullet, _bulletRestockAmount);
             _invManage.AddAmount((int)InventoryManager.ItemID.Rocket, _rocketRestockAmount);
+            _audioManager.PlaySound(AudioManager.AudioList.Pickables, false, 1);
             DesactivateAmmo();
             return;
         }
