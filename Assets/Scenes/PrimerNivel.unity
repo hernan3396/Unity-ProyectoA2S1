@@ -5257,6 +5257,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI_MeleeEnemy_000 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7865236527840478704, guid: 59e7c980480098e4d9fe9be88d1598d4, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:RightHand'\n\tTransform 'mixamorig:Hips'\n\tTransform
+        'mixamorig:RightForeArm'\n\tTransform 'mixamorig:Spine'\n\tTransform 'mixamorig:RightHand'\n\tTransform
+        'mixamorig:Hips'\n\tTransform 'mixamorig:RightForeArm'\n\tTransform 'mixamorig:Spine'\n\tTransform
+        'mixamorig:RightHand'\n\tTransform 'mixamorig:Hips'\n\tand more ..."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59e7c980480098e4d9fe9be88d1598d4, type: 3}
 --- !u!1001 &854242772
