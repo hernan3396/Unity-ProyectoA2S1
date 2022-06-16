@@ -552,6 +552,12 @@ public class Player : Entity
 
         if (_rb.velocity.y < 0)
             ChangeState(States.Falling);
+
+        if (!_input.jump)
+        {
+            StopJump();
+            ChangeState(States.Falling);
+        }
     }
 
     private void Falling()
