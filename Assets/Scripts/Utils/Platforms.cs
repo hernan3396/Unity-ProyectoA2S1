@@ -13,10 +13,13 @@ public class Platforms : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
         _initPos = _transform.position;
+
     }
 
     private void Start()
     {
+        GameManager.GetInstance.onGamePause += OnPause;
+
         if (_isDoor) return;
         MoveIn();
     }
@@ -34,5 +37,18 @@ public class Platforms : MonoBehaviour
     public void SimpleMove()
     {
         _transform.DOMove(_finalPos.position, _duration);
+    }
+
+    private void OnPause(bool value)
+    {
+        if (value)
+            _transform.DOPause();
+        else
+            _transform.DOPlay();
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 }
