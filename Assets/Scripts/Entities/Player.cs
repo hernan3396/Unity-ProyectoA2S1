@@ -399,12 +399,14 @@ public class Player : Entity
     protected override void Death()
     {
         ChangeState(States.Dead);
+        _modelAnimator.Play("Dead");
         GameManager.GetInstance.StartGameOver();
     }
 
     private void OnGameOver()
     {
         SetLastCheckpointStats();
+        _modelAnimator.Play("Idle");
         ChangeState(States.Idle);
     }
     #endregion
