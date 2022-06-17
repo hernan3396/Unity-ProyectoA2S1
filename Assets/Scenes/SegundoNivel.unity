@@ -3457,7 +3457,7 @@ GameObject:
   - component: {fileID: 487533590}
   - component: {fileID: 487533589}
   - component: {fileID: 487533591}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AimPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7993,7 +7993,6 @@ GameObject:
   - component: {fileID: 1132458190}
   - component: {fileID: 1132458191}
   - component: {fileID: 1132458192}
-  - component: {fileID: 1132458193}
   - component: {fileID: 1132458194}
   - component: {fileID: 1132458195}
   m_Layer: 0
@@ -8061,22 +8060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c2bb04b6d80134da0488f4c41ad841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1132458193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132458189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6aef64f2bfb1294ba672382db959339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioList: []
-  _musicSource: {fileID: 0}
-  _soundSource: {fileID: 0}
-  _mixer: {fileID: 0}
 --- !u!114 &1132458194
 MonoBehaviour:
   m_ObjectHideFlags: 0

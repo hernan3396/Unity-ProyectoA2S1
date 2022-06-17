@@ -176,6 +176,9 @@ MonoBehaviour:
   _batModel: {fileID: 7165173372076785246}
   _rocketImpulse: 5
   _aimDebugSphere: {fileID: 1532354100615980540}
+  _aimMask:
+    serializedVersion: 2
+    m_Bits: 128
   _crouchingHitbox: {fileID: 1098778160304661748}
   _standingHitbox: {fileID: 1098778159332917397}
 --- !u!81 &1195504933981289602

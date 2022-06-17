@@ -78,6 +78,7 @@ public class Player : Entity
     #region Aiming
     [Header("Aiming")]
     [SerializeField] private Transform _aimDebugSphere;
+    [SerializeField] private LayerMask _aimMask;
     private bool _canShoot = true;
     private bool _isMelee = false;
     private Vector3 _aimPosition;
@@ -295,7 +296,7 @@ public class Player : Entity
         {
             Ray ray = _cam.ScreenPointToRay(_input.look);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _aimMask))
                 _aimPosition = (Vector2)hit.point;
 
             _aimPosition.z = 0;
