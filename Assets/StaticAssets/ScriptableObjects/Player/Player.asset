@@ -20,6 +20,7 @@ MonoBehaviour:
   JumpTime: 1
   FallingMaxSpeed: 50
   Speed: 20
+  RocketJumpingSpeed: 50
   DamageShake: 6
   ShakeTime: 0.4
   WeaponList:

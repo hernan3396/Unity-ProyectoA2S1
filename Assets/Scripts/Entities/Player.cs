@@ -578,6 +578,10 @@ public class Player : Entity
     {
         Aim();
         _rb.AddForce(new Vector2(_input.move.x * _rocketImpulse, 0), ForceMode.Impulse);
+
+        if (Mathf.Abs(_rb.velocity.x) > _playerData.RocketJumpingSpeed)
+            _rb.velocity = new Vector2(_playerData.RocketJumpingSpeed, _rb.velocity.y);
+
         _modelAnimator.SetBool("isRocketJumping", true);
 
         if (_isGrounded)

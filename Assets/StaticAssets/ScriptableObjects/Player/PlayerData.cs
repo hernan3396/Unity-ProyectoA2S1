@@ -21,6 +21,7 @@ public class PlayerData : ScriptableObject
     #region Movement
     [Header("Movement")]
     public int Speed;
+    public int RocketJumpingSpeed;
     #endregion
 
     #region CameraShake
