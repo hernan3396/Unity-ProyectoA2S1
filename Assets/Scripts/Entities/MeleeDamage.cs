@@ -35,6 +35,11 @@ public class MeleeDamage : MonoBehaviour
         {
             enemy.SetMeleeDamage = true;
             enemy.TakeDamage(_damage);
+
+            Rigidbody rb = other.GetComponentInChildren<Rigidbody>();
+            Vector2 dir = (other.transform.position - _transform.position).normalized;
+
+            rb.AddForce(dir * _pushForce * 50, ForceMode.Impulse);
         }
 
         if (other.CompareTag("Bullet"))

@@ -47,6 +47,10 @@ public class Rocket : MonoBehaviour
 
     private void Explosion()
     {
+        // toda esta parte seria mas facil con un utils.cs
+        // que tenga los pedazos de codigo que se
+        // repiten pero bueno...
+
         // cuando choca contra mas de un collider llama a este metodo 2 veces
         // no se como solucionarlo D:
         Collider[] hitColliders = Physics.OverlapSphere(_transform.position, _explosionRadius); // ve contra que choca la explosion
@@ -76,6 +80,12 @@ public class Rocket : MonoBehaviour
             {
                 collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
                 collider.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
+
+                Rigidbody rb = collider.GetComponentInChildren<Rigidbody>();
+                rb.velocity = Vector3.zero;
+
+                Vector3 dir = (collider.transform.position - _transform.position).normalized;
+                rb.velocity += dir * _explosionForce * 2;
             }
 
             if (collider.gameObject.CompareTag("Ammo"))

@@ -141,6 +141,7 @@ public abstract class Enemy : Entity
         while (_onPause)
             yield return null;
 
+        if (_isDead) yield break;
         _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, _targetDir + shootOff, weaponData.BulletSpeed);
 
         _canShoot = true;

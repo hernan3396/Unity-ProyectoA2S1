@@ -122,11 +122,11 @@ public class AudioManager : MonoBehaviour
     {
         if (!audioScript) return;
 
-        audioSource.clip = audioScript.GetAudioClip(0);
+        // audioSource.clip = audioScript.GetAudioClip(0);
         audioSource.volume = Random.Range(audioScript.volume.x, audioScript.volume.y);
         audioSource.pitch = Random.Range(audioScript.pitch.x, audioScript.pitch.y);
 
-        audioSource.Play();
+        audioSource.PlayOneShot(audioScript.GetAudioClip(0));
     }
 
     private void OnDestroy()
