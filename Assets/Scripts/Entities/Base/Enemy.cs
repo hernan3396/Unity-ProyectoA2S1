@@ -7,7 +7,9 @@ public abstract class Enemy : Entity
     {
         Shooting,
         Wandering,
-        Dead
+        Dead,
+        Smashing,
+        Returning
     }
 
     #region Paremeters
@@ -104,7 +106,7 @@ public abstract class Enemy : Entity
     /// </Summary>
     protected bool DetectEnemy()
     {
-        // Debug.DrawRay(_transform.position, _targetPos.position - _transform.position, Color.blue);
+        Debug.DrawRay(_transform.position, _targetPos.position - _transform.position, Color.blue);
 
         // si el enemigo esta a la vista deja de patrullar y le dispara
         if (Physics.Raycast(_transform.position, _targetPos.position - _transform.position, out RaycastHit hit, _visionRange, _objLayer))

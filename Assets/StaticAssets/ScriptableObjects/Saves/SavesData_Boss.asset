@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SavesData_Boss
   m_EditorClassIdentifier: 
   CurrentLevel: 3rd level
-  InitialCheckpoint: {x: -119, y: 24}
+  InitialCheckpoint: {x: -60, y: 24}
   CurrentCheckpoint: {x: -119, y: -15}
   InitialBulletAmount: 300
   BulletAmount: 300
