@@ -52,14 +52,6 @@ public class Rocket : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(_transform.position, _explosionRadius); // ve contra que choca la explosion
         foreach (Collider collider in hitColliders)
         {
-            // if (collider.TryGetComponent(out Player player))
-            // {
-            //     // para probar esto hay que deshabilitar el move del player
-            //     Rigidbody rb = player.GetComponent<Rigidbody>();
-            //     rb.velocity = Vector3.zero;
-            //     rb.AddForce((player.GetComponent<Transform>().position - transform.position).normalized * _explosionForce, ForceMode.Impulse);
-            // }
-
             if (collider.gameObject.CompareTag("Player"))
             {
                 // Debug.Log(collider.name);
@@ -84,6 +76,20 @@ public class Rocket : MonoBehaviour
             {
                 collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
                 collider.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
+            }
+
+            if (collider.gameObject.CompareTag("Ammo"))
+            {
+                Vector2 otherPos = collider.transform.position;
+                Rigidbody otherRb;
+
+                if (collider.TryGetComponent(out Rigidbody rb))
+                {
+                    otherRb = rb;
+                    Vector2 direction = otherPos - (Vector2)_transform.position;
+
+                    rb.AddForce(direction.normalized * _explosionForce, ForceMode.Impulse);
+                }
             }
         }
 
