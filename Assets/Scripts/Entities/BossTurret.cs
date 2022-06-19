@@ -4,15 +4,20 @@ using TMPro;
 public class BossTurret : Enemy
 {
     [SerializeField] private TMP_Text _textState;
+    private BossMain _bossMain;
 
     protected override void Awake()
     {
         base.Awake();
         _currentState = States.Wandering;
+
+        _bossMain = GetComponentInParent<BossMain>();
     }
 
     private void Update()
     {
+        if (!_bossMain.Active) return;
+
         _textState.text = _currentState.ToString();
 
         switch (_currentState)
@@ -22,6 +27,9 @@ public class BossTurret : Enemy
                 break;
             case States.Wandering:
                 Wandering();
+                break;
+            case States.Smashing:
+                Smashing();
                 break;
         }
     }
@@ -43,6 +51,15 @@ public class BossTurret : Enemy
             StartCoroutine(Shoot(_weaponList[0]));
 
         if (!_enemyOnSight)
+            NewState(States.Wandering);
+
+        if (!_bossMain.CanAttack)
+            NewState(States.Smashing);
+    }
+
+    private void Smashing()
+    {
+        if (_bossMain.CanAttack)
             NewState(States.Wandering);
     }
 
