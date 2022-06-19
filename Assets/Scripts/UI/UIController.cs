@@ -28,6 +28,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject _deathScreen;
     #endregion
 
+    [SerializeField] private TMP_Text _bossHealth;
+
     private void Awake()
     {
 #if UNITY_EDITOR
@@ -63,6 +65,11 @@ public class UIController : MonoBehaviour
     public void UpdateState(string newState)
     {
         _stateText.text = $"State: {newState}";
+    }
+
+    public void UpdateBossHealth(int value)
+    {
+        _bossHealth.text = $"Boss HP: {value}";
     }
 
     private void OnStartGameOver()

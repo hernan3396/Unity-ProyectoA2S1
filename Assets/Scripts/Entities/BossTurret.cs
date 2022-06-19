@@ -5,6 +5,7 @@ public class BossTurret : Enemy
 {
     [SerializeField] private TMP_Text _textState;
     private BossMain _bossMain;
+    private bool _isPaused = false;
 
     protected override void Awake()
     {
@@ -17,6 +18,7 @@ public class BossTurret : Enemy
     private void Update()
     {
         if (!_bossMain.Active) return;
+        if (_isPaused) return;
 
         _textState.text = _currentState.ToString();
 

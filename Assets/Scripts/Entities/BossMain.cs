@@ -13,6 +13,7 @@ public class BossMain : Enemy
     [Header("Settings")]
     [SerializeField] private Transform[] _bossPoints; // para la intro del boss 
     [SerializeField] private TMP_Text _textState;
+    private UIController _uiController;
 
     #region Hands
     [Header("Hands")]
@@ -33,6 +34,12 @@ public class BossMain : Enemy
     {
         base.Awake();
         _currentState = States.Wandering;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        _uiController = GameManager.GetInstance.GetUIController;
     }
 
     private void Update()
@@ -134,6 +141,7 @@ public class BossMain : Enemy
     /// </Summary>
     public void ActivateBoss()
     {
+        _uiController.UpdateBossHealth(_currentHP);
         // se puede hacer mas prolijo pero no creo que se modifique tanto
         _transform.DOMove(_bossPoints[0].position, _speed)
         .SetEase(Ease.OutCubic)
@@ -144,6 +152,14 @@ public class BossMain : Enemy
             .OnComplete(() => _active = true);
         }
         );
+    }
+
+    public override void TakeDamage(int value)
+    {
+        if (!_active) return;
+
+        base.TakeDamage(value);
+        _uiController.UpdateBossHealth(_currentHP);
     }
 
     public bool CanAttack
