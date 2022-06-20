@@ -26,17 +26,17 @@ public class Platforms : MonoBehaviour
 
     public void MoveIn()
     {
-        _transform.DOMove(_finalPos.position, _duration).OnComplete(MoveOut);
+        _transform.DOMove(_finalPos.position, _duration).SetUpdate(UpdateType.Fixed).OnComplete(MoveOut);
     }
 
     public void MoveOut()
     {
-        _transform.DOMove(_initPos, _duration).OnComplete(MoveIn);
+        _transform.DOMove(_initPos, _duration).SetUpdate(UpdateType.Fixed).OnComplete(MoveIn);
     }
 
     public void SimpleMove()
     {
-        _transform.DOMove(_finalPos.position, _duration);
+        _transform.DOMove(_finalPos.position, _duration).SetUpdate(UpdateType.Fixed);
     }
 
     private void OnPause(bool value)
@@ -45,6 +45,18 @@ public class Platforms : MonoBehaviour
             _transform.DOPause();
         else
             _transform.DOPlay();
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+            other.transform.parent = _transform;
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+            other.transform.parent = null;
     }
 
     private void OnDestroy()
