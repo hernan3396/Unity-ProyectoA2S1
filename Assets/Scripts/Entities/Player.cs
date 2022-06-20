@@ -475,6 +475,11 @@ public class Player : Entity
         _modelAnimator.SetBool("isFalling", false);
         _modelAnimator.SetBool("isRocketJumping", false);
         _modelAnimator.SetBool("isRecoil", false);
+        // el animator no tenia salida del jumping (a veces no pasaba por falling)
+        // y no sabia que hacer asi que le agregue esta bool. Se podria hacer mejor pero creo que asi funciona
+        // falta testing
+        _modelAnimator.SetBool("isJumping", false);
+        _modelAnimator.ResetTrigger("Jumping");
 
         if (_input.jump)
             ChangeState(States.Jumping);
@@ -551,6 +556,7 @@ public class Player : Entity
         Aim();
         Jump();
         HorizontalMovement();
+        _modelAnimator.SetBool("isJumping", true);
         _modelAnimator.SetTrigger("Jumping");
 
         if (_rb.velocity.y < 0)
@@ -568,6 +574,7 @@ public class Player : Entity
         Aim();
         HorizontalMovement();
         _modelAnimator.ResetTrigger("Jumping");
+        _modelAnimator.SetBool("isJumping", false);
         _modelAnimator.SetBool("isFalling", true);
 
         if (_isGrounded)
