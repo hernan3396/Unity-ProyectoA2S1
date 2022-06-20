@@ -106,6 +106,8 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        // gameObject.SetActive(false); // si no choca contra nada
+        if (other.gameObject.CompareTag("Bullet")) { return; }
+
+        DeactivateBullet();
     }
 }
