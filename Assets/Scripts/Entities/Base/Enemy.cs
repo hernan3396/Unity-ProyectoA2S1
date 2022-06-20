@@ -67,7 +67,7 @@ public abstract class Enemy : Entity
     protected override void Start()
     {
         base.Start();
-        _targetPos = GameManager.GetInstance.GetPlayerPos;
+        _targetPos = GameManager.GetInstance.PlayerObjPos;
         if (_enemyData.TypeEnemy == EnemyData.EnemyType.Flying)
             _bloodPool = GameManager.GetInstance.GetSparkPool;
 

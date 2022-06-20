@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("TFW no pool")]
+    [SerializeField] private Transform _playerObjectivePos;
     [SerializeField] private CameraBehaviour _cameraScript;
     [SerializeField] private InventoryManager _invManager;
     [SerializeField] private LevelManager _levelManager;
@@ -187,5 +188,10 @@ public class GameManager : MonoBehaviour
     public InventoryManager GetInvManager
     {
         get { return _invManager; }
+    }
+
+    public Transform PlayerObjPos
+    {
+        get { return _playerObjectivePos; }
     }
 }

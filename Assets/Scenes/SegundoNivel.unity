@@ -451,6 +451,7 @@ MonoBehaviour:
   - {fileID: 1917209243}
   - {fileID: 492570246}
   _deathScreen: {fileID: 35184430}
+  _bossHealth: {fileID: 0}
 --- !u!114 &28364001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8029,6 +8030,7 @@ MonoBehaviour:
   _bloodPool: {fileID: 1227544715}
   _dustPool: {fileID: 674201716}
   _sparkPool: {fileID: 1520618926}
+  _playerObjectivePos: {fileID: 1098778159915247625}
   _cameraScript: {fileID: 1841007336}
   _invManager: {fileID: 598405689}
   _levelManager: {fileID: 1132458195}
@@ -16633,6 +16635,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe85f536c3afac341bb41172a895c31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1098778159915247625 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6323066684728837050, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+  m_PrefabInstance: {fileID: 1098778159915247623}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7615225184019746909
 PrefabInstance:
   m_ObjectHideFlags: 0

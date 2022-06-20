@@ -747,11 +747,6 @@ Transform:
   m_Father: {fileID: 1570505754}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &109135115 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1185126578084765940, guid: c10b3ae198159f8489c53fc9fd572dfb, type: 3}
-  m_PrefabInstance: {fileID: 130479505}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &130479505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3442,10 +3437,6 @@ MonoBehaviour:
   _handsStartPos:
   - {fileID: 842630604}
   - {fileID: 101881994}
-  _rEnemies:
-  - {fileID: 1668522654}
-  _lEnemies:
-  - {fileID: 109135115}
 --- !u!65 &758582586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4767,6 +4758,7 @@ MonoBehaviour:
   _bloodPool: {fileID: 1227544715}
   _dustPool: {fileID: 674201716}
   _sparkPool: {fileID: 1520618926}
+  _playerObjectivePos: {fileID: 1098778159915247625}
   _cameraScript: {fileID: 1841007336}
   _invManager: {fileID: 598405689}
   _levelManager: {fileID: 1132458195}
@@ -7463,11 +7455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1668522654 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1185126578084765940, guid: c10b3ae198159f8489c53fc9fd572dfb, type: 3}
-  m_PrefabInstance: {fileID: 2054883927}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1672962821
 GameObject:
   m_ObjectHideFlags: 0
@@ -10073,6 +10060,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe85f536c3afac341bb41172a895c31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1098778159915247625 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6323066684728837050, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+  m_PrefabInstance: {fileID: 1098778159915247623}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5503330618733801414
 PrefabInstance:
   m_ObjectHideFlags: 0
