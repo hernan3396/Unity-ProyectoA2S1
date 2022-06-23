@@ -45,6 +45,7 @@ public class BossMain : Enemy
     private void Update()
     {
         if (!_active) return;
+        if (_onPause) return;
         _textState.text = _currentState.ToString();
 
         switch (_currentState)
@@ -152,6 +153,30 @@ public class BossMain : Enemy
             .OnComplete(() => _active = true);
         }
         );
+    }
+
+    protected override void PauseEnemy()
+    {
+        base.PauseEnemy();
+        _transform.DOPause();
+
+        // pausa las manos
+        foreach (GameObject hand in _hands)
+        {
+            hand.transform.DOPause();
+        }
+    }
+
+    protected override void ResumeEnemy()
+    {
+        base.ResumeEnemy();
+        _transform.DOPlay();
+
+        // resume las manos
+        foreach (GameObject hand in _hands)
+        {
+            hand.transform.DOPlay();
+        }
     }
 
     public override void TakeDamage(int value)
