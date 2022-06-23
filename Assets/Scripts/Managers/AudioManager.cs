@@ -121,12 +121,31 @@ public class AudioManager : MonoBehaviour
     public void RandomizeExternalSound(AudioSource audioSource, AudioScriptable audioScript)
     {
         if (!audioScript) return;
+        Debug.Log("Explosion");
+        Debug.Log(audioScript);
 
         // audioSource.clip = audioScript.GetAudioClip(0);
         audioSource.volume = Random.Range(audioScript.volume.x, audioScript.volume.y);
         audioSource.pitch = Random.Range(audioScript.pitch.x, audioScript.pitch.y);
 
         audioSource.PlayOneShot(audioScript.GetAudioClip(0));
+    }
+
+    public void CreateSoundAndPlay(Vector3 pos, AudioScriptable audioScript, AnimationCurve curve)
+    {
+        GameObject go = new GameObject();
+        go.transform.position = pos;
+
+        AudioSource source = go.AddComponent<AudioSource>();
+        source.spatialBlend = 1.0f;
+        source.rolloffMode = AudioRolloffMode.Custom;
+        source.maxDistance = 200;
+        source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, curve);
+
+        source.clip = audioScript.GetAudioClip(0);
+        source.PlayOneShot(source.clip);
+
+        Destroy(go, source.clip.length / source.pitch);
     }
 
     private void OnDestroy()

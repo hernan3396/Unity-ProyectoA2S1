@@ -1,20 +1,18 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class ExternalSound : MonoBehaviour
 {
     [SerializeField] private AudioScriptable _audioScript;
+    [SerializeField] private AnimationCurve _animCurve;
     private AudioManager _audioManager;
-    private AudioSource _audioSource;
 
     private void Start()
     {
         _audioManager = AudioManager.GetInstance;
-        _audioSource = GetComponent<AudioSource>();
     }
 
     public void PlaySFX()
     {
-        _audioManager.RandomizeExternalSound(_audioSource, _audioScript);
+        _audioManager.CreateSoundAndPlay(transform.position, _audioScript, _animCurve);
     }
 }

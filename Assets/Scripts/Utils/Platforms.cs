@@ -26,12 +26,16 @@ public class Platforms : MonoBehaviour
 
     public void MoveIn()
     {
-        _transform.DOMove(_finalPos.position, _duration).SetUpdate(UpdateType.Fixed).OnComplete(MoveOut);
+        _transform.DOMove(_finalPos.position, _duration)
+        .SetUpdate(UpdateType.Fixed)
+        .OnComplete(MoveOut);
     }
 
     public void MoveOut()
     {
-        _transform.DOMove(_initPos, _duration).SetUpdate(UpdateType.Fixed).OnComplete(MoveIn);
+        _transform.DOMove(_initPos, _duration)
+        .SetUpdate(UpdateType.Fixed)
+        .OnComplete(MoveIn);
     }
 
     public void SimpleMove()
