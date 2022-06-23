@@ -4,12 +4,6 @@ using DG.Tweening;
 
 public class BossMain : Enemy
 {
-    private enum Hands
-    {
-        Right,
-        Left
-    }
-
     [Header("Settings")]
     [SerializeField] private Transform[] _bossPoints; // para la intro del boss 
     [SerializeField] private TMP_Text _textState;
@@ -32,7 +26,7 @@ public class BossMain : Enemy
 
     #region EnemySpawner
     [Header("Enemy Spawner")]
-    [SerializeField] private EnemySpawner[] _enemySpawners;
+    [SerializeField] private EnemySpawner _enemySpawner;
     #endregion
 
     protected override void Awake()
@@ -103,6 +97,13 @@ public class BossMain : Enemy
     {
         if (_canAttack)
         {
+            int spawnPosition = 0;
+
+            if (_handIndex == 0)
+                spawnPosition = 1;
+
+            _enemySpawner.SpawnEnemy(spawnPosition);
+
             _atkTimer = 0;
             _hands[_handIndex].transform.DOMove(_handsEndPos[_handIndex].position, _acceleration)
             .SetUpdate(UpdateType.Fixed)
@@ -203,6 +204,7 @@ public class BossMain : Enemy
         NewState(States.Wandering);
         _atkTimer = 0;
         _textState.text = _currentState.ToString();
+        _enemySpawner.DestroyEnemies();
         base.OnStartGameOver();
     }
 

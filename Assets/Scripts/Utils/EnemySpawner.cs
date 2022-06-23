@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -9,11 +10,12 @@ public class EnemySpawner : MonoBehaviour
     // es media cutre uwu
     [SerializeField] private Transform _enemy; // enemy to spawn
     [SerializeField] private Transform[] _spawnPoint;
-    private GameObject[] _enemiesSpawned; // para luego destruirlos si perdes o se reinicia el juego
+    private List<GameObject> _enemiesSpawned = new List<GameObject>(); // para luego destruirlos si perdes o se reinicia el juego
 
     public void SpawnEnemy(int index)
     {
-        Instantiate(_enemy, _spawnPoint[index].position, Quaternion.identity);
+        Transform go = Instantiate(_enemy, _spawnPoint[index].position, Quaternion.identity);
+        _enemiesSpawned.Add(go.gameObject);
     }
 
     public void DestroyEnemies()
