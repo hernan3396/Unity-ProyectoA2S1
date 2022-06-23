@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Enemy_BossGun
   m_EditorClassIdentifier: 
   Name: Enemy_Pistol
-  BulletSpeed: 20
-  FireRate: 1
+  BulletSpeed: 40
+  FireRate: 0.5
   BulletType: 2
   RecoilForce: 0
   RecoilTime: 0

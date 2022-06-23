@@ -21,5 +21,5 @@ MonoBehaviour:
   VisionRange: 200
   ShootAccuracy: 1
   WeaponList:
-  - {fileID: 11400000, guid: 4164be21e44c964439ecb647a11bb58c, type: 2}
+  - {fileID: 11400000, guid: 1b71f26e0a4b8164494073286fca5cff, type: 2}
   TypeEnemy: 0

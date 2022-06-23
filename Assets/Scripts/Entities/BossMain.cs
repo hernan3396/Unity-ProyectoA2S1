@@ -14,6 +14,7 @@ public class BossMain : Enemy
     [SerializeField] private GameObject[] _hands;
     [SerializeField] private Transform[] _handsEndPos;
     [SerializeField] private Transform[] _handsStartPos;
+    private Vector3[] _handSpawnPos; // para cuando reinicias el boss
     private int _handIndex = 0;
     #endregion
 
@@ -39,6 +40,14 @@ public class BossMain : Enemy
     {
         base.Start();
         _uiController = GameManager.GetInstance.GetUIController;
+
+        int index = 0;
+        _handSpawnPos = new Vector3[_hands.Length];
+        foreach (GameObject hand in _hands)
+        {
+            _handSpawnPos[index] = hand.transform.position;
+            index += 1;
+        }
     }
 
     private void Update()
@@ -204,8 +213,20 @@ public class BossMain : Enemy
         NewState(States.Wandering);
         _atkTimer = 0;
         _textState.text = _currentState.ToString();
-        _enemySpawner.DestroyEnemies();
         base.OnStartGameOver();
+    }
+
+    protected override void OnGameOver()
+    {
+        base.OnGameOver();
+        _enemySpawner.DestroyEnemies();
+
+        int index = 0;
+        foreach (GameObject hand in _hands)
+        {
+            hand.transform.position = _handSpawnPos[index];
+            index += 1;
+        }
     }
 
     public bool CanAttack
