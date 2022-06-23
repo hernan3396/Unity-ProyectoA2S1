@@ -19,6 +19,7 @@ public class BossTurret : Enemy
     {
         if (!_bossMain.Active) return;
         if (_isPaused) return;
+        if (_isGameOver) return;
 
         _textState.text = _currentState.ToString();
 
@@ -63,6 +64,11 @@ public class BossTurret : Enemy
     {
         if (_bossMain.CanAttack)
             NewState(States.Wandering);
+    }
+
+    protected override void OnGameOver()
+    {
+        _isGameOver = false;
     }
 
     private void NewState(States newState)

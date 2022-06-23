@@ -5,6 +5,11 @@ public class ChangeCameras : MonoBehaviour
     [SerializeField] private GameObject _mainCamBrain;
     private GameObject _activeCamera;
 
+    private void Start()
+    {
+        GameManager.GetInstance.onGameOver += ActivateMain;
+    }
+
     public void ActivateNextCam(GameObject nextCam)
     {
         _mainCamBrain.SetActive(false);
@@ -14,7 +19,14 @@ public class ChangeCameras : MonoBehaviour
 
     public void ActivateMain()
     {
-        _activeCamera.SetActive(false);
+        if (_activeCamera)
+            _activeCamera.SetActive(false);
+
         _mainCamBrain.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGameOver += ActivateMain;
     }
 }

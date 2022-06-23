@@ -20,7 +20,7 @@ public abstract class Enemy : Entity
     protected int _acceleration;
     protected float _accuracy;
     protected bool _melee = false;
-    protected Vector2 _initPos;
+    protected Vector3 _initPos;
     protected bool _isGameOver;
     protected bool _isDead;
     #endregion
@@ -266,18 +266,21 @@ public abstract class Enemy : Entity
     #endregion
 
     #region GameOver
-    protected void OnStartGameOver()
+    protected virtual void OnStartGameOver()
     {
         _isGameOver = true;
         _enemyOnSight = false;
     }
 
-    protected void OnGameOver()
+    protected virtual void OnGameOver()
     {
         _transform.position = _initPos;
         _isGameOver = false;
         _currentHP = _hp;
-        _collider.enabled = true;
+
+        if (_collider)
+            _collider.enabled = true;
+
         _isDead = false;
 
         if (gameObject.GetComponentInChildren<Ragdoll>())

@@ -26,8 +26,13 @@ public class BossMain : Enemy
     #region Flags
     private bool _canAttack = true;
     private bool _returning = false;
-    private bool _active = false;
+    [SerializeField] private bool _active = false;
     private float _atkTimer;
+    #endregion
+
+    #region EnemySpawner
+    [Header("Enemy Spawner")]
+    [SerializeField] private EnemySpawner[] _enemySpawners;
     #endregion
 
     protected override void Awake()
@@ -46,6 +51,7 @@ public class BossMain : Enemy
     {
         if (!_active) return;
         if (_onPause) return;
+        if (_isGameOver) return;
         _textState.text = _currentState.ToString();
 
         switch (_currentState)
@@ -99,6 +105,7 @@ public class BossMain : Enemy
         {
             _atkTimer = 0;
             _hands[_handIndex].transform.DOMove(_handsEndPos[_handIndex].position, _acceleration)
+            .SetUpdate(UpdateType.Fixed)
             .SetEase(Ease.InElastic)
             .OnComplete(() => NewState(States.Returning));
         }
@@ -115,6 +122,7 @@ public class BossMain : Enemy
             _returning = true;
 
             _hands[_handIndex].transform.DOMove(_handsStartPos[_handIndex].position, _acceleration)
+            .SetUpdate(UpdateType.Fixed)
             .SetEase(Ease.InOutBack)
             .OnComplete(() =>
             {
@@ -145,10 +153,12 @@ public class BossMain : Enemy
         _uiController.UpdateBossHealth(_currentHP);
         // se puede hacer mas prolijo pero no creo que se modifique tanto
         _transform.DOMove(_bossPoints[0].position, _speed)
+        .SetUpdate(UpdateType.Fixed)
         .SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             _transform.DOMove(_bossPoints[1].position, _speed)
+            .SetUpdate(UpdateType.Fixed)
             .SetEase(Ease.OutCubic)
             .OnComplete(() => _active = true);
         }
@@ -185,6 +195,15 @@ public class BossMain : Enemy
 
         base.TakeDamage(value);
         _uiController.UpdateBossHealth(_currentHP);
+    }
+
+    protected override void OnStartGameOver()
+    {
+        _active = false;
+        NewState(States.Wandering);
+        _atkTimer = 0;
+        _textState.text = _currentState.ToString();
+        base.OnStartGameOver();
     }
 
     public bool CanAttack
