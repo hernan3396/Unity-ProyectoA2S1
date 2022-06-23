@@ -26,7 +26,7 @@ public class BossMain : Enemy
     #region Flags
     private bool _canAttack = true;
     private bool _returning = false;
-    [SerializeField] private bool _active = false;
+    private bool _active = false;
     private float _atkTimer;
     #endregion
 
