@@ -106,6 +106,7 @@ public class Bullet : MonoBehaviour
             return;
         }
 
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Bullet")) { return; }
 
         DeactivateBullet();
