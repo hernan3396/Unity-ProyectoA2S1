@@ -131,6 +131,8 @@ public class BossMain : Enemy
         {
             _returning = true;
 
+            _enemySpawner.SpawnEnemy(_handIndex);
+
             _hands[_handIndex].transform.DOMove(_handsStartPos[_handIndex].position, _acceleration)
             .SetUpdate(UpdateType.Fixed)
             .SetEase(Ease.InOutBack)
