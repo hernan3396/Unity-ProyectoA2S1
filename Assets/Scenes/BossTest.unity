@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 12283718}
   - component: {fileID: 12283717}
   - component: {fileID: 12283716}
+  - component: {fileID: 12283720}
   m_Layer: 0
   m_Name: WeakPoint (1)
   m_TagString: Enemy
@@ -305,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 653522842578fac4886b7eafad36168e, type: 2}
-  _modelAnimator: {fileID: 0}
+  _modelAnimator: {fileID: 12283720}
   _shootingPos: {fileID: 0}
   _model: {fileID: 0}
   _arm: {fileID: 0}
@@ -393,6 +394,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12283714}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &12283720
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12283714}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7f55c0bad000ee40a0c6516afcd165a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &28363995
 GameObject:
   m_ObjectHideFlags: 0
@@ -5724,6 +5745,7 @@ GameObject:
   - component: {fileID: 1327814840}
   - component: {fileID: 1327814839}
   - component: {fileID: 1327814838}
+  - component: {fileID: 1327814842}
   m_Layer: 0
   m_Name: WeakPoint
   m_TagString: Enemy
@@ -5759,7 +5781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 653522842578fac4886b7eafad36168e, type: 2}
-  _modelAnimator: {fileID: 0}
+  _modelAnimator: {fileID: 1327814842}
   _shootingPos: {fileID: 0}
   _model: {fileID: 0}
   _arm: {fileID: 0}
@@ -5847,6 +5869,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327814836}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1327814842
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327814836}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7f55c0bad000ee40a0c6516afcd165a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1333480265
 GameObject:
   m_ObjectHideFlags: 0
@@ -9606,6 +9648,7 @@ GameObject:
   - component: {fileID: 2006515773}
   - component: {fileID: 2006515772}
   - component: {fileID: 2006515771}
+  - component: {fileID: 2006515775}
   m_Layer: 0
   m_Name: WeakPoint (2)
   m_TagString: Enemy
@@ -9641,7 +9684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 653522842578fac4886b7eafad36168e, type: 2}
-  _modelAnimator: {fileID: 0}
+  _modelAnimator: {fileID: 2006515775}
   _shootingPos: {fileID: 0}
   _model: {fileID: 0}
   _arm: {fileID: 0}
@@ -9729,6 +9772,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006515769}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &2006515775
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006515769}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7f55c0bad000ee40a0c6516afcd165a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2016496086
 GameObject:
   m_ObjectHideFlags: 0
@@ -9742,6 +9805,7 @@ GameObject:
   - component: {fileID: 2016496090}
   - component: {fileID: 2016496089}
   - component: {fileID: 2016496088}
+  - component: {fileID: 2016496092}
   m_Layer: 0
   m_Name: WeakPoint (3)
   m_TagString: Enemy
@@ -9777,7 +9841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 653522842578fac4886b7eafad36168e, type: 2}
-  _modelAnimator: {fileID: 0}
+  _modelAnimator: {fileID: 2016496092}
   _shootingPos: {fileID: 0}
   _model: {fileID: 0}
   _arm: {fileID: 0}
@@ -9865,6 +9929,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016496086}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &2016496092
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016496086}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7f55c0bad000ee40a0c6516afcd165a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2033573189
 GameObject:
   m_ObjectHideFlags: 0
@@ -10600,7 +10684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5503330618034830175, guid: dd568b05ae15e0e4bba288bd4268df8c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd568b05ae15e0e4bba288bd4268df8c, type: 3}
