@@ -22,7 +22,14 @@ public class BossMain : Enemy
     private bool _canAttack = true;
     private bool _returning = false;
     private bool _active = false;
+    private bool _isDown = false;
     private float _atkTimer;
+    #endregion
+
+    #region BossDown
+    [Header("Boss Down")]
+    [SerializeField] private Transform _bossMainDown;
+    [SerializeField] private Transform _bossDeathPos;
     #endregion
 
     #region EnemySpawner
@@ -54,7 +61,10 @@ public class BossMain : Enemy
     {
         if (!_active) return;
         if (_onPause) return;
+        if (_isDown) return;
         if (_isGameOver) return;
+        if (_isDead) return;
+
         _textState.text = _currentState.ToString();
 
         switch (_currentState)
@@ -204,14 +214,44 @@ public class BossMain : Enemy
     public override void TakeDamage(int value)
     {
         if (!_active) return;
+        if (_isDead) return;
 
         base.TakeDamage(value);
+
+        if (_currentHP == 1)
+        {
+            _isDown = true;
+            BossDown();
+        }
+
+        if (_currentHP <= 0)
+            BossDeath();
+
         _uiController.UpdateBossHealth(_currentHP);
+    }
+
+    private void BossDown()
+    {
+        _transform.DOMove(_bossMainDown.position, _acceleration)
+        .SetEase(Ease.InBounce);
+    }
+
+    private void BossDeath()
+    {
+        _transform.DOMove(_bossDeathPos.position, _acceleration)
+        .SetEase(Ease.OutBounce);
+    }
+
+    protected override void Death()
+    {
+        _isDead = true;
     }
 
     protected override void OnStartGameOver()
     {
         _active = false;
+        _isDown = false;
+        _isDead = false;
         NewState(States.Wandering);
         _atkTimer = 0;
         _textState.text = _currentState.ToString();
@@ -239,5 +279,10 @@ public class BossMain : Enemy
     public bool Active
     {
         get { return _active; }
+    }
+
+    public bool IsDown
+    {
+        get { return _isDown; }
     }
 }

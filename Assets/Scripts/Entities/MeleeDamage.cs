@@ -37,6 +37,8 @@ public class MeleeDamage : MonoBehaviour
             enemy.TakeDamage(_damage);
 
             Rigidbody rb = other.GetComponentInChildren<Rigidbody>();
+
+            if (!rb) return;
             Vector2 dir = (other.transform.position - _transform.position).normalized;
 
             rb.AddForce(dir * _pushForce * 50, ForceMode.Impulse);

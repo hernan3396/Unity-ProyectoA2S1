@@ -18,6 +18,7 @@ public class BossTurret : Enemy
     private void Update()
     {
         if (!_bossMain.Active) return;
+        if (_bossMain.IsDown) return;
         if (_isPaused) return;
         if (_isGameOver) return;
 

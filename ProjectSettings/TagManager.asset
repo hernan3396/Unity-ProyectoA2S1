@@ -13,6 +13,7 @@ TagManager:
   - Melee
   - Ammo
   - Rocket
+  - WeakPoint
   layers:
   - Default
   - TransparentFX

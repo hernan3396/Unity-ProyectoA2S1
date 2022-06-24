@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
-  m_Name: Boss
+  m_Name: WeakPoint
   m_EditorClassIdentifier: 
-  Hp: 4
-  Invulnerability: 0.5
-  Acceleration: 2
-  Speed: 5
+  Hp: 200
+  Invulnerability: 0
+  Acceleration: 0
+  Speed: 0
   NewWaypointSpeed: 1
   Accuracy: 0
-  VisionRange: 60
+  VisionRange: 0
   ShootAccuracy: 0
   WeaponList: []
   TypeEnemy: 0
