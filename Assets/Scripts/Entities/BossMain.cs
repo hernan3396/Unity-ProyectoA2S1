@@ -225,7 +225,10 @@ public class BossMain : Enemy
         }
 
         if (_currentHP <= 0)
+        {
             BossDeath();
+            _currentHP = 0;
+        }
 
         _uiController.UpdateBossHealth(_currentHP);
     }

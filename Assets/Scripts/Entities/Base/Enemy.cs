@@ -177,6 +177,8 @@ public abstract class Enemy : Entity
 
     public override void TakeDamage(int value)
     {
+        if (_isInmune) return; // para que no atomice el sonido del gato
+
         base.TakeDamage(value);
 
         if (_extSound)
