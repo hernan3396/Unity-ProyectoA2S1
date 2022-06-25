@@ -188,13 +188,15 @@ public abstract class Enemy : Entity
         if (_melee)
         {
             GameObject ammoPickable = GameManager.GetInstance.GetAmmoPool.GetPooledObject();
-            ammoPickable.transform.position = _transform.position;
+            // ammoPickable.transform.position = _transform.position;
+            ammoPickable.transform.position = new Vector3(_transform.position.x, _transform.position.y, 0);
             ammoPickable.SetActive(true);
         }
         else
         {
             GameObject healthPickable = GameManager.GetInstance.GetHealthPool.GetPooledObject();
-            healthPickable.transform.position = _transform.position;
+            // healthPickable.transform.position = _transform.position;
+            healthPickable.transform.position = new Vector3(_transform.position.x, _transform.position.y, 0);
             healthPickable.SetActive(true);
         }
 

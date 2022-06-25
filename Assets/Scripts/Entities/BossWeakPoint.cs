@@ -22,12 +22,14 @@ public class BossWeakPoint : Enemy
             _isDead = true;
             OnDeath?.Invoke();
             GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
         }
     }
 
     protected override void OnStartGameOver()
     {
         GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
         return;
     }
 

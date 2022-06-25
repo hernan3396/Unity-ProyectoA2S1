@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _modelAnimator: {fileID: 871341101554425012}
+  _bulletOffset: {x: -0.05, y: -0.05, z: 0}
   _playerData: {fileID: 11400000, guid: c7909e2a3da3bc14c9a23e319039357c, type: 2}
   _particlePosOff: {fileID: 1098778159292022298}
   _shootingPos: {fileID: 1098778159729051649}
@@ -500,7 +501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1098778160592008862
 Transform:
   m_ObjectHideFlags: 0
@@ -750,7 +751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2470950412311731921}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 1.1040001, z: 0}
   m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cinemachine;
 
 public class ChangeCameras : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class ChangeCameras : MonoBehaviour
         _mainCamBrain.SetActive(false);
         _activeCamera = nextCam;
         _activeCamera.SetActive(true);
+
     }
 
     public void ActivateMain()

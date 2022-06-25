@@ -48,6 +48,16 @@ public class Crosshair : MonoBehaviour
         }
     }
 
+    //     // peligro
+    // // fede
+    // Vector2 aimScreenPos;
+    // aimScreenPos = _cam.WorldToScreenPoint(_aimDebugSphere.position);
+
+    // Vector2 anchoredPos;
+    // RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, aimScreenPos, _cam, out anchoredPos);
+    // _crosshair.anchoredPosition = anchoredPos;
+    // // _crosshair.anchoredPosition = aimScreenPos;
+
     private void ControlChanged(string value)
     {
         // DualShock4GamepadHID nombre del control de ps4

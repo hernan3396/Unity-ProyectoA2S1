@@ -33,5 +33,6 @@ public class PlayerData : ScriptableObject
     #region WeaponsData
     [Header("Weapons Data")]
     public WeaponData[] WeaponList;
+    public float Accuracy;
     #endregion
 }

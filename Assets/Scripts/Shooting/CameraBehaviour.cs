@@ -24,6 +24,8 @@ public class CameraBehaviour : MonoBehaviour
     private Vector2 _direction;
     #endregion
 
+    private Vector3 _camOffset;
+
     private void Awake()
     {
         _vCameraOffset = GetComponent<CinemachineCameraOffset>();
@@ -65,18 +67,16 @@ public class CameraBehaviour : MonoBehaviour
             // control
             _direction = _input.look;
         }
-
-
         // si la magnitud <= 0.1 -> ponerle el valor inicial!!
         // no pude usar _direction porque ya es un vector normalizado (y su magnitud siempre es 1)
         // con el control puede ser que de algun problema pero de momento no ha pasado
         Vector3 aimDir = (aimPosition - (Vector2)_playerPos.position);
-        Vector3 camOffset = _initialCamOffset;
+        _camOffset = _initialCamOffset;
 
         if (aimDir.magnitude > _cameraDeadZone)
-            camOffset = _direction * _offsetDistance;
+            _camOffset = _direction * _offsetDistance;
 
-        _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, camOffset, Time.deltaTime * _cameraSpeed);
+        _vCameraOffset.m_Offset = Vector3.Slerp(_vCameraOffset.m_Offset, _camOffset, Time.deltaTime * _cameraSpeed);
     }
 
     public void ShakeCamera(float intensity, float time)
@@ -108,5 +108,15 @@ public class CameraBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         _input.OnControlChanged -= ControlChanged;
+    }
+
+    public Vector3 CamOffset
+    {
+        get { return _camOffset; }
+    }
+
+    public Vector2 GetDirection
+    {
+        get { return _direction; }
     }
 }

@@ -35,6 +35,8 @@ public class Player : Entity
     private Camera _cam;
     #endregion
 
+    [SerializeField] private Vector3 _bulletOffset;
+
     #region Parameters
     [SerializeField] private PlayerData _playerData;
     private States _currentState = States.Idle;
@@ -324,7 +326,8 @@ public class Player : Entity
         // si hay balas sigue adelante
         _canShoot = false;
 
-        Vector3 bulletDirection = _arm.right;
+        Vector3 shootOff = GenerateRandomVector(_playerData.Accuracy);
+        Vector3 bulletDirection = _arm.right + _bulletOffset + shootOff;
         _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
 
         // Reproduce un sonido
@@ -346,6 +349,13 @@ public class Player : Entity
         yield return new WaitForSeconds(weaponData.FireRate);
 
         _canShoot = true;
+    }
+
+    protected Vector3 GenerateRandomVector(float range)
+    {
+        float xValue = Random.Range(-range, range);
+        float yValue = Random.Range(-range, range);
+        return new Vector3(xValue, yValue, 0);
     }
     #endregion
 
