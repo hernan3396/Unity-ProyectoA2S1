@@ -81,10 +81,9 @@ public class Rocket : MonoBehaviour
                 collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
                 collider.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
 
-                // super cutre pero bueno
-                if (collider.name == "BossOriginal") return;
-
                 Rigidbody rb = collider.GetComponentInChildren<Rigidbody>();
+
+                if (rb == null) return;
 
                 rb.velocity = Vector3.zero;
 
