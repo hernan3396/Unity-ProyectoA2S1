@@ -30,6 +30,7 @@ public abstract class Enemy : Entity
     [SerializeField] protected Animator _modelAnimator;
     [SerializeField] protected Transform _shootingPos;
     [SerializeField] protected Transform _model;
+    [SerializeField] private GameObject _shield;
     [SerializeField] protected Transform _arm;
     private CapsuleCollider _collider;
     #endregion
@@ -211,6 +212,9 @@ public abstract class Enemy : Entity
 
         _isDead = true;
         _collider.enabled = false;
+
+        if (_shield)
+            _shield.SetActive(false);
     }
     #endregion
 
@@ -277,6 +281,10 @@ public abstract class Enemy : Entity
     protected virtual void OnGameOver()
     {
         _transform.position = _initPos;
+
+        if (_shield)
+            _shield.SetActive(true);
+
         _isGameOver = false;
         _currentHP = _hp;
 

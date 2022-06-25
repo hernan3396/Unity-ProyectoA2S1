@@ -4236,6 +4236,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551423895}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &552381973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8106000880211311594, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
+  m_PrefabInstance: {fileID: 1366892687}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &553510890
 GameObject:
   m_ObjectHideFlags: 0
@@ -7993,6 +7998,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4281339124764008977, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
+      propertyPath: _shield
+      value: 
+      objectReference: {fileID: 552381973}
     - target: {fileID: 4281339124764009066, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -8060,6 +8069,10 @@ PrefabInstance:
     - target: {fileID: 8106000880211311594, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8106000880211311595, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8106000880211311595, guid: a4b65c34cb35eda47a6da5c976b355c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
