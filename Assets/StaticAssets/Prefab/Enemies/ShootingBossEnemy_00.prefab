@@ -130,6 +130,7 @@ MonoBehaviour:
   _modelAnimator: {fileID: 8169017319678115589}
   _shootingPos: {fileID: 3833194950775275671}
   _model: {fileID: 8460485841557315132}
+  _shield: {fileID: 0}
   _arm: {fileID: 1185126577753537614}
   _targetOffset: {x: 0, y: 2, z: 0}
   _objLayer:
@@ -635,6 +636,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5253a591a5e7d2148bdfa766b450741c, type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082271958561512970, guid: 5253a591a5e7d2148bdfa766b450741c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5253a591a5e7d2148bdfa766b450741c, type: 3}

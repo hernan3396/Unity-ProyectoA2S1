@@ -35,7 +35,13 @@ public class BossMain : Enemy
     #region EnemySpawner
     [Header("Enemy Spawner")]
     [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private GameObject[] _shockWaves;
+    [SerializeField] private Transform[] _rShockWaveSpawn;
     #endregion
+
+    [SerializeField] private CameraBehaviour _cameraBehaviour;
+    [SerializeField] private float _cameraShake;
+    [SerializeField] private float _shakeTime;
 
     protected override void Awake()
     {
@@ -47,6 +53,7 @@ public class BossMain : Enemy
     {
         base.Start();
         _uiController = GameManager.GetInstance.GetUIController;
+        // _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
 
         int index = 0;
         _handSpawnPos = new Vector3[_hands.Length];
@@ -127,7 +134,12 @@ public class BossMain : Enemy
             _hands[_handIndex].transform.DOMove(_handsEndPos[_handIndex].position, _acceleration)
             .SetUpdate(UpdateType.Fixed)
             .SetEase(Ease.InElastic)
-            .OnComplete(() => NewState(States.Returning));
+            .OnComplete(() =>
+            {
+                NewState(States.Returning);
+                Instantiate(_shockWaves[_handIndex], _rShockWaveSpawn[_handIndex].position, Quaternion.identity);
+                _cameraBehaviour.ShakeCamera(_cameraShake, _shakeTime);
+            });
         }
 
         _canAttack = false;
@@ -141,7 +153,8 @@ public class BossMain : Enemy
         {
             _returning = true;
 
-            _enemySpawner.SpawnEnemy(_handIndex);
+
+            // _enemySpawner.SpawnEnemy(_handIndex);
 
             _hands[_handIndex].transform.DOMove(_handsStartPos[_handIndex].position, _acceleration)
             .SetUpdate(UpdateType.Fixed)
@@ -236,13 +249,15 @@ public class BossMain : Enemy
     private void BossDown()
     {
         _transform.DOMove(_bossMainDown.position, _acceleration)
-        .SetEase(Ease.InBounce);
+        .SetEase(Ease.InBounce)
+        .OnComplete(() => { _cameraBehaviour.ShakeCamera(_cameraShake, _shakeTime); });
     }
 
     private void BossDeath()
     {
         _transform.DOMove(_bossDeathPos.position, _acceleration)
-        .SetEase(Ease.OutBounce);
+        .SetEase(Ease.OutBounce)
+        .OnComplete(() => { _cameraBehaviour.ShakeCamera(_cameraShake, _shakeTime); });
     }
 
     protected override void Death()
