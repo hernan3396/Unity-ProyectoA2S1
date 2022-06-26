@@ -62,7 +62,6 @@ public class Rocket : MonoBehaviour
                 Player player = collider.gameObject.GetComponentInParent<Player>();
                 player.RocketJumping(true);
                 player.TakeDamage(_damage / 8); // _damage es (o era) 40 y lo divide para hacerle solo 5 de daño al player
-                // mover esto al player??
 
                 Rigidbody rb = player.GetRB;
                 // seteas la velocidad en cero para que
@@ -81,12 +80,13 @@ public class Rocket : MonoBehaviour
 
                 Rigidbody rb = collider.GetComponentInChildren<Rigidbody>();
 
-                if (rb == null) return;
+                if (rb)
+                {
+                    rb.velocity = Vector3.zero;
 
-                rb.velocity = Vector3.zero;
-
-                Vector3 dir = (collider.transform.position - _transform.position).normalized;
-                rb.velocity += dir * _explosionForce * 2;
+                    Vector3 dir = (collider.transform.position - _transform.position).normalized;
+                    rb.velocity += dir * _explosionForce * 2;
+                }
             }
 
             if (collider.gameObject.CompareTag("Ammo") || collider.gameObject.CompareTag("Health"))
