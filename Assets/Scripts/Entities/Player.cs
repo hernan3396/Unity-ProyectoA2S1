@@ -432,7 +432,7 @@ public class Player : Entity
         _batModel.SetActive(true);
         _gunModel.SetActive(false);
 
-        _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
+        // _cameraBehaviour.ShakeCamera(weaponData.ShootShake, weaponData.ShakeTime);
         ChangeState(States.Melee);
 
         yield return new WaitForSeconds(weaponData.FireRate);

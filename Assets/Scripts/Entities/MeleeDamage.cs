@@ -4,15 +4,21 @@ public class MeleeDamage : MonoBehaviour
 {
     [SerializeField] private bool _isPlayer = false; // para saber de donde leer la _weaponData
     [SerializeField] private int _pushForce = 10; // este lo puse solo para impulsar a los pickables
+    private CameraBehaviour _cameraBehaviour;
+
     // si se tiene que usar para empujar a los enemigos tambien, pasarlo al weapondata.cs
     private Transform _transform;
     private int _damage;
+    private float _shakeTime;
+    private float _shakeForce;
 
     private void Start()
     {
+        _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
+
         _transform = GetComponent<Transform>();
         // le asigna el valor al daño del melee
-        // en funcion de lo que esta en el scriptable
+        // en funcion de lo que esta en el scriptabledc
         int weaponToGet = 0;
         WeaponData weaponData;
 
@@ -22,10 +28,13 @@ public class MeleeDamage : MonoBehaviour
         weaponData = GetComponentInParent<Entity>().GetWeaponList[weaponToGet];
 
         _damage = weaponData.MeleeDamage;
+        _shakeTime = weaponData.ShakeTime;
+        _shakeForce = weaponData.ShootShake;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        bool shake = false;
         // como las hitbox del player estan en un padre
         // hay que hacer algo un poco distinto
         if (other.CompareTag("Player"))
@@ -33,6 +42,7 @@ public class MeleeDamage : MonoBehaviour
 
         if (other.TryGetComponent(out Enemy enemy))
         {
+            shake = true;
             enemy.SetMeleeDamage = true;
             enemy.TakeDamage(_damage);
 
@@ -45,10 +55,14 @@ public class MeleeDamage : MonoBehaviour
         }
 
         if (other.CompareTag("Bullet"))
+        {
+            shake = true;
             ReflectBullet(other.GetComponent<Rigidbody>());
+        }
 
         if (other.CompareTag("Ammo") || other.CompareTag("Health"))
         {
+            shake = true;
             Vector2 otherPos = other.transform.position;
             Rigidbody otherRb;
 
@@ -59,6 +73,15 @@ public class MeleeDamage : MonoBehaviour
 
                 rb.AddForce(direction.normalized * _pushForce, ForceMode.Impulse);
             }
+        }
+
+        if (other.CompareTag("Barrel"))
+            shake = true;
+
+        if (shake && _isPlayer)
+        {
+            _cameraBehaviour.ShakeCamera(_shakeForce, _shakeTime);
+            shake = false;
         }
     }
 

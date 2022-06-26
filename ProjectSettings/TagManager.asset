@@ -14,6 +14,7 @@ TagManager:
   - Ammo
   - Rocket
   - WeakPoint
+  - Barrel
   layers:
   - Default
   - TransparentFX
