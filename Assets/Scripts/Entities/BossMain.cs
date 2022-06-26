@@ -39,9 +39,14 @@ public class BossMain : Enemy
     [SerializeField] private Transform[] _rShockWaveSpawn;
     #endregion
 
+    [Header("Camera Shake")]
     [SerializeField] private CameraBehaviour _cameraBehaviour;
     [SerializeField] private float _cameraShake;
     [SerializeField] private float _shakeTime;
+    [Header("Barrels")]
+    [SerializeField] private GameObject[] _barrels;
+    [SerializeField] private Transform[] _barrelsEnd;
+    private Vector3[] _barrelsSpawnPos;
 
     protected override void Awake()
     {
@@ -60,6 +65,14 @@ public class BossMain : Enemy
         foreach (GameObject hand in _hands)
         {
             _handSpawnPos[index] = hand.transform.position;
+            index += 1;
+        }
+
+        index = 0;
+        _barrelsSpawnPos = new Vector3[_barrels.Length];
+        foreach (GameObject barrel in _barrels)
+        {
+            _barrelsSpawnPos[index] = barrel.transform.position;
             index += 1;
         }
     }
@@ -251,6 +264,16 @@ public class BossMain : Enemy
         _transform.DOMove(_bossMainDown.position, _acceleration)
         .SetEase(Ease.InBounce)
         .OnComplete(() => { _cameraBehaviour.ShakeCamera(_cameraShake, _shakeTime); });
+
+        int index = 0;
+        foreach (GameObject barrel in _barrels)
+        {
+            barrel.SetActive(true);
+            barrel.transform.DOMove(_barrelsEnd[index].position, _acceleration)
+            .SetEase(Ease.OutBounce);
+
+            index += 1;
+        }
     }
 
     private void BossDeath()
@@ -286,6 +309,14 @@ public class BossMain : Enemy
         {
             hand.transform.position = _handSpawnPos[index];
             index += 1;
+        }
+
+        index = 0;
+        foreach (GameObject barrel in _barrels)
+        {
+            barrel.transform.position = _barrelsSpawnPos[index];
+            index += 1;
+            barrel.SetActive(false);
         }
     }
 
