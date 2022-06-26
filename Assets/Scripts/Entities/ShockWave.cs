@@ -16,14 +16,23 @@ public class ShockWave : MonoBehaviour
 
     private void Start()
     {
+        GameManager.GetInstance.onGamePause += OnPause;
         _transform.DOMove((_transform.position + _endPos), _duration)
         .SetUpdate(UpdateType.Fixed)
-        .SetEase(Ease.InQuint)
+        .SetEase(Ease.OutQuad)
         .OnComplete(() =>
         {
             Destroy(gameObject);
         }
         );
+    }
+
+    private void OnPause(bool value)
+    {
+        if (value)
+            _transform.DOPause();
+        else
+            _transform.DOPlay();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,5 +65,9 @@ public class ShockWave : MonoBehaviour
                 rb.velocity = new Vector3(-dir.x * _force, dir.y * _force, 0) * 2;
             }
         }
+    }
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGamePause -= OnPause;
     }
 }
