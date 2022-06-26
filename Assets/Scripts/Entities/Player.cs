@@ -14,7 +14,7 @@ public class Player : Entity
         RocketJumping,
         Recoil,
         Melee,
-        Dead
+        Dead,
     }
 
     private enum SFX
@@ -98,6 +98,8 @@ public class Player : Entity
     private Vector2 _lastVelocity;
     private bool _onPause;
     #endregion
+
+    [SerializeField] private bool _squashed = false;
 
     protected override void Awake()
     {
