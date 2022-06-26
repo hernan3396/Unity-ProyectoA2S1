@@ -51,8 +51,6 @@ public class Rocket : MonoBehaviour
         // que tenga los pedazos de codigo que se
         // repiten pero bueno...
 
-        // cuando choca contra mas de un collider llama a este metodo 2 veces
-        // no se como solucionarlo D:
         Collider[] hitColliders = Physics.OverlapSphere(_transform.position, _explosionRadius); // ve contra que choca la explosion
         foreach (Collider collider in hitColliders)
         {
@@ -91,7 +89,7 @@ public class Rocket : MonoBehaviour
                 rb.velocity += dir * _explosionForce * 2;
             }
 
-            if (collider.gameObject.CompareTag("Ammo"))
+            if (collider.gameObject.CompareTag("Ammo") || collider.gameObject.CompareTag("Health"))
             {
                 Vector2 otherPos = collider.transform.position;
                 Rigidbody otherRb;
