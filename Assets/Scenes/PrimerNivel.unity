@@ -14132,6 +14132,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6344869165360795826, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: a9153f6bc4a1aa146bf486561bb4f681, type: 3}
+    - target: {fileID: 6344869165360795826, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5e6dedf05d644864da3327dc1566e073, type: 2}
     - target: {fileID: 6859364809273217157, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Length
       value: 1
