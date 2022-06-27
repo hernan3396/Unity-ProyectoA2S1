@@ -294,6 +294,7 @@ public abstract class Enemy : Entity
             _collider.enabled = true;
 
         _isDead = false;
+        _canShoot = true;
 
         if (gameObject.GetComponentInChildren<Ragdoll>())
             gameObject.GetComponentInChildren<Ragdoll>().DeathRagdoll(false);
