@@ -1757,7 +1757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4178200325051699791, guid: add37a49c6e65fa4f89e8eefdf51d282, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8636894649290487841, guid: add37a49c6e65fa4f89e8eefdf51d282, type: 3}
       propertyPath: _waypointsContainer
