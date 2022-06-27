@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bat
   BulletSpeed: 0
-  FireRate: 0.5
+  FireRate: 1.3
   BulletType: 3
   RecoilForce: 0
   RecoilTime: 0

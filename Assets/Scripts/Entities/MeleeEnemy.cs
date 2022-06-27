@@ -54,11 +54,14 @@ public class MeleeEnemy : Enemy
         if (_isDead) yield break;
         _meleeWeapon.SetActive(true); // prende la hitbox
 
-        yield return new WaitForSeconds(weaponData.FireRate / 2); // lo dividi entre 2 porque si
-        _modelAnimator.SetBool("isMelee", false);
+        yield return new WaitForSeconds(0.1f);
         // ademas hace que no este activa tanto tiempo esta hitbox
         // y no tenemos que andar creando otro valor en EnemyData
         _meleeWeapon.SetActive(false);
+
+        // termina la animacion
+        yield return new WaitForSeconds(weaponData.FireRate / 2); // lo dividi entre 2 porque si
+        _modelAnimator.SetBool("isMelee", false);
 
         _canShoot = true;
     }
