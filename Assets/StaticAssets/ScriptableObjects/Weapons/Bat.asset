@@ -20,4 +20,4 @@ MonoBehaviour:
   RecoilTime: 0
   ShootShake: 8
   ShakeTime: 0.4
-  MeleeDamage: 40
+  MeleeDamage: 30

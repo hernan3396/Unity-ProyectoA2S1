@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddef3fae828b2648814993fa5d4b163, type: 3}
   m_Name: ShootingBossEnemy
   m_EditorClassIdentifier: 
-  Hp: 40
+  Hp: 30
   Invulnerability: 1
   Acceleration: 8
   Speed: 4

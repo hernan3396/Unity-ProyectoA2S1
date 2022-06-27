@@ -1063,8 +1063,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745423282517684180}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: a9153f6bc4a1aa146bf486561bb4f681, type: 3}
+  m_Controller: {fileID: 9100000, guid: 5e6dedf05d644864da3327dc1566e073, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3654,7 +3654,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 0e930c3c8d3736c4998a3275798cb0cb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: b5b89d280ec924e46addbbf02ee1c046, type: 2}
     - target: {fileID: 919132149155446097, guid: 0e930c3c8d3736c4998a3275798cb0cb, type: 3}
       propertyPath: m_Name
       value: CuteBate (1)
