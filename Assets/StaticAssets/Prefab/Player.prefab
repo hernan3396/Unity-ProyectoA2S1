@@ -407,6 +407,9 @@ MonoBehaviour:
   _crouchingHitbox: {fileID: 1098778160304661748}
   _standingHitbox: {fileID: 1098778159332917397}
   _squashed: 0
+  _bodyAim: {fileID: 6706490118770662994}
+  _rShoulder: {fileID: 821698391201605578}
+  _lShoulder: {fileID: 1920636127128049323}
 --- !u!81 &1195504933981289602
 AudioListener:
   m_ObjectHideFlags: 0
