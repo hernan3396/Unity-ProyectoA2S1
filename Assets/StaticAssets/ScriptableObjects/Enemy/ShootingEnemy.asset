@@ -17,7 +17,7 @@ MonoBehaviour:
   Acceleration: 8
   Speed: 4
   NewWaypointSpeed: 1
-  Accuracy: 3
+  Accuracy: 10
   VisionRange: 40
   ShootAccuracy: 3
   WeaponList:

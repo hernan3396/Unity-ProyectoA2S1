@@ -125,8 +125,7 @@ public abstract class Enemy : Entity
         // Debug.DrawRay(_transform.position, _targetDir, Color.blue);
         _arm.right = Vector3.Lerp(_arm.right, _targetDir.normalized, _accuracy * Time.deltaTime);
 
-        // if (_arm.right.x > 0)
-        if (_targetDir.x > 0)
+        if (_arm.right.x > 0)
             _model.forward = new Vector3(1, 0, 0);
         else
             _model.forward = new Vector3(-1, 0, 0);
