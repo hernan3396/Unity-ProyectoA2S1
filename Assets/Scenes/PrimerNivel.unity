@@ -15,13 +15,13 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 0.745283, g: 0.51677644, b: 0.51677644, a: 0.19215687}
   m_FogMode: 3
-  m_FogDensity: 0.18
+  m_FogDensity: 0.05
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientEquatorColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5422537, g: 0.6585635, b: 0.7789219, a: 1}
+  m_IndirectSpecularColor: {r: 0.5427639, g: 0.65931463, b: 0.7797465, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -470,6 +470,17 @@ MonoBehaviour:
   _aimDebugSphere: {fileID: 356884699}
   _crosshair: {fileID: 1895927625}
   _parent: {fileID: 28363996}
+--- !u!114 &29897859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1920636127128049323, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+  m_PrefabInstance: {fileID: 1098778159915247623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &35184430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2347,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1957680058012201062, guid: d4f4679434659f6489456b6496c71347, type: 3}
   m_PrefabInstance: {fileID: 1736022412}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &376853844 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6706490118770662994, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+  m_PrefabInstance: {fileID: 1098778159915247623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &379594982
 GameObject:
   m_ObjectHideFlags: 0
@@ -5914,8 +5936,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3425313165856765684, guid: 16de101dbfd0188498b894629232d606, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425313165856765684, guid: 16de101dbfd0188498b894629232d606, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 275
+      value: 282
       objectReference: {fileID: 0}
     - target: {fileID: 3425313165856765684, guid: 16de101dbfd0188498b894629232d606, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11422,6 +11448,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6323066684728837050, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
   m_PrefabInstance: {fileID: 1098778159915247623}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1812757086 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 821698391201605578, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+  m_PrefabInstance: {fileID: 1098778159915247623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1814960911
 GameObject:
   m_ObjectHideFlags: 0
@@ -14020,6 +14057,10 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: a9153f6bc4a1aa146bf486561bb4f681, type: 3}
+    - target: {fileID: 878895043423067110, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1024993848720370212, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -14028,6 +14069,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: _bodyAim
+      value: 
+      objectReference: {fileID: 376853844}
+    - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: _lShoulder
+      value: 
+      objectReference: {fileID: 29897859}
+    - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: _rShoulder
+      value: 
+      objectReference: {fileID: 1812757086}
     - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: _aimMask.m_Bits
       value: 128
@@ -14112,6 +14165,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3039652796493008262, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3120482917844711590, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Length
       value: 1
@@ -14160,7 +14217,15 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 356884699}
+    - target: {fileID: 7029208020792816389, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8353043740866389152, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124319343399625967, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

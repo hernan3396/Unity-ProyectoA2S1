@@ -397,7 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 0}
+    m_ConstrainedObject: {fileID: 5344894664026829623}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -483,7 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 0.6
   m_Data:
-    m_ConstrainedObject: {fileID: 0}
+    m_ConstrainedObject: {fileID: 1645486689491995655}
     m_SourceObjects:
       m_Length: 1
       m_Item0:

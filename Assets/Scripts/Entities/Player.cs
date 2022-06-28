@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Animations.Rigging;
 
 public class Player : Entity
 {
@@ -162,6 +163,11 @@ public class Player : Entity
         _uiController.UpdateHealthPoints(_currentHP);
     }
     #endregion
+
+    // Test Melee
+    [SerializeField] private MultiAimConstraint _bodyAim;
+    [SerializeField] private MultiAimConstraint _rShoulder;
+    [SerializeField] private MultiAimConstraint _lShoulder;
 
     private void Update()
     {
@@ -429,6 +435,10 @@ public class Player : Entity
         _canShoot = false;
         _isMelee = !_canShoot;
 
+        _rShoulder.weight = 0;
+        _lShoulder.weight = 0;
+        _bodyAim.weight = 1;
+
         // aparece el brazo
         _meleeArm.gameObject.SetActive(true);
         _batModel.SetActive(true);
@@ -438,6 +448,10 @@ public class Player : Entity
         ChangeState(States.Melee);
 
         yield return new WaitForSeconds(weaponData.FireRate);
+
+        _rShoulder.weight = 1;
+        _lShoulder.weight = 1;
+        _bodyAim.weight = 0;
 
         // "apaga" el brazo
         _meleeArm.gameObject.SetActive(false);
