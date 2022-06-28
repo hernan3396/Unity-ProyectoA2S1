@@ -470,17 +470,6 @@ MonoBehaviour:
   _aimDebugSphere: {fileID: 356884699}
   _crosshair: {fileID: 1895927625}
   _parent: {fileID: 28363996}
---- !u!114 &29897859 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1920636127128049323, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-  m_PrefabInstance: {fileID: 1098778159915247623}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &35184430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,17 +2336,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1957680058012201062, guid: d4f4679434659f6489456b6496c71347, type: 3}
   m_PrefabInstance: {fileID: 1736022412}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &376853844 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6706490118770662994, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-  m_PrefabInstance: {fileID: 1098778159915247623}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &379594982
 GameObject:
   m_ObjectHideFlags: 0
@@ -11472,17 +11450,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6323066684728837050, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
   m_PrefabInstance: {fileID: 1098778159915247623}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1812757086 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 821698391201605578, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-  m_PrefabInstance: {fileID: 1098778159915247623}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1814960911
 GameObject:
   m_ObjectHideFlags: 0
@@ -14092,22 +14059,6 @@ PrefabInstance:
     - target: {fileID: 1070142836983594541, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-      propertyPath: _bodyAim
-      value: 
-      objectReference: {fileID: 376853844}
-    - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-      propertyPath: _lShoulder
-      value: 
-      objectReference: {fileID: 29897859}
-    - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-      propertyPath: _rShoulder
-      value: 
-      objectReference: {fileID: 1812757086}
-    - target: {fileID: 1098778159239488068, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-      propertyPath: _aimMask.m_Bits
-      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 1098778159239488069, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_RootOrder
