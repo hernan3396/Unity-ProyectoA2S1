@@ -1,12 +1,12 @@
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class BossMain : Enemy
 {
     [Header("Settings")]
     [SerializeField] private Transform[] _bossPoints; // para la intro del boss 
-    [SerializeField] private TMP_Text _textState;
     private UIController _uiController;
 
     #region Hands
@@ -47,6 +47,8 @@ public class BossMain : Enemy
     [SerializeField] private GameObject[] _barrels;
     [SerializeField] private Transform[] _barrelsEnd;
     private Vector3[] _barrelsSpawnPos;
+    public UnityEvent _onDeath;
+    public UnityEvent _onPlayerDeath;
 
     protected override void Awake()
     {
@@ -84,8 +86,6 @@ public class BossMain : Enemy
         if (_isDown) return;
         if (_isGameOver) return;
         if (_isDead) return;
-
-        _textState.text = _currentState.ToString();
 
         switch (_currentState)
         {
@@ -285,6 +285,7 @@ public class BossMain : Enemy
 
     protected override void Death()
     {
+        _onDeath?.Invoke();
         _isDead = true;
     }
 
@@ -293,9 +294,10 @@ public class BossMain : Enemy
         _active = false;
         _isDown = false;
         _isDead = false;
+        _isGameOver = false;
+        _onPlayerDeath?.Invoke();
         NewState(States.Wandering);
         _atkTimer = 0;
-        _textState.text = _currentState.ToString();
         base.OnStartGameOver();
     }
 

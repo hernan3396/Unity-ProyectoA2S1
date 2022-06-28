@@ -75,8 +75,12 @@ public class Rocket : MonoBehaviour
 
             if (collider.gameObject.CompareTag("Enemy"))
             {
-                collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
-                collider.gameObject.GetComponent<Enemy>().SetMeleeDamage = false;
+                Enemy enemy = collider.gameObject.GetComponent<Enemy>();
+                if (enemy)
+                {
+                    enemy.TakeDamage(_damage);
+                    enemy.SetMeleeDamage = false;
+                }
 
                 Rigidbody rb = collider.GetComponentInChildren<Rigidbody>();
 

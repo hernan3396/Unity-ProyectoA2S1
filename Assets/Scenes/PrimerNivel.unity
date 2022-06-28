@@ -4601,7 +4601,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9164422511451443008, guid: 923a6c91e2c1c894f8de6a54c6eeec5b, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9164422511451443008, guid: 923a6c91e2c1c894f8de6a54c6eeec5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4925,8 +4925,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2.6411884, z: 1}
+  m_Center: {x: 0, y: 0.82059383, z: 0}
 --- !u!23 &743649556
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14126,14 +14126,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1098778160592008863, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098778160877444194, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5887715
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098778160877444194, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}
-      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1429846044669169100, guid: 39d96fe7742621c46a43d7bb09a24985, type: 3}

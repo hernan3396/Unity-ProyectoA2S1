@@ -1,9 +1,7 @@
 using UnityEngine;
-using TMPro;
 
 public class BossTurret : Enemy
 {
-    [SerializeField] private TMP_Text _textState;
     private BossMain _bossMain;
     private bool _isPaused = false;
 
@@ -21,8 +19,6 @@ public class BossTurret : Enemy
         if (_bossMain.IsDown) return;
         if (_isPaused) return;
         if (_isGameOver) return;
-
-        _textState.text = _currentState.ToString();
 
         switch (_currentState)
         {
