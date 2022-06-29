@@ -5,6 +5,7 @@ public class MeleeDamage : MonoBehaviour
     [SerializeField] private bool _isPlayer = false; // para saber de donde leer la _weaponData
     [SerializeField] private int _pushForce = 10; // este lo puse solo para impulsar a los pickables
     private CameraBehaviour _cameraBehaviour;
+    private AudioManager _audioManager;
 
     // si se tiene que usar para empujar a los enemigos tambien, pasarlo al weapondata.cs
     private Transform _transform;
@@ -15,6 +16,7 @@ public class MeleeDamage : MonoBehaviour
     private void Start()
     {
         _cameraBehaviour = GameManager.GetInstance.GetCameraBehaviour;
+        _audioManager = AudioManager.GetInstance;
 
         _transform = GetComponent<Transform>();
         // le asigna el valor al daño del melee
@@ -80,6 +82,7 @@ public class MeleeDamage : MonoBehaviour
 
         if (shake && _isPlayer)
         {
+            _audioManager.PlaySound(AudioManager.AudioList.Gunshoots, false, 2);
             _cameraBehaviour.ShakeCamera(_shakeForce, _shakeTime);
             shake = false;
         }

@@ -21,7 +21,8 @@ public class Player : Entity
     private enum SFX
     {
         Jump,
-        Damage
+        Damage,
+        Death
     }
 
     #region Components
@@ -99,8 +100,6 @@ public class Player : Entity
     private Vector2 _lastVelocity;
     private bool _onPause;
     #endregion
-
-    [SerializeField] private bool _squashed = false;
 
     protected override void Awake()
     {
@@ -331,7 +330,10 @@ public class Player : Entity
         _shooting.Shoot((int)weaponData.BulletType, _shootingPos.position, bulletDirection, weaponData.BulletSpeed);
 
         // Reproduce un sonido
-        _audioManager.PlaySound(AudioManager.AudioList.Gunshoots, false, 0);
+        if (weaponData.Name == "Rocket Launcher")
+            _audioManager.PlaySound(AudioManager.AudioList.Gunshoots, false, 1);
+        else
+            _audioManager.PlaySound(AudioManager.AudioList.Gunshoots, false, 0);
 
         // consume una bala del inventario
         _invManager.RemoveAmount((int)weaponData.BulletType, 1);
@@ -392,6 +394,7 @@ public class Player : Entity
 
     public override void TakeDamage(int value)
     {
+        if (_isInmune) return;
         base.TakeDamage(value);
 
         _audioManager.PlaySound(AudioManager.AudioList.PlayerSFX, false, (int)SFX.Damage);
@@ -409,6 +412,7 @@ public class Player : Entity
     protected override void Death()
     {
         ChangeState(States.Dead);
+        _audioManager.PlaySound(AudioManager.AudioList.PlayerSFX, false, (int)SFX.Death);
         _modelAnimator.Play("Dead");
         GameManager.GetInstance.StartGameOver();
     }
