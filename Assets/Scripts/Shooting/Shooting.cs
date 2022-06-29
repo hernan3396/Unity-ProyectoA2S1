@@ -22,6 +22,7 @@ public class Shooting : MonoBehaviour
 
         // posiciona la bala
         bullet.transform.position = bulletPos;
+        bullet.transform.right = -direction;
         bullet.SetActive(true);
 
         // impulsa la bala
