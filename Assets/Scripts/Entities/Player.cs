@@ -180,21 +180,13 @@ public class Player : Entity
         if (_canShoot)
         {
             if (_input.IsShooting)
-            {
                 StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.TwinPistols]));
-                return;
-            }
 
             if (_input.CannonShooting)
-            {
                 StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.RocketLauncher]));
-                return;
-            }
 
             if (_input.Melee)
-            {
                 StartCoroutine(Melee(_weaponList[(int)WeaponData.Weapons.Bat]));
-            }
         }
 
         switch (_currentState)
