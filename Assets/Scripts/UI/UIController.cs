@@ -75,6 +75,8 @@ public class UIController : MonoBehaviour
     private void OnStartGameOver()
     {
         _deathScreen.SetActive(true);
+        if (_bossHealth)
+            _bossHealth.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
