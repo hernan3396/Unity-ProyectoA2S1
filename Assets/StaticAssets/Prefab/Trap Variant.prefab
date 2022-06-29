@@ -265,3 +265,23 @@ MonoBehaviour:
       m_Calls: []
   _useTrigger: 1
   _tag: Player
+--- !u!1 &9039766217598792066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8703416420464027084, guid: 4384d54409e8cb14a84b40835b970116, type: 3}
+  m_PrefabInstance: {fileID: 412937422096176206}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1454972344610850545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039766217598792066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e4858fbc48f6e4bbcbef2b2480f540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDoor: 1
+  _finalPos: {fileID: 3369450791356363212}
+  _duration: 2
