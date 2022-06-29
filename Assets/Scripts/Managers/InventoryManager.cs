@@ -25,6 +25,8 @@ public class InventoryManager : MonoBehaviour
         _uiController = GameManager.GetInstance.GetUIController;
         _savesManager = GameManager.GetInstance.GetSavesManager;
 
+        GameManager.GetInstance.onGameOver += PopulateInventory;
+
         PopulateInventory();
     }
 
@@ -84,6 +86,11 @@ public class InventoryManager : MonoBehaviour
         _uiController.UpdateItemText((int)ItemID.PlayerBullet, _items[(int)ItemID.PlayerBullet].GetCurrentAmonut);
         _items[(int)ItemID.Rocket].SetAmount(_itemData[(int)ItemID.Rocket].MaxStack);
         _uiController.UpdateItemText((int)ItemID.Rocket, _items[(int)ItemID.Rocket].GetCurrentAmonut);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance.onGameOver += PopulateInventory;
     }
 }
 

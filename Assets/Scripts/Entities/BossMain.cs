@@ -198,6 +198,7 @@ public class BossMain : Enemy
     /// </Summary>
     public void ActivateBoss()
     {
+        _transform.DOPlay();
         _uiController.UpdateBossHealth(_currentHP);
         // se puede hacer mas prolijo pero no creo que se modifique tanto
         _transform.DOMove(_bossPoints[0].position, _speed)
@@ -298,6 +299,7 @@ public class BossMain : Enemy
         _onPlayerDeath?.Invoke();
         NewState(States.Wandering);
         _atkTimer = 0;
+        _transform.DOPause();
         base.OnStartGameOver();
     }
 
