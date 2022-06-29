@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: BulletItem
   DisplayName: Bullet
-  MaxStack: 300
+  MaxStack: 150

@@ -6656,6 +6656,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
+      propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
       propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -6666,7 +6670,7 @@ PrefabInstance:
     - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
       propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 877299792}
+      objectReference: {fileID: 877299793}
     - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
       propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -6681,7 +6685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
       propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: SimpleMove
       objectReference: {fileID: 0}
     - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
       propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -6690,6 +6694,10 @@ PrefabInstance:
     - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
       propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
+      propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Platforms, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1984684720, guid: 2fa2c467bd49d0b409b89834b701bcb0, type: 3}
       propertyPath: onEnter.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -8247,6 +8255,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1162762043323814280, guid: 3b19679c3cde05148924374ee7ffb4b8, type: 3}
   m_PrefabInstance: {fileID: 877299790}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &877299793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877299792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e4858fbc48f6e4bbcbef2b2480f540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDoor: 1
+  _finalPos: {fileID: 1461697522}
+  _duration: 1
 --- !u!1001 &883942105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8990,7 +9013,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.0000005, y: 100, z: -20}
+  m_LocalPosition: {x: -4.000001, y: 100, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13394,6 +13417,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456279527}
   m_CullTransparentMesh: 1
+--- !u!1 &1461697521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1461697522}
+  m_Layer: 0
+  m_Name: FinalPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1461697522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461697521}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.163, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 877299791}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1470539142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16856,7 +16910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1841007333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.0000005, y: 100, z: -20}
+  m_LocalPosition: {x: -4.000001, y: 100, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16893,7 +16947,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7783133, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
