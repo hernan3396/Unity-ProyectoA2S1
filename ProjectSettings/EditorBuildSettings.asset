@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TercerNivel.unity
     guid: 3a64a31657e30fe43a60fd6110a30671
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BossTest.unity
     guid: 22c1977d5bf086541aec1e92c9d205c6
   m_configObjects: {}
