@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 28363997}
   - component: {fileID: 28364000}
   - component: {fileID: 28364001}
+  - component: {fileID: 28364002}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -595,6 +596,18 @@ MonoBehaviour:
   _aimDebugSphere: {fileID: 356884699}
   _crosshair: {fileID: 1895927625}
   _parent: {fileID: 28363996}
+--- !u!114 &28364002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28363995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c06e97538ebde3449c8f964ee1d2aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &35184430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1874,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: HernanScene
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 28364002}
+        m_TargetAssemblyTypeName: UIUtils, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &144462506
@@ -5743,7 +5768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &514223476
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12068,10 +12093,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 78.291
       objectReference: {fileID: 0}
-    - target: {fileID: 3764085788727393093, guid: 53cc0ca9807fc914782da1ffc3b9b6e2, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5775260678199493967, guid: 53cc0ca9807fc914782da1ffc3b9b6e2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -15238,6 +15259,18 @@ MonoBehaviour:
           m_StringArgument: HernanScene
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 28364002}
+        m_TargetAssemblyTypeName: UIUtils, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1456279530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17591,6 +17624,18 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 28364002}
+        m_TargetAssemblyTypeName: UIUtils, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1708291450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19875,6 +19920,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 2ndLevel
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 28364002}
+        m_TargetAssemblyTypeName: UIUtils, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1874956268

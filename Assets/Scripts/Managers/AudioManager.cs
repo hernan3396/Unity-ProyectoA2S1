@@ -11,7 +11,8 @@ public class AudioManager : MonoBehaviour
         OST,
         Gunshoots,
         Pickables,
-        PlayerSFX
+        PlayerSFX,
+        Menu
     }
 
     [SerializeField] private List<AudioScriptable> _audioList;

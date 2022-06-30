@@ -219,6 +219,18 @@ MonoBehaviour:
           m_StringArgument: 2ndLevel
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1365571040}
+        m_TargetAssemblyTypeName: UIUtils, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &19771350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,6 +656,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: PrimerNivel
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1365571040}
+        m_TargetAssemblyTypeName: UIUtils, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &433699703
@@ -1254,6 +1278,7 @@ GameObject:
   - component: {fileID: 1365571036}
   - component: {fileID: 1365571035}
   - component: {fileID: 1365571039}
+  - component: {fileID: 1365571040}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1364,6 +1389,18 @@ MonoBehaviour:
   _aimDebugSphere: {fileID: 0}
   _crosshair: {fileID: 1960014321}
   _parent: {fileID: 1365571038}
+--- !u!114 &1365571040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365571034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c06e97538ebde3449c8f964ee1d2aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1412103323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,6 +1793,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1145155449}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1365571040}
+        m_TargetAssemblyTypeName: UIUtils, Assembly-CSharp
+        m_MethodName: PlaySound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

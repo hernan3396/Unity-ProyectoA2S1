@@ -265,6 +265,52 @@ MonoBehaviour:
       m_Calls: []
   _useTrigger: 1
   _tag: Player
+--- !u!114 &1347004406921920910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682970117848377631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75794678fd9e2c48a442823834682ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioScript: {fileID: 11400000, guid: cbbb08545f9c8044fbc2f869ed87b6ca, type: 2}
+  _animCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -3.8050349
+      outSlope: -3.8050349
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.23274186
+      value: 0.11440906
+      inSlope: -0.38352588
+      outSlope: -0.38352588
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06801784
+      outWeight: 0.12486959
+    - serializedVersion: 3
+      time: 0.95025635
+      value: 0
+      inSlope: -0.1594519
+      outSlope: -0.1594519
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &9039766217598792066 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8703416420464027084, guid: 4384d54409e8cb14a84b40835b970116, type: 3}
