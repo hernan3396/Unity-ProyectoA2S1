@@ -199,7 +199,7 @@ public class BossMain : Enemy
     public void ActivateBoss()
     {
         _transform.DOPlay();
-        _uiController.UpdateBossHealth(_currentHP);
+        //_uiController.UpdateBossHealth(_currentHP);
         // se puede hacer mas prolijo pero no creo que se modifique tanto
         _transform.DOMove(_bossPoints[0].position, _speed)
         .SetUpdate(UpdateType.Fixed)
@@ -257,7 +257,7 @@ public class BossMain : Enemy
             _currentHP = 0;
         }
 
-        _uiController.UpdateBossHealth(_currentHP);
+        //_uiController.UpdateBossHealth(_currentHP);
     }
 
     private void BossDown()
@@ -286,6 +286,7 @@ public class BossMain : Enemy
 
     protected override void Death()
     {
+        _uiController.OnBossDeath();
         _onDeath?.Invoke();
         _isDead = true;
     }

@@ -4,7 +4,14 @@ using UnityEngine.Events;
 public class BossWeakPoint : Enemy
 {
     [SerializeField] private BossMain _bossMain;
+    [SerializeField] private int _lifebarNum;
+    private UIController _uiController;
     public UnityEvent OnDeath;
+
+    protected override void Start() {
+         _uiController = GameManager.GetInstance.GetUIController;
+         _uiController.UpdateWakePointHealth(_currentHP, _lifebarNum);
+    }
 
     public override void TakeDamage(int value)
     {
@@ -16,6 +23,7 @@ public class BossWeakPoint : Enemy
         StartCoroutine("InmuneReset");
 
         _currentHP -= value;
+        _uiController.UpdateWakePointHealth(_currentHP, _lifebarNum);
 
         if (_currentHP <= 0)
         {
