@@ -54,7 +54,7 @@ public class UIController : MonoBehaviour
     public void UpdateHealthPoints(int value)
     {
         _healthPoints.text = "HP: " + value.ToString();
-        _lifeBar.GetComponent<Slider>().value = value;
+        _lifeBar.GetComponent<Slider>().value = value + 34;
     }
 
     public void UpdateItemText(int itemID, int value)
