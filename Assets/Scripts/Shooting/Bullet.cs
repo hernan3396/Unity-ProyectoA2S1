@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     #region Components
     private PoolManager _sparkPool;
+    private AudioManager _audioManager;
     #endregion
 
     #region Paremeters
@@ -32,6 +33,7 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         _sparkPool = GameManager.GetInstance.GetSparkPool;
+        _audioManager = AudioManager.GetInstance;
 
         GameManager.GetInstance.onGamePause += OnPause;
     }
@@ -102,6 +104,7 @@ public class Bullet : MonoBehaviour
 
             spark.transform.position = transform.position;
             spark.SetActive(true);
+            _audioManager.PlaySound(AudioManager.AudioList.Ricochet, false, 0);
             spark.GetComponent<ParticleSystem>().Play();
             return;
         }

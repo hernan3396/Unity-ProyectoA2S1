@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3e5af349f4e11154a9dde9130493a262, type: 2}
   - {fileID: 11400000, guid: 08e7b760594de1b4cb5ce80867a426d3, type: 2}
   - {fileID: 11400000, guid: 1f3a1320806445840827f335ce4da9c0, type: 2}
+  - {fileID: 11400000, guid: fa438015813a40a4ca13389bebe6667e, type: 2}
   _musicSource: {fileID: 5503330618392704495}
   _soundSource: {fileID: 5503330618812856750}
   _mixer: {fileID: 24100000, guid: 2bebab1ff7217fb4894e188c0ce4bce8, type: 2}
