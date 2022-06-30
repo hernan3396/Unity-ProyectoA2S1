@@ -2038,6 +2038,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 213274382}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onExit:
     m_PersistentCalls:
       m_Calls: []
@@ -2838,6 +2850,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 1153882483}
   _duration: 1
+  _isPlatform: 1
 --- !u!1001 &278990015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4783,6 +4796,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 1670677658}
   _duration: 1
+  _isPlatform: 1
 --- !u!1 &507245710
 GameObject:
   m_ObjectHideFlags: 0
@@ -5077,6 +5091,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 834417747}
   _duration: 1
+  _isPlatform: 1
 --- !u!1001 &529554143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8387,6 +8402,7 @@ MonoBehaviour:
   _isDoor: 1
   _finalPos: {fileID: 1461697522}
   _duration: 1
+  _isPlatform: 0
 --- !u!114 &877299797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9804,7 +9820,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1132458195}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
-        m_MethodName: ChangeLevelDeleteStats
+        m_MethodName: ChangeLevelKeepStats
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13405,6 +13421,76 @@ Transform:
   m_Father: {fileID: 1500495548}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1450106102
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1834562536}
+    m_Modifications:
+    - target: {fileID: 2738669718760505676, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_Name
+      value: RefillBullets Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 96.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395875978136084633, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 796bacfa2b890fc48a9ea50ca82a69a1, type: 2}
+    - target: {fileID: 4395875978136084633, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 731cabbd8be2b1b459bee9cbe830a426, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+--- !u!4 &1450106103 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3263532161602853878, guid: 384159eaa11367649ab989162bc0c6e9, type: 3}
+  m_PrefabInstance: {fileID: 1450106102}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1452489122
 GameObject:
   m_ObjectHideFlags: 0
@@ -13931,6 +14017,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 244969767}
   _duration: 1
+  _isPlatform: 1
 --- !u!1001 &1483776296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14428,6 +14515,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 1003112104}
   _duration: 1
+  _isPlatform: 1
 --- !u!4 &1550553563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: abe8ab41fcfe2444791570c5cb4a2ec4, type: 3}
@@ -14590,6 +14678,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1973337576}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1559991195}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14828,6 +14928,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 1237519190}
   _duration: 1
+  _isPlatform: 1
 --- !u!1 &1597223940
 GameObject:
   m_ObjectHideFlags: 0
@@ -15190,6 +15291,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 7884822}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1621453847}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15755,6 +15868,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 831124660}
   _duration: 1
+  _isPlatform: 1
 --- !u!1 &1694613977
 GameObject:
   m_ObjectHideFlags: 3
@@ -16778,6 +16892,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1776375176}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onExit:
     m_PersistentCalls:
       m_Calls: []
@@ -17212,6 +17338,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1769190118}
+  - {fileID: 1450106103}
   m_Father: {fileID: 1150795040}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17279,7 +17406,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7764705, y: 1}
+    m_SensorSize: {x: 1.7783133, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -19316,6 +19443,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 1864273656}
   _duration: 1
+  _isPlatform: 1
 --- !u!1 &2085212259
 GameObject:
   m_ObjectHideFlags: 0
@@ -19523,6 +19651,7 @@ MonoBehaviour:
   _isDoor: 0
   _finalPos: {fileID: 364755534}
   _duration: 1
+  _isPlatform: 1
 --- !u!1 &2115234271
 GameObject:
   m_ObjectHideFlags: 0
