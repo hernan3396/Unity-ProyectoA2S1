@@ -83,7 +83,7 @@ public class Player : Entity
     [Header("Aiming")]
     [SerializeField] private Transform _aimDebugSphere;
     [SerializeField] private LayerMask _aimMask;
-    private bool _canShoot = true;
+    [SerializeField] private bool _canShoot = true;
     private bool _isMelee = false;
     private Vector3 _aimPosition;
     private bool _isMouse = true; // para ver que tipo de input estas usando
@@ -176,17 +176,7 @@ public class Player : Entity
 
         // la parte de disparar la hice por fuera de los estados
         // porque siempre podes disparar
-        if (_canShoot)
-        {
-            if (_input.IsShooting)
-                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.TwinPistols]));
-
-            if (_input.CannonShooting)
-                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.RocketLauncher]));
-
-            if (_input.Melee)
-                StartCoroutine(Melee(_weaponList[(int)WeaponData.Weapons.Bat]));
-        }
+        Shooting();
 
         switch (_currentState)
         {
@@ -225,6 +215,30 @@ public class Player : Entity
             case States.Melee:
                 MeleeState();
                 break;
+        }
+    }
+
+    private void Shooting()
+    {
+        if (_canShoot)
+        {
+            if (_input.IsShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.TwinPistols]));
+                return;
+            }
+
+            if (_input.CannonShooting)
+            {
+                StartCoroutine(Shoot(_weaponList[(int)WeaponData.Weapons.RocketLauncher]));
+                return;
+            }
+
+            if (_input.Melee)
+            {
+                StartCoroutine(Melee(_weaponList[(int)WeaponData.Weapons.Bat]));
+                return;
+            }
         }
     }
 

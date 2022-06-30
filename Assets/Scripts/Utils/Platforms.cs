@@ -6,6 +6,9 @@ public class Platforms : MonoBehaviour
     [SerializeField] private bool _isDoor = false;
     [SerializeField] private Transform _finalPos;
     [SerializeField] private float _duration = 1;
+
+    [SerializeField] private bool _isPlatform = true;
+
     private Transform _transform;
     private Vector3 _initPos;
 
@@ -53,13 +56,13 @@ public class Platforms : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && _isPlatform)
             other.transform.parent = _transform;
     }
 
     private void OnCollisionExit(Collision other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && _isPlatform)
             other.transform.parent = null;
     }
 
