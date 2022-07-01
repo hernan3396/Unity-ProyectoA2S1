@@ -47,8 +47,8 @@ public class BossWeakPoint : Enemy
 
     protected override void OnGameOver()
     {
-        _uiController.UpdateWakePointHealth(_currentHP, _lifebarNum);
         _currentHP = _hp;
+        _uiController.UpdateWakePointHealth(_currentHP, _lifebarNum);
         _isDead = false;
         return;
     }
