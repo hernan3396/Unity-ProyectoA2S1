@@ -8,9 +8,12 @@ public class BossWeakPoint : Enemy
     private UIController _uiController;
     public UnityEvent OnDeath;
 
-    protected override void Start() {
-         _uiController = GameManager.GetInstance.GetUIController;
-         _uiController.UpdateWakePointHealth(_currentHP, _lifebarNum);
+    protected override void Start()
+    {
+        _uiController = GameManager.GetInstance.GetUIController;
+        _uiController.UpdateWakePointHealth(_currentHP, _lifebarNum);
+        GameManager.GetInstance.onGameOver += OnGameOver;
+        GameManager.GetInstance.onStartGameOver += OnStartGameOver;
     }
 
     public override void TakeDamage(int value)
@@ -36,7 +39,7 @@ public class BossWeakPoint : Enemy
 
     protected override void OnStartGameOver()
     {
-        base.OnStartGameOver();
+        // base.OnStartGameOver();
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<BoxCollider>().enabled = true;
         return;
@@ -44,6 +47,7 @@ public class BossWeakPoint : Enemy
 
     protected override void OnGameOver()
     {
+        _uiController.UpdateWakePointHealth(_currentHP, _lifebarNum);
         _currentHP = _hp;
         _isDead = false;
         return;
