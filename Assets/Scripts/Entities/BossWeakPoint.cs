@@ -36,6 +36,7 @@ public class BossWeakPoint : Enemy
 
     protected override void OnStartGameOver()
     {
+        base.OnStartGameOver();
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<BoxCollider>().enabled = true;
         return;

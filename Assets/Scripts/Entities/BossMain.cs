@@ -109,8 +109,10 @@ public class BossMain : Enemy
         _enemyOnSight = DetectEnemy();
         _atkTimer = 0;
 
-        if (_enemyOnSight)
+        if (_enemyOnSight){
+            //Debug.Log("hola3");
             NewState(States.Shooting);
+        }
     }
 
     private void Shoot()
@@ -293,6 +295,7 @@ public class BossMain : Enemy
 
     protected override void OnStartGameOver()
     {
+        _canAttack = true;
         _active = false;
         _isDown = false;
         _isDead = false;
