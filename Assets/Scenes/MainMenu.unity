@@ -832,7 +832,7 @@ MonoBehaviour:
 
     Click der/LT - Rocket
 
-    Shift/Cuadrado - Melee'
+    Control/Cuadrado - Melee'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 374466c33c1e8e243b958355c997673e, type: 2}
   m_sharedMaterial: {fileID: 5199931665142496009, guid: 374466c33c1e8e243b958355c997673e, type: 2}
